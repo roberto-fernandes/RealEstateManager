@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.openclassrooms.realestatemanager.R;
 
-public class SecondActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

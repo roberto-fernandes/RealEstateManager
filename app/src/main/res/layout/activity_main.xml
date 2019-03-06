@@ -8,19 +8,20 @@
     android:gravity="center">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/activity_main_activity_text_view_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Voici la valeur d'un bien : "/>
+            android:text="Voici la valeur d'un bien : " />
 
         <TextView
             android:id="@+id/activity_main_activity_text_view_quantity"
@@ -32,7 +33,21 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
     </LinearLayout>
 
+    <Button
+        android:id="@+id/activity_main_go_to_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/go_to_login_activity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </android.support.constraint.ConstraintLayout>

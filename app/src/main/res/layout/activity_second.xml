@@ -4,24 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.openclassrooms.realestatemanager.ui.activities.SecondActivity">
+    tools:context="com.openclassrooms.realestatemanager.ui.activities.LogInActivity"
+    android:background="@color/colorCustomGrey">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.038" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_login_margin_horizontal_input_text"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/activity_login_margin_horizontal_input_text"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/activity_login_input_text_background"
+        android:inputType="textShortMessage|textEmailAddress"
+        android:padding="@dimen/activity_login_padding_input_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center">
+        app:layout_constraintVertical_bias="0.378" />
 
-        <TextView
-            android:id="@+id/activity_second_activity_text_view_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ma super activité numéro 2"/>
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_login_margin_horizontal_input_text"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/activity_login_margin_horizontal_input_text"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/activity_login_input_text_background"
+        android:inputType="textPassword"
+        android:padding="@dimen/activity_login_padding_input_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintVertical_bias="0.06" />
 
-    </LinearLayout>
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_login_margin_horizontal_input_text"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="@dimen/activity_login_margin_horizontal_input_text"
+        android:layout_marginBottom="8dp"
+        android:text="@string/don_t_remember_password_click_here_to_see_hint"
+        android:textColor="@color/colorCustomBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintVertical_bias="0.006" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_login_margin_horizontal_input_text"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/activity_login_margin_horizontal_input_text"
+        android:layout_marginBottom="160dp"
+        android:background="@drawable/activity_login_btn_background"
+        android:text="@string/log_in"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.714" />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/don_t_have_an_account_register_here"
+        android:textColor="@color/colorCustomBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
