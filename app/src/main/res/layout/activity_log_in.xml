@@ -18,7 +18,7 @@
         android:text="@string/app_name"
         android:textColor="@android:color/white"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/activity_register_email_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.038" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/activity_register_email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_login_margin_horizontal_input_text"
@@ -44,7 +44,8 @@
         app:layout_constraintVertical_bias="0.378" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:hint="@string/password"
+        android:id="@+id/activity_register_password_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_login_margin_horizontal_input_text"
@@ -58,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/activity_register_email_edit_text"
         app:layout_constraintVertical_bias="0.06" />
 
     <TextView
@@ -76,7 +77,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/activity_register_password_edit_text"
         app:layout_constraintVertical_bias="0.006" />
 
     <Button
@@ -99,7 +100,7 @@
 
     <TextView
         android:textStyle="bold"
-        android:id="@+id/textView"
+        android:id="@+id/activity_log_in_register_text_view"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"

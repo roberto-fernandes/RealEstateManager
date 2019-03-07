@@ -4,4 +4,6 @@
     <string name="log_in">Log In</string>
     <string name="don_t_have_an_account_register_here">Don\'t have an account? Register here!</string>
     <string name="don_t_remember_password_click_here_to_see_hint">Don\'t remember password? Click here to see hint!</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Password hint</string>
 </resources>

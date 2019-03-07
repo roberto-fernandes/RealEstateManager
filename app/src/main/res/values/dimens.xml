@@ -2,4 +2,5 @@
 <resources>
     <dimen name="activity_login_margin_horizontal_input_text">30dp</dimen>
     <dimen name="activity_login_padding_input_text">10dp</dimen>
+    <dimen name="input_corners_radius">20dp</dimen>
 </resources>
