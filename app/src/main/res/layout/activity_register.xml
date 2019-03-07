@@ -65,7 +65,7 @@
         app:layout_constraintVertical_bias="0.06" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/activity_register_password_hint_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_login_margin_horizontal_input_text"
@@ -82,7 +82,7 @@
         app:layout_constraintVertical_bias="0.065" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/activity_register_register_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_login_margin_horizontal_input_text"
@@ -96,6 +96,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_register_password_hint_edit_text" />
 
 </android.support.constraint.ConstraintLayout>
