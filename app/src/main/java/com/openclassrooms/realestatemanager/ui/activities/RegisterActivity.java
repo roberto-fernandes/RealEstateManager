@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             displayToast("Register succeed");
-                            savePasswordHint(email, passwordHintString);
+                       //     savePasswordHint(email, passwordHintString);
                             //  saveUserInfoInFirebase();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -99,13 +99,14 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    private void savePasswordHint(String email, String passwordHintString) {
+   /* private void savePasswordHint(String email, String passwordHintString) {
         Map<String, Object> passwordHintMap = new HashMap<>();
         passwordHintMap.put("passwordHint", passwordHintString);
 
-        FirebaseFirestore.getInstance().collection("Users")
-                .document(email)
-                .collection("Password Hint")
+        FirebaseFirestore.getInstance()
+            //    .collection("Users")
+                .document("Password Hints")
+                .collection(email)
                 .add(passwordHintMap)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -118,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Error message NOT sent", Toast.LENGTH_SHORT).show();
                     }
                 });;
-    }
+    } */
 
     private class PasswordHintClass {
         private String hint;
