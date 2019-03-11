@@ -24,7 +24,7 @@ public class LogInActivity extends AppCompatActivity {
     private Button logInBtn;
     private FirebaseAuth auth;
     private EditText emailEditText;
-    private EditText passordEditText;
+    private EditText passwordEditText;
     private static final String TAG = LogInActivity.class.getSimpleName();
 
     @Override
@@ -41,7 +41,7 @@ public class LogInActivity extends AppCompatActivity {
         registerTextView = findViewById(R.id.activity_log_in_register_text_view);
         logInBtn = findViewById(R.id.activity_log_in_register_button);
         emailEditText = findViewById(R.id.activity_log_in_email_edit_text);
-        passordEditText = findViewById(R.id.activity_log_in_password_edit_text);
+        passwordEditText = findViewById(R.id.activity_log_in_password_edit_text);
     }
 
     private void setListeners() {
@@ -58,7 +58,7 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String email = emailEditText.getText().toString();
-                String password = passordEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
                 logInUser(email, password);
             }
         });
@@ -67,7 +67,6 @@ public class LogInActivity extends AppCompatActivity {
     private void logInUser(String email, String password) {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -80,18 +79,8 @@ public class LogInActivity extends AppCompatActivity {
                                     , "Authentication failed.", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
-                        // ...
                     }
                 });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = auth.getCurrentUser();
-        updateUI(currentUser);
     }
 
     private void updateUI(FirebaseUser currentUser) {

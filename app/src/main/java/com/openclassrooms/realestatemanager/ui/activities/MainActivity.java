@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
         this.configureTextViewQuantity();
 
         //new code
-        findViewById(R.id.activity_main_go_to_login_button).setOnClickListener(
+        findViewById(R.id.activity_main_enter_app_button).setOnClickListener(
                 new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, LogInActivity.class);
+                Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
                 startActivity(intent);
             }
         });

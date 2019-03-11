@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorCustomGrey">#8A8A8A</color>
+    <color name="colorCustomLightGrey">#D6D6D6</color>
     <color name="colorCustomBlue">#303F9F</color>
     <color name="colorCustomYellow">#FFC107</color>
 </resources>
