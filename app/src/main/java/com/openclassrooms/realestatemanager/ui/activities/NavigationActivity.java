@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -82,8 +83,20 @@ public class NavigationActivity extends AppCompatActivity {
         RecyclerView recyclerView;
         recyclerView = findViewById(R.id.activity_navigation_recycler_view);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerViewAdapter = new RealEstateAdapter(listings);
+        recyclerViewAdapter = new RealEstateAdapter(NavigationActivity.this, listings);
+        recyclerViewAdapter.setOnSelectionItem(new RealEstateAdapter.OnItemSelectedListener() {
+            @Override
+            public void onSelection(int position) {
+                displayRealEstateInformation(position);
+            }
+        });
         recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    private void displayRealEstateInformation(int position) {
+        String positionString = String.valueOf(position);
+        Toast.makeText(NavigationActivity.this, positionString, Toast.LENGTH_SHORT)
+                .show();
     }
 
     private void generateFakeList() {
@@ -107,8 +120,6 @@ public class NavigationActivity extends AppCompatActivity {
         realEstate.setPriceInDollars(324);
 
         for (int i = 0; i < 51; i++) repository.insertListing(realEstate);
-
-
     }
 
     @Override
