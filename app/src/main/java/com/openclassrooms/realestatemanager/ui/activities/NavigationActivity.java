@@ -1,7 +1,9 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.ListingAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstateListing;
+import com.openclassrooms.realestatemanager.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,9 @@ public class NavigationActivity extends AppCompatActivity {
 
     private static final String TAG = "NavigationActivity";
     private FirebaseAuth auth;
+    private List<RealEstateListing> listings;
+    private Repository repository;
+    private ListingAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,28 @@ public class NavigationActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        debugStuff();
+        setRecyclerView();
+        addDataObservers();
+
+    }
+
+    private void addDataObservers() {
+        repository = new Repository(NavigationActivity.this);
+        repository.getAllListings().observe(NavigationActivity.this,
+                new Observer<List<RealEstateListing>>() {
+            @Override
+            public void onChanged(@Nullable List<RealEstateListing> realEstateListings) {
+                if (listings.size()>0) {
+                    listings.clear();
+                }
+                listings.addAll(realEstateListings);
+                recyclerViewAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void debugStuff() {
         Button btn = findViewById(R.id.activity_navigation_button);
 
         btn.setText("Sign Out " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
@@ -45,18 +73,17 @@ public class NavigationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        setRecyclerView();
     }
 
     private void setRecyclerView() {
+        listings = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this
                 , LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView;
         recyclerView = findViewById(R.id.activity_navigation_recycler_view);
         recyclerView.setLayoutManager(layoutManager);
-        ListingAdapter adapter = new ListingAdapter(generateFakeList());
-        recyclerView.setAdapter(adapter);
+        recyclerViewAdapter = new ListingAdapter(listings);
+        recyclerView.setAdapter(recyclerViewAdapter);
     }
 
     private List<RealEstateListing> generateFakeList() {

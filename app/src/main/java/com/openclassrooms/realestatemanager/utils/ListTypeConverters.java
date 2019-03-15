@@ -13,7 +13,7 @@ public class ListTypeConverters {
     @TypeConverter
     public static List<String> stringToJson(String json) {
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Object>>() {
+        Type type = new TypeToken<List<String>>() {
         }.getType();
         return gson.fromJson(json, type);
     }
@@ -21,7 +21,7 @@ public class ListTypeConverters {
     @TypeConverter
     public static String jsonToString(List<String> list) {
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Object>>() {
+        Type type = new TypeToken<List<String>>() {
         }.getType();
         return gson.toJson(list, type);
     }
