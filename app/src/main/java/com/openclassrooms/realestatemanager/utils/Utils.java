@@ -43,4 +43,9 @@ public class Utils {
         WifiManager wifi = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
         return wifi.isWifiEnabled();
     }
+
+   public interface Status {
+        String SOLD = "SOLD";
+       String AVAILABLE = "AVAILABLE";
+   }
 }

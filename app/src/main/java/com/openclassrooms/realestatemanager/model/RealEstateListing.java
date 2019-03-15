@@ -1,28 +1,38 @@
 package com.openclassrooms.realestatemanager.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+
+import com.openclassrooms.realestatemanager.utils.ListTypeConverters;
+
 import java.util.List;
 
+@Entity(tableName = "realEstateListings")
+@TypeConverters(ListTypeConverters.class)
 public class RealEstateListing {
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
+
     private String type;
     private int priceInDollars;
     private int surfaceArea;
     private int numberOfRooms;
     private String description;
-    private List<String> photos;
+    private List<String> photos = null;
     private String address;
-    private List<String> pointsOfInterest;
+    private List<String> pointsOfInterest = null;
     private String status;
     private long datePutInMarket;
     private long saleData;
     private String agentID;
-    private boolean sold;
 
-    public boolean isSold() {
-        return sold;
+    public int getId() {
+        return id;
     }
 
-    public void setSold(boolean sold) {
-        this.sold = sold;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getType() {
