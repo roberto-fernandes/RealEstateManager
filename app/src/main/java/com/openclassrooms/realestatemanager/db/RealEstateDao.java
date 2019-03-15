@@ -7,29 +7,29 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.openclassrooms.realestatemanager.model.RealEstateListing;
+import com.openclassrooms.realestatemanager.model.RealEstate;
 
 import java.util.List;
 
 @Dao
-public interface ListingDao {
+public interface RealEstateDao {
 
     //return can be void but the long[] is the rows data were inserted
     @Insert
-    long[] intertListing(RealEstateListing... realEstateListings);
+    long[] insertRealEstate(RealEstate... realEstates);
 
     //return can be void but the int is how many rows were updated
     @Update
-    int updateListing(RealEstateListing... realEstateListings);
+    int updateRealEstate(RealEstate... realEstates);
 
     //return can be void but the int is how many rows were deleted
     @Delete
-    int deleteListing(RealEstateListing... realEstateListings);
+    int deleteRealEstate(RealEstate... realEstates);
 
     @Query("SELECT * FROM realEstateListings")
-    LiveData<List<RealEstateListing>> getAllListings();
+    LiveData<List<RealEstate>> getAllListings();
 
     @Query("SELECT * FROM realEstateListings WHERE status = :status")
-    LiveData<List<RealEstateListing>> getListingByStatus(String status);
+    LiveData<List<RealEstate>> getListingByStatus(String status);
 
 }

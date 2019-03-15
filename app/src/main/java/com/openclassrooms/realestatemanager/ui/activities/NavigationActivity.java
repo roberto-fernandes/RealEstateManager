@@ -14,8 +14,8 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.adapters.ListingAdapter;
-import com.openclassrooms.realestatemanager.model.RealEstateListing;
+import com.openclassrooms.realestatemanager.adapters.RealEstateAdapter;
+import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
 
 import java.util.ArrayList;
@@ -25,9 +25,9 @@ public class NavigationActivity extends AppCompatActivity {
 
     private static final String TAG = "NavigationActivity";
     private FirebaseAuth auth;
-    private List<RealEstateListing> listings;
+    private List<RealEstate> listings;
     private Repository repository;
-    private ListingAdapter recyclerViewAdapter;
+    private RealEstateAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +35,23 @@ public class NavigationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navigation);
 
         auth = FirebaseAuth.getInstance();
+        repository = new Repository(NavigationActivity.this);
 
         debugStuff();
         setRecyclerView();
         addDataObservers();
-
+     //   generateFakeList();
     }
 
     private void addDataObservers() {
-        repository = new Repository(NavigationActivity.this);
         repository.getAllListings().observe(NavigationActivity.this,
-                new Observer<List<RealEstateListing>>() {
+                new Observer<List<RealEstate>>() {
             @Override
-            public void onChanged(@Nullable List<RealEstateListing> realEstateListings) {
+            public void onChanged(@Nullable List<RealEstate> realEstates) {
                 if (listings.size()>0) {
                     listings.clear();
                 }
-                listings.addAll(realEstateListings);
+                listings.addAll(realEstates);
                 recyclerViewAdapter.notifyDataSetChanged();
             }
         });
@@ -82,22 +82,33 @@ public class NavigationActivity extends AppCompatActivity {
         RecyclerView recyclerView;
         recyclerView = findViewById(R.id.activity_navigation_recycler_view);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerViewAdapter = new ListingAdapter(listings);
+        recyclerViewAdapter = new RealEstateAdapter(listings);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
-    private List<RealEstateListing> generateFakeList() {
-        List<RealEstateListing> realEstateListingsList = new ArrayList<>();
-        RealEstateListing realEstateListing = new RealEstateListing();
-        realEstateListing.setDescription("House near the river");
-        realEstateListing.setType("Flat");
-        realEstateListing.setPriceInDollars(2000);
+    private void generateFakeList() {
+        RealEstate realEstate = new RealEstate();
+        realEstate.setDescription("House near the river From DB");
+        realEstate.setType("Flat");
+        realEstate.setPriceInDollars(2000);
         List<String> photos = new ArrayList<>();
         photos.add("https://pmcvariety.files.wordpress.com/2018/07/" +
                 "bradybunchhouse_sc11.jpg?w=1000&h=563&crop=1");
-        realEstateListing.setPhotos(photos);
-        for (int i = 0; i < 51; i++) realEstateListingsList.add(realEstateListing);
-        return realEstateListingsList;
+        realEstate.setPhotos(photos);
+        realEstate.setAddress("some address");
+        realEstate.setAgentID("21");
+        realEstate.setDatePutInMarket(2311456L);
+        realEstate.setNumberOfRooms(5);
+        List<String> pointsOfInterest = new ArrayList<>();
+        pointsOfInterest.add("1 point of interest");
+        pointsOfInterest.add("2 point of interest");
+        realEstate.setPointsOfInterest(pointsOfInterest);
+        realEstate.setDatePutInMarket(321456L);
+        realEstate.setPriceInDollars(324);
+
+        for (int i = 0; i < 51; i++) repository.insertListing(realEstate);
+
+
     }
 
     @Override

@@ -5,9 +5,9 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.openclassrooms.realestatemanager.model.RealEstateListing;
+import com.openclassrooms.realestatemanager.model.RealEstate;
 
-@Database(entities = {RealEstateListing.class}, version = 1)
+@Database(entities = {RealEstate.class}, version = 1)
 public abstract class RoomDB extends RoomDatabase {
     private static final String DB_NAME = "REAL_ESTATE_DB";
     private static RoomDB instance = null;
@@ -23,5 +23,5 @@ public abstract class RoomDB extends RoomDatabase {
         return instance;
     }
 
-    public abstract ListingDao getDao();
+    public abstract RealEstateDao getDao();
 }

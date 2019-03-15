@@ -2,20 +2,20 @@ package com.openclassrooms.realestatemanager.async;
 
 import android.os.AsyncTask;
 
-import com.openclassrooms.realestatemanager.db.ListingDao;
-import com.openclassrooms.realestatemanager.model.RealEstateListing;
+import com.openclassrooms.realestatemanager.db.RealEstateDao;
+import com.openclassrooms.realestatemanager.model.RealEstate;
 
-public class AsyncDataInserter extends AsyncTask<RealEstateListing, Void, Void> {
+public class AsyncDataInserter extends AsyncTask<RealEstate, Void, Void> {
 
-    private ListingDao dao;
+    private RealEstateDao dao;
 
-    public AsyncDataInserter(ListingDao dao) {
+    public AsyncDataInserter(RealEstateDao dao) {
         this.dao = dao;
     }
 
     @Override
-    protected Void doInBackground(RealEstateListing... realEstateListings) {
-        dao.intertListing(realEstateListings);
+    protected Void doInBackground(RealEstate... realEstates) {
+        dao.insertRealEstate(realEstates);
         return null;
     }
 }

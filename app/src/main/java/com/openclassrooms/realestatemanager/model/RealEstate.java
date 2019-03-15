@@ -10,9 +10,9 @@ import java.util.List;
 
 @Entity(tableName = "realEstateListings")
 @TypeConverters(ListTypeConverters.class)
-public class RealEstateListing {
+public class RealEstate {
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private int id = 0;
 
     private String type;
     private int priceInDollars;

@@ -8,17 +8,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.model.RealEstateListing;
+import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHolder> {
+public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.ViewHolder> {
 
-    private List<RealEstateListing> realEstateListingList;
+    private List<RealEstate> realEstateList;
 
-    public ListingAdapter(List<RealEstateListing> realEstateListingList) {
-        this.realEstateListingList = realEstateListingList;
+    public RealEstateAdapter(List<RealEstate> realEstateList) {
+        this.realEstateList = realEstateList;
     }
 
     @Override
@@ -30,18 +30,18 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        RealEstateListing realEstateListing = realEstateListingList.get(position);
+        RealEstate realEstate = realEstateList.get(position);
 
-        holder.description.setText(realEstateListing.getDescription());
-        holder.price.setText("$" + realEstateListing.getPriceInDollars());
-        holder.type.setText(realEstateListing.getType());
-        Picasso.get().load(realEstateListing.getPhotos().get(0)).into(holder.imageView);
+        holder.description.setText(realEstate.getDescription());
+        holder.price.setText("$" + realEstate.getPriceInDollars());
+        holder.type.setText(realEstate.getType());
+        Picasso.get().load(realEstate.getPhotos().get(0)).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        if (realEstateListingList == null) return 0;
-        return realEstateListingList.size();
+        if (realEstateList == null) return 0;
+        return realEstateList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
