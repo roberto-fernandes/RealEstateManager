@@ -15,6 +15,15 @@ public class RealEstateListing {
     private long datePutInMarket;
     private long saleData;
     private String agentID;
+    private boolean sold;
+
+    public boolean isSold() {
+        return sold;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
+    }
 
     public String getType() {
         return type;

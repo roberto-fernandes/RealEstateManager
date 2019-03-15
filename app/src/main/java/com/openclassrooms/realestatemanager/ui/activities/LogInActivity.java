@@ -22,7 +22,7 @@ public class LogInActivity extends AppCompatActivity {
 
     private TextView registerTextView;
     private Button logInBtn;
-    private FirebaseAuth auth;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     private EditText emailEditText;
     private EditText passwordEditText;
     private static final String TAG = LogInActivity.class.getSimpleName();
@@ -32,7 +32,6 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        auth = FirebaseAuth.getInstance();
         setViews();
         setListeners();
     }
