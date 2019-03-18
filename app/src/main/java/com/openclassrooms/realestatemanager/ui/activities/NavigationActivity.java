@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,7 +56,6 @@ public class NavigationActivity extends AppCompatActivity {
         repository = new Repository(NavigationActivity.this);
 
         setViews();
-        debugStuff();
         setRecyclerView();
         addDataObservers();
         setSupportActionBar(toolbar);
@@ -63,6 +63,7 @@ public class NavigationActivity extends AppCompatActivity {
         configureDrawer();
         //   generateFakeList();
     }
+
     private void configureDrawer() {
         configureDrawerLayout();
         configureNavigationView();
@@ -74,6 +75,7 @@ public class NavigationActivity extends AppCompatActivity {
                 , R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View view, float v) {
@@ -82,7 +84,13 @@ public class NavigationActivity extends AppCompatActivity {
 
             @Override
             public void onDrawerOpened(@NonNull View view) {
-               // blurBackground();
+                // blurBackground();
+                TextView userEmailTextView = findViewById(R.id.drawer_header_user_email);
+                try {
+                    userEmailTextView.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                } catch (Exception e) {
+                    Log.e(TAG, "configureDrawerLayout: " + e.getMessage());
+                }
             }
 
             @Override
@@ -97,6 +105,15 @@ public class NavigationActivity extends AppCompatActivity {
         });
     }
 
+    private void signOutUser() {
+        FirebaseAuth.getInstance().signOut();
+        Log.d(TAG, "onClick: user signOut");
+        Intent intent = new Intent(NavigationActivity.this
+                , LogInActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     private void configureNavigationView() {
         this.navigationView = findViewById(R.id.activity_navigation_nav_view);
 
@@ -106,22 +123,18 @@ public class NavigationActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 Intent intent = null;
 
-/*                switch (id) {
-                    case R.id.nav_drawer_your_lunch:
-                        intent = new Intent(getApplicationContext(), LunchActivity.class);
+                switch (id) {
+                    case R.id.menu_drawer_all:
+                        Toast.makeText(getApplicationContext(), "all", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.nav_drawer_settings:
-                        intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                    case R.id.menu_drawer_filter:
+                        Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.nav_drawer_logout:
-                        logOut();
-                        displayToast("logout");
+                    case R.id.menu_drawer_sing_out:
+                        signOutUser();
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
-                if (intent != null) {
-                    startActivity(intent);
-                }*/
                 return true;
             }
         });
@@ -205,24 +218,6 @@ public class NavigationActivity extends AppCompatActivity {
                         recyclerViewAdapter.notifyDataSetChanged();
                     }
                 });
-    }
-
-    private void debugStuff() {
-        Button btn = findViewById(R.id.activity_navigation_button);
-
-        btn.setText("Sign Out " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Log.d(TAG, "onClick: user signOut");
-                Intent intent = new Intent(NavigationActivity.this
-                        , LogInActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
     }
 
     private void setRecyclerView() {

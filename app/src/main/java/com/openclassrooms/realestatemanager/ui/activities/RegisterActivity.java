@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -83,6 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             displayToast("Register succeed");
+                            goToNavigationActivity();
                             //     savePasswordHint(email, passwordHintString);
                             //  saveUserInfoInFirebase();
                         } else {
@@ -91,6 +93,11 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void goToNavigationActivity() {
+        Intent intent = new Intent(RegisterActivity.this, NavigationActivity.class);
+        startActivity(intent);
     }
 
    /* private void savePasswordHint(String email, String passwordHintString) {
