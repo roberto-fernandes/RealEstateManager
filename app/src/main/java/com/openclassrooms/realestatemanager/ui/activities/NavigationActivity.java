@@ -3,7 +3,12 @@ package com.openclassrooms.realestatemanager.ui.activities;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +30,8 @@ import com.openclassrooms.realestatemanager.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -34,6 +41,9 @@ public class NavigationActivity extends AppCompatActivity {
     private Repository repository;
     private RealEstateAdapter recyclerViewAdapter;
     private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private NavigationView navigationView;
 
 
     @Override
@@ -49,8 +59,81 @@ public class NavigationActivity extends AppCompatActivity {
         setRecyclerView();
         addDataObservers();
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        configureDrawer();
         //   generateFakeList();
+    }
+    private void configureDrawer() {
+        configureDrawerLayout();
+        configureNavigationView();
+    }
+
+    private void configureDrawerLayout() {
+        this.drawerLayout = findViewById(R.id.activity_navigation_drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar
+                , R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View view, float v) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
+               // blurBackground();
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View view) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int i) {
+
+            }
+        });
+    }
+
+    private void configureNavigationView() {
+        this.navigationView = findViewById(R.id.activity_navigation_nav_view);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                Intent intent = null;
+
+/*                switch (id) {
+                    case R.id.nav_drawer_your_lunch:
+                        intent = new Intent(getApplicationContext(), LunchActivity.class);
+                        break;
+                    case R.id.nav_drawer_settings:
+                        intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                        break;
+                    case R.id.nav_drawer_logout:
+                        logOut();
+                        displayToast("logout");
+                        break;
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                if (intent != null) {
+                    startActivity(intent);
+                }*/
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void setViews() {
@@ -77,7 +160,7 @@ public class NavigationActivity extends AppCompatActivity {
                 menuItemEdit.setVisible(false);
                 menuItemAdd.setVisible(false);
                 menuItemDelete.setVisible(false);
-              //  toggle.setDrawerIndicatorEnabled(false);
+                toggle.setDrawerIndicatorEnabled(false);
             }
         });
 
@@ -88,7 +171,7 @@ public class NavigationActivity extends AppCompatActivity {
                 menuItemEdit.setVisible(true);
                 menuItemAdd.setVisible(true);
                 menuItemDelete.setVisible(true);
-         //       toggle.setDrawerIndicatorEnabled(true);
+                toggle.setDrawerIndicatorEnabled(true);
                 return false;
             }
         });

@@ -11,4 +11,8 @@
     <string name="delete">delete</string>
     <string name="add">add</string>
     <string name="edit">edit</string>
+    <string name="all">All</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="navigation_drawer_open">close drawer</string>
+    <string name="navigation_drawer_close">open drawer</string>
 </resources>
