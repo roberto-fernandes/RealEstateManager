@@ -3,7 +3,7 @@ package com.openclassrooms.realestatemanager.repository;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
-import com.openclassrooms.realestatemanager.async.AsyncDataInserter;
+import com.openclassrooms.realestatemanager.async.AsyncDBInsert;
 import com.openclassrooms.realestatemanager.db.RealEstateDao;
 import com.openclassrooms.realestatemanager.db.RoomDB;
 import com.openclassrooms.realestatemanager.model.RealEstate;
@@ -18,7 +18,7 @@ public class Repository {
     }
 
     public void insertListing(RealEstate realEstate) {
-        new AsyncDataInserter(dao).execute(realEstate);
+        new AsyncDBInsert(dao).execute(realEstate);
     }
 
     public void updateListing(RealEstate listing) {

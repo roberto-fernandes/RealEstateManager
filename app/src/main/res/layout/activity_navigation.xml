@@ -6,11 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.NavigationActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/navigation_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"/>
+
     <FrameLayout
-        android:background="@color/colorCustomYellow"
+        android:background="@android:color/holo_blue_bright"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/activity_navigation_recycler_view">
+        android:layout_above="@+id/activity_navigation_recycler_view"
+        android:layout_below="@+id/navigation_activity_toolbar">
 
 
         <Button

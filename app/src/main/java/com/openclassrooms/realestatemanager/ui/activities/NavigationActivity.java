@@ -7,7 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -29,6 +33,8 @@ public class NavigationActivity extends AppCompatActivity {
     private List<RealEstate> listings;
     private Repository repository;
     private RealEstateAdapter recyclerViewAdapter;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +44,84 @@ public class NavigationActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         repository = new Repository(NavigationActivity.this);
 
+        setViews();
         debugStuff();
         setRecyclerView();
         addDataObservers();
-     //   generateFakeList();
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //   generateFakeList();
+    }
+
+    private void setViews() {
+        toolbar = findViewById(R.id.navigation_activity_toolbar);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        MenuItem item = menu.findItem(R.id.menu_toolbar_search);
+
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        final MenuItem menuItemEdit = menu.findItem(R.id.menu_toolbar_edit);
+        final MenuItem menuItemAdd = menu.findItem(R.id.menu_toolbar_add);
+        final MenuItem menuItemDelete = menu.findItem(R.id.menu_toolbar_delete);
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //search is expanded
+                Log.d(TAG, "onClick: ");
+                menuItemEdit.setVisible(false);
+                menuItemAdd.setVisible(false);
+                menuItemDelete.setVisible(false);
+              //  toggle.setDrawerIndicatorEnabled(false);
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                Log.d(TAG, "onClose: ");
+                menuItemEdit.setVisible(true);
+                menuItemAdd.setVisible(true);
+                menuItemDelete.setVisible(true);
+         //       toggle.setDrawerIndicatorEnabled(true);
+                return false;
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Log.d(TAG, "onQueryTextSubmit: ");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                Log.d(TAG, "onQueryTextChange: ");
+                return false;
+            }
+        });
+
+        //It must return true for the menu to be displayed; if you return false it will not be show
+        return true;
     }
 
     private void addDataObservers() {
         repository.getAllListings().observe(NavigationActivity.this,
                 new Observer<List<RealEstate>>() {
-            @Override
-            public void onChanged(@Nullable List<RealEstate> realEstates) {
-                if (listings.size()>0) {
-                    listings.clear();
-                }
-                listings.addAll(realEstates);
-                recyclerViewAdapter.notifyDataSetChanged();
-            }
-        });
+                    @Override
+                    public void onChanged(@Nullable List<RealEstate> realEstates) {
+                        if (listings.size() > 0) {
+                            listings.clear();
+                        }
+                        listings.addAll(realEstates);
+                        recyclerViewAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private void debugStuff() {
@@ -127,7 +193,7 @@ public class NavigationActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser==null) goToLogInActivity();
+        if (currentUser == null) goToLogInActivity();
     }
 
     private void goToLogInActivity() {

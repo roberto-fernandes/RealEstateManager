@@ -7,4 +7,8 @@
     <string name="password">Password</string>
     <string name="password_hint">Password hint</string>
     <string name="enter_app">Enter app</string>
+    <string name="search">search</string>
+    <string name="delete">delete</string>
+    <string name="add">add</string>
+    <string name="edit">edit</string>
 </resources>

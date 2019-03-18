@@ -1,8 +1,8 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,20 +29,21 @@ public class MainActivity extends AppCompatActivity {
         //new code
         findViewById(R.id.activity_main_enter_app_button).setOnClickListener(
                 new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
-                startActivity(intent);
-            }
-        });
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity.this
+                                , NavigationActivity.class);
+                        startActivity(intent);
+                    }
+                });
     }
 
-    private void configureTextViewMain(){
+    private void configureTextViewMain() {
         this.textViewMain.setTextSize(15);
         this.textViewMain.setText("Le premier bien immobilier enregistré vaut ");
     }
 
-    private void configureTextViewQuantity(){
+    private void configureTextViewQuantity() {
         int quantity = Utils.convertDollarToEuro(100);
         this.textViewQuantity.setTextSize(20);
         //bug 2: it was quantity instead of String.valueOf(quantity)

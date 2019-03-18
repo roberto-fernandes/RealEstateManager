@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
         this.realEstateList = realEstateList;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
@@ -35,7 +37,7 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         RealEstate realEstate = realEstateList.get(position);
 
         holder.description.setText(realEstate.getDescription());
@@ -75,7 +77,7 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
         void onSelection(int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView type;
         private TextView description;
