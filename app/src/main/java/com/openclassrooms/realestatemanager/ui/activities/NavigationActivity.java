@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,10 +28,13 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.RealEstateAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
+import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.openclassrooms.realestatemanager.utils.Utils.*;
 
 
 public class NavigationActivity extends AppCompatActivity {
@@ -45,6 +49,7 @@ public class NavigationActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private TextView itemDescription;
+    private int listType;
 
 
     @Override
@@ -54,6 +59,8 @@ public class NavigationActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         repository = new Repository(NavigationActivity.this);
+
+        listType = getIntent().getIntExtra(typesList.TYPE_LIST_KEY, typesList.ALL);
 
         setViews();
         setRecyclerView();
@@ -125,16 +132,23 @@ public class NavigationActivity extends AppCompatActivity {
 
                 switch (id) {
                     case R.id.menu_drawer_all:
+                        intent = new Intent(NavigationActivity.this, NavigationActivity.class);
                         Toast.makeText(getApplicationContext(), "all", Toast.LENGTH_SHORT).show();
+                        intent.putExtra(typesList.TYPE_LIST_KEY, typesList.ALL);
                         break;
                     case R.id.menu_drawer_filter:
+                        intent = new Intent(NavigationActivity.this, NavigationActivity.class);
                         Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
+                        intent.putExtra(typesList.TYPE_LIST_KEY, typesList.FILTERED);
                         break;
                     case R.id.menu_drawer_sing_out:
                         signOutUser();
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
+                if (intent != null) {
+                    startActivity(intent);
+                }
                 return true;
             }
         });
@@ -207,7 +221,15 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void addDataObservers() {
-        repository.getAllListings().observe(NavigationActivity.this,
+        LiveData<List<RealEstate>> listLiveData = null;
+        switch (listType) {
+            case typesList.ALL: listLiveData = repository.getAllListings();
+            break;
+            case typesList.FILTERED: listLiveData = repository.getAllListingsByStatus("a");
+                break;
+        }
+
+        listLiveData.observe(NavigationActivity.this,
                 new Observer<List<RealEstate>>() {
                     @Override
                     public void onChanged(@Nullable List<RealEstate> realEstates) {

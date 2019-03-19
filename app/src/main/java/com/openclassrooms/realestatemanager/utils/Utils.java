@@ -51,4 +51,10 @@ public class Utils {
         String SOLD = "SOLD";
         String AVAILABLE = "AVAILABLE";
     }
+
+    public interface typesList{
+        String TYPE_LIST_KEY =  "TYPE_LIST_KEY";
+        int ALL = 0;
+        int FILTERED = 1;
+    }
 }
