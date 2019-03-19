@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +44,7 @@ public class NavigationActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
+    private TextView itemDescription;
 
 
     @Override
@@ -61,7 +61,7 @@ public class NavigationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         configureDrawer();
-        //   generateFakeList();
+        // generateFakeList();
     }
 
     private void configureDrawer() {
@@ -151,7 +151,7 @@ public class NavigationActivity extends AppCompatActivity {
 
     private void setViews() {
         toolbar = findViewById(R.id.navigation_activity_toolbar);
-
+        itemDescription = findViewById(R.id.navigation_activity_description);
     }
 
     @Override
@@ -216,6 +216,9 @@ public class NavigationActivity extends AppCompatActivity {
                         }
                         listings.addAll(realEstates);
                         recyclerViewAdapter.notifyDataSetChanged();
+                        if (listings.size() > 0) {
+                            displayRealEstateInformation(0);
+                        }
                     }
                 });
     }
@@ -238,32 +241,38 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void displayRealEstateInformation(int position) {
-        String positionString = String.valueOf(position);
-        Toast.makeText(NavigationActivity.this, positionString, Toast.LENGTH_SHORT)
-                .show();
+        String longDescription = listings.get(position).getLongDescription();
+        itemDescription.setText(longDescription);
     }
 
     private void generateFakeList() {
-        RealEstate realEstate = new RealEstate();
-        realEstate.setDescription("House near the river From DB");
-        realEstate.setType("Flat");
-        realEstate.setPriceInDollars(2000);
-        List<String> photos = new ArrayList<>();
-        photos.add("https://pmcvariety.files.wordpress.com/2018/07/" +
-                "bradybunchhouse_sc11.jpg?w=1000&h=563&crop=1");
-        realEstate.setPhotos(photos);
-        realEstate.setAddress("some address");
-        realEstate.setAgentID("21");
-        realEstate.setDatePutInMarket(2311456L);
-        realEstate.setNumberOfRooms(5);
-        List<String> pointsOfInterest = new ArrayList<>();
-        pointsOfInterest.add("1 point of interest");
-        pointsOfInterest.add("2 point of interest");
-        realEstate.setPointsOfInterest(pointsOfInterest);
-        realEstate.setDatePutInMarket(321456L);
-        realEstate.setPriceInDollars(324);
-
-        for (int i = 0; i < 51; i++) repository.insertListing(realEstate);
+        for (int i = 0; i < 51; i++) {
+            RealEstate realEstate = new RealEstate();
+            realEstate.setDescription("House near the river From DB");
+            realEstate.setType("Flat");
+            realEstate.setPriceInDollars(2000);
+            List<String> photos = new ArrayList<>();
+            photos.add("https://pmcvariety.files.wordpress.com/2018/07/" +
+                    "bradybunchhouse_sc11.jpg?w=1000&h=563&crop=1");
+            realEstate.setPhotos(photos);
+            realEstate.setAddress("some address");
+            realEstate.setAgentID("21");
+            realEstate.setDatePutInMarket(2311456L);
+            realEstate.setNumberOfRooms(5);
+            List<String> pointsOfInterest = new ArrayList<>();
+            pointsOfInterest.add("1 point of interest");
+            pointsOfInterest.add("2 point of interest");
+            realEstate.setPointsOfInterest(pointsOfInterest);
+            realEstate.setDatePutInMarket(321456L);
+            realEstate.setPriceInDollars(324);
+            realEstate.setLongDescription(i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim " +
+                    "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." +
+                    " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla" +
+                    " pariatur. Excepteur sint occaecat " +
+                    "cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+            repository.insertListing(realEstate);
+        }
     }
 
     @Override

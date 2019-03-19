@@ -22,4 +22,5 @@
     <string name="surface">Surface</string>
     <string name="number_of_rooms">Number of rooms</string>
     <string name="number_of_bedrooms">Number of bedrooms</string>
+    <string name="filtered_list">Filtered list</string>
 </resources>
