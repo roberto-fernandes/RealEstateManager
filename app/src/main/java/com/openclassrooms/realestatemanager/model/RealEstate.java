@@ -19,6 +19,7 @@ public class RealEstate {
     private int surfaceArea;
     private int numberOfRooms;
     private String description;
+    private String longDescription;
     private List<String> photos = null;
     private String address;
     private List<String> pointsOfInterest = null;
@@ -26,6 +27,14 @@ public class RealEstate {
     private long datePutInMarket;
     private long saleData;
     private String agentID;
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
 
     public int getId() {
         return id;

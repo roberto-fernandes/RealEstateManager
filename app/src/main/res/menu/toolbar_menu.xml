@@ -6,19 +6,19 @@
         android:id="@+id/menu_toolbar_edit"
         android:icon="@drawable/ic_edit_black_24dp"
         android:title="@string/edit"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_toolbar_add"
         android:icon="@drawable/ic_add_black_24dp"
         android:title="@string/add"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_toolbar_delete"
         android:icon="@drawable/ic_delete_black_24dp"
         android:title="@string/delete"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_toolbar_search"

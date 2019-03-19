@@ -19,7 +19,7 @@ import java.util.List;
 public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.ViewHolder> {
 
     private List<RealEstate> realEstateList;
-    private int selectedPosition = -1;
+    private int selectedPosition = 0;
     private Context context;
     private OnItemSelectedListener listener = null;
 

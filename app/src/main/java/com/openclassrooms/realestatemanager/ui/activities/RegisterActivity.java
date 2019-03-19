@@ -100,28 +100,6 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-   /* private void savePasswordHint(String email, String passwordHintString) {
-        Map<String, Object> passwordHintMap = new HashMap<>();
-        passwordHintMap.put("passwordHint", passwordHintString);
-
-        FirebaseFirestore.getInstance()
-            //    .collection("Users")
-                .document("Password Hints")
-                .collection(email)
-                .add(passwordHintMap)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error message NOT sent", Toast.LENGTH_SHORT).show();
-                    }
-                });;
-    } */
-
     private class PasswordHintClass {
         private String hint;
 
