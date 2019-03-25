@@ -28,13 +28,12 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.RealEstateAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
-import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.openclassrooms.realestatemanager.utils.Utils.*;
+import static com.openclassrooms.realestatemanager.utils.Utils.typesList;
 
 
 public class NavigationActivity extends AppCompatActivity {
@@ -49,6 +48,7 @@ public class NavigationActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private TextView itemDescription;
+    private int realEstateIndex;
     private int listType;
 
 
@@ -59,6 +59,7 @@ public class NavigationActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         repository = new Repository(NavigationActivity.this);
+        realEstateIndex = 0;
 
         listType = getIntent().getIntExtra(typesList.TYPE_LIST_KEY, typesList.ALL);
 
@@ -220,12 +221,43 @@ public class NavigationActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_toolbar_add:
+                goToUpdateAndAddActivity(null);
+                break;
+            case R.id.menu_toolbar_edit:
+                goToUpdateAndAddActivity(listings.get(realEstateIndex));
+                break;
+            case R.id.menu_toolbar_delete:
+                deleteRealEstate(listings.get(realEstateIndex));
+                break;
+        }
+
+        return false;
+    }
+
+    private void deleteRealEstate(RealEstate realEstate) {
+        Toast.makeText(getApplicationContext(), "Delete " + realEstate.getDescription()
+                , Toast.LENGTH_SHORT).show();
+    }
+
+    private void goToUpdateAndAddActivity(RealEstate realEstate) {
+        Intent intent = new Intent(NavigationActivity.this
+                , UpdateAndAddActivity.class);
+        startActivity(intent);
+
+    }
+
     private void addDataObservers() {
         LiveData<List<RealEstate>> listLiveData = null;
         switch (listType) {
-            case typesList.ALL: listLiveData = repository.getAllListings();
-            break;
-            case typesList.FILTERED: listLiveData = repository.getAllListingsByStatus("a");
+            case typesList.ALL:
+                listLiveData = repository.getAllListings();
+                break;
+            case typesList.FILTERED:
+                listLiveData = repository.getAllListingsByStatus("a");
                 break;
         }
 
@@ -239,7 +271,7 @@ public class NavigationActivity extends AppCompatActivity {
                         listings.addAll(realEstates);
                         recyclerViewAdapter.notifyDataSetChanged();
                         if (listings.size() > 0) {
-                            displayRealEstateInformation(0);
+                            displayRealEstateInformation();
                         }
                     }
                 });
@@ -256,14 +288,15 @@ public class NavigationActivity extends AppCompatActivity {
         recyclerViewAdapter.setOnSelectionItem(new RealEstateAdapter.OnItemSelectedListener() {
             @Override
             public void onSelection(int position) {
-                displayRealEstateInformation(position);
+                realEstateIndex = position;
+                displayRealEstateInformation();
             }
         });
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
-    private void displayRealEstateInformation(int position) {
-        String longDescription = listings.get(position).getLongDescription();
+    private void displayRealEstateInformation() {
+        String longDescription = listings.get(realEstateIndex).getLongDescription();
         itemDescription.setText(longDescription);
     }
 
