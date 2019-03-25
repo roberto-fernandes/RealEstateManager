@@ -52,9 +52,13 @@ public class Utils {
         String AVAILABLE = "AVAILABLE";
     }
 
-    public interface typesList{
+    public interface TypesList{
         String TYPE_LIST_KEY =  "TYPE_LIST_KEY";
         int ALL = 0;
         int FILTERED = 1;
+    }
+
+    public interface BundleKeys {
+        String REAL_ESTATE_OBJECT_KEY = "REAL_ESTATE_OBJECT_KEY";
     }
 }

@@ -3,6 +3,8 @@ package com.openclassrooms.realestatemanager.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.openclassrooms.realestatemanager.utils.ListTypeConverters;
 
@@ -10,7 +12,7 @@ import java.util.List;
 
 @Entity(tableName = "realEstateListings")
 @TypeConverters(ListTypeConverters.class)
-public class RealEstate {
+public class RealEstate implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id = 0;
 
@@ -27,6 +29,38 @@ public class RealEstate {
     private long datePutInMarket;
     private long saleData;
     private String agentID;
+
+    public RealEstate() {
+    }
+
+    protected RealEstate(Parcel in) {
+        id = in.readInt();
+        type = in.readString();
+        priceInDollars = in.readInt();
+        surfaceArea = in.readInt();
+        numberOfRooms = in.readInt();
+        description = in.readString();
+        longDescription = in.readString();
+        photos = in.createStringArrayList();
+        address = in.readString();
+        pointsOfInterest = in.createStringArrayList();
+        status = in.readString();
+        datePutInMarket = in.readLong();
+        saleData = in.readLong();
+        agentID = in.readString();
+    }
+
+    public static final Creator<RealEstate> CREATOR = new Creator<RealEstate>() {
+        @Override
+        public RealEstate createFromParcel(Parcel in) {
+            return new RealEstate(in);
+        }
+
+        @Override
+        public RealEstate[] newArray(int size) {
+            return new RealEstate[size];
+        }
+    };
 
     public String getLongDescription() {
         return longDescription;
@@ -138,5 +172,28 @@ public class RealEstate {
 
     public void setAgentID(String agentID) {
         this.agentID = agentID;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(type);
+        dest.writeInt(priceInDollars);
+        dest.writeInt(surfaceArea);
+        dest.writeInt(numberOfRooms);
+        dest.writeString(description);
+        dest.writeString(longDescription);
+        dest.writeStringList(photos);
+        dest.writeString(address);
+        dest.writeStringList(pointsOfInterest);
+        dest.writeString(status);
+        dest.writeLong(datePutInMarket);
+        dest.writeLong(saleData);
+        dest.writeString(agentID);
     }
 }

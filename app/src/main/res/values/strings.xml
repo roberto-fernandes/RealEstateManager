@@ -26,4 +26,6 @@
     <string name="location">Location</string>
     <string name="short_description">Short description</string>
     <string name="long_description">Long Description</string>
+    <string name="type">Type</string>
+    <string name="submit">Submit</string>
 </resources>

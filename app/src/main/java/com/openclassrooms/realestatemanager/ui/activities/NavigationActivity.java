@@ -28,13 +28,14 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.RealEstateAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
+import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.openclassrooms.realestatemanager.utils.Utils.typesList;
-
+import static com.openclassrooms.realestatemanager.utils.Utils.*;
+import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY;
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -61,7 +62,7 @@ public class NavigationActivity extends AppCompatActivity {
         repository = new Repository(NavigationActivity.this);
         realEstateIndex = 0;
 
-        listType = getIntent().getIntExtra(typesList.TYPE_LIST_KEY, typesList.ALL);
+        listType = getIntent().getIntExtra(TypesList.TYPE_LIST_KEY, TypesList.ALL);
 
         setViews();
         setRecyclerView();
@@ -135,12 +136,12 @@ public class NavigationActivity extends AppCompatActivity {
                     case R.id.menu_drawer_all:
                         intent = new Intent(NavigationActivity.this, NavigationActivity.class);
                         Toast.makeText(getApplicationContext(), "all", Toast.LENGTH_SHORT).show();
-                        intent.putExtra(typesList.TYPE_LIST_KEY, typesList.ALL);
+                        intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.ALL);
                         break;
                     case R.id.menu_drawer_filter:
                         intent = new Intent(NavigationActivity.this, NavigationActivity.class);
                         Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
-                        intent.putExtra(typesList.TYPE_LIST_KEY, typesList.FILTERED);
+                        intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.FILTERED);
                         break;
                     case R.id.menu_drawer_sing_out:
                         signOutUser();
@@ -246,6 +247,7 @@ public class NavigationActivity extends AppCompatActivity {
     private void goToUpdateAndAddActivity(RealEstate realEstate) {
         Intent intent = new Intent(NavigationActivity.this
                 , UpdateAndAddActivity.class);
+        intent.putExtra(REAL_ESTATE_OBJECT_KEY, realEstate);
         startActivity(intent);
 
     }
@@ -253,10 +255,10 @@ public class NavigationActivity extends AppCompatActivity {
     private void addDataObservers() {
         LiveData<List<RealEstate>> listLiveData = null;
         switch (listType) {
-            case typesList.ALL:
+            case TypesList.ALL:
                 listLiveData = repository.getAllListings();
                 break;
-            case typesList.FILTERED:
+            case TypesList.FILTERED:
                 listLiveData = repository.getAllListingsByStatus("a");
                 break;
         }
