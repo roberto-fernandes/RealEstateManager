@@ -44,6 +44,7 @@
                         android:textStyle="bold" />
 
                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/activity_navigation_media_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:orientation="horizontal">

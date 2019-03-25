@@ -28,7 +28,6 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.RealEstateAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
-import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +64,7 @@ public class NavigationActivity extends AppCompatActivity {
         listType = getIntent().getIntExtra(TypesList.TYPE_LIST_KEY, TypesList.ALL);
 
         setViews();
-        setRecyclerView();
+        setListingRecyclerView();
         addDataObservers();
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
@@ -279,7 +278,7 @@ public class NavigationActivity extends AppCompatActivity {
                 });
     }
 
-    private void setRecyclerView() {
+    private void setListingRecyclerView() {
         listings = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this
                 , LinearLayoutManager.HORIZONTAL, false);
