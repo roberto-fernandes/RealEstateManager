@@ -22,6 +22,7 @@ public class MediaDisplayAdapter  extends RecyclerView.Adapter<MediaDisplayAdapt
     private List<String> mediaList;
     private boolean displayRemoveIcon;
     private Context context;
+    private ItemDeleteListener itemDeleteListener = null;
 
     public MediaDisplayAdapter(List<String> mediaList, boolean removeIcon, Context context) {
         this.mediaList = mediaList;
@@ -74,6 +75,23 @@ public class MediaDisplayAdapter  extends RecyclerView.Adapter<MediaDisplayAdapt
             imageView = itemView.findViewById(R.id.media_display_item_image_view);
             deleteIcon = itemView.findViewById(R.id.media_display_item_delete_icon);
             urlTextView = itemView.findViewById(R.id.media_display_item_url);
+
+            deleteIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemDeleteListener != null) {
+                        itemDeleteListener.deleteIconClicked(getAdapterPosition());
+                    }
+                }
+            });
         }
+    }
+
+    public void setOnDeleteIconListener (ItemDeleteListener itemDeleteListener) {
+        this.itemDeleteListener = itemDeleteListener;
+    }
+
+    public interface ItemDeleteListener {
+        void deleteIconClicked(int position);
     }
 }
