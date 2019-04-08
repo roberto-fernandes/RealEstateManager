@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.openclassrooms.realestatemanager.async.AsyncDBDelete;
 import com.openclassrooms.realestatemanager.async.AsyncDBInsert;
+import com.openclassrooms.realestatemanager.async.AsyncDBUpdate;
 import com.openclassrooms.realestatemanager.db.RealEstateDao;
 import com.openclassrooms.realestatemanager.db.RoomDB;
 import com.openclassrooms.realestatemanager.model.RealEstate;
@@ -23,7 +24,7 @@ public class Repository {
     }
 
     public void updateListing(RealEstate realEstate) {
-
+        new AsyncDBUpdate(dao).execute(realEstate);
     }
 
     public void deleteListing(RealEstate realEstate) {

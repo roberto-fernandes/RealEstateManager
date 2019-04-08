@@ -42,6 +42,7 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
     private RecyclerView pointsOfInterestRecyclerView;
     private EditText pointsOfInterestEditText;
     private Repository repository;
+    private boolean updating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +77,14 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
 
     private void setParams() {
         if (realEstate != null) {
+            updating = false;
             shortDescription.setText(realEstate.getDescription());
             longDescription.setText(realEstate.getLongDescription());
             numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
             type.setText(realEstate.getType());
             surface.setText(String.valueOf(realEstate.getSurfaceArea()));
         } else {
+            updating = true;
             realEstate = new RealEstate();
             realEstate.setPhotos(new ArrayList<String>());
             realEstate.setPointsOfInterest(new ArrayList<String>());
@@ -189,6 +192,8 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         }else if (realEstate.getPointsOfInterest().size() < 1) {
             Toast.makeText(this, "You must add at least one point of interest"
                     , Toast.LENGTH_SHORT).show();
+        } else if (updating){
+           repository.updateListing(realEstate);
         } else {
             repository.insertListing(realEstate);
         }
