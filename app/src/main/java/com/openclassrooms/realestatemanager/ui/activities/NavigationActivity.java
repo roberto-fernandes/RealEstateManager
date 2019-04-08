@@ -136,34 +136,43 @@ public class NavigationActivity extends AppCompatActivity {
     private void configureNavigationView() {
         this.navigationView = findViewById(R.id.activity_navigation_nav_view);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                Intent intent = null;
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        int id = menuItem.getItemId();
+                        Intent intent = null;
 
-                switch (id) {
-                    case R.id.menu_drawer_all:
-                        intent = new Intent(NavigationActivity.this, NavigationActivity.class);
-                        Toast.makeText(getApplicationContext(), "all", Toast.LENGTH_SHORT).show();
-                        intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.ALL);
-                        break;
-                    case R.id.menu_drawer_filter:
-                        intent = new Intent(NavigationActivity.this, NavigationActivity.class);
-                        Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
-                        intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.FILTERED);
-                        break;
-                    case R.id.menu_drawer_sing_out:
-                        signOutUser();
-                        break;
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                if (intent != null) {
-                    startActivity(intent);
-                }
-                return true;
-            }
-        });
+                        switch (id) {
+                            case R.id.menu_drawer_all:
+                                intent = new Intent(NavigationActivity.this
+                                        , NavigationActivity.class);
+                                Toast.makeText(getApplicationContext(), "all"
+                                        , Toast.LENGTH_SHORT).show();
+                                intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.ALL);
+                                break;
+                            case R.id.menu_drawer_filter:
+                                intent = new Intent(NavigationActivity.this
+                                        , NavigationActivity.class);
+                                Toast.makeText(getApplicationContext(), "filter"
+                                        , Toast.LENGTH_SHORT).show();
+                                intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.FILTERED);
+                                break;
+                            case R.id.menu_drawer_sing_out:
+                                signOutUser();
+                                break;
+                            case R.id.menu_drawer_loan:
+                                intent = new Intent(NavigationActivity.this
+                                        , LoanSimulationActivity.class);
+                                break;
+                        }
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        if (intent != null) {
+                            startActivity(intent);
+                        }
+                        return true;
+                    }
+                });
     }
 
     @Override
@@ -243,16 +252,11 @@ public class NavigationActivity extends AppCompatActivity {
                 goToUpdateAndAddActivity(listings.get(realEstateIndex));
                 break;
             case R.id.menu_toolbar_delete:
-                deleteRealEstate(listings.get(realEstateIndex));
+                repository.deleteListing(listings.get(realEstateIndex));
                 break;
         }
 
         return false;
-    }
-
-    private void deleteRealEstate(RealEstate realEstate) {
-        Toast.makeText(getApplicationContext(), "Delete " + realEstate.getDescription()
-                , Toast.LENGTH_SHORT).show();
     }
 
     private void goToUpdateAndAddActivity(RealEstate realEstate) {
@@ -286,6 +290,8 @@ public class NavigationActivity extends AppCompatActivity {
                         if (listings.size() > 0) {
                             displayRealEstateInformation();
                         }
+                        //delete all
+                        //if (listings.size() > 0) { repository.deleteListing(listings.get(0)); }
                     }
                 });
     }

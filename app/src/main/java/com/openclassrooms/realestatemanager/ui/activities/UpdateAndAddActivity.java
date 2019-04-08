@@ -14,6 +14,7 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.MediaDisplayAdapter;
 import com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
+import com.openclassrooms.realestatemanager.repository.Repository;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
     private PointsOfInterestAdapter pointsOfInterestAdapter;
     private RecyclerView pointsOfInterestRecyclerView;
     private EditText pointsOfInterestEditText;
+    private Repository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_update_and_add);
 
         realEstate = getIntent().getParcelableExtra(Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY);
+        repository = new Repository(UpdateAndAddActivity.this);
         setViews();
         setParams();
     }
@@ -70,7 +73,6 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         submitBtn.setOnClickListener(this);
         pointsOfIntAdd.setOnClickListener(this);
     }
-
 
     private void setParams() {
         if (realEstate != null) {
@@ -187,10 +189,8 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         }else if (realEstate.getPointsOfInterest().size() < 1) {
             Toast.makeText(this, "You must add at least one point of interest"
                     , Toast.LENGTH_SHORT).show();
-        }
-
-        else {
-
+        } else {
+            repository.insertListing(realEstate);
         }
     }
 }
