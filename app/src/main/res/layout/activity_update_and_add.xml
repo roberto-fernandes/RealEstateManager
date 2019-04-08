@@ -9,18 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
+        android:orientation="vertical">
 
         <TextView
-            android:layout_marginTop="@dimen/update_add_margin_top_titles"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/type"
             android:layout_marginStart="@dimen/update_add_margin_left_titles"
-            />
+            android:layout_marginTop="@dimen/update_add_margin_top_titles"
+            android:text="@string/type"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/activity_update_and_add_type_edit_text"
@@ -30,13 +29,13 @@
 
 
         <TextView
-            android:hint="Url"
-            android:textStyle="bold"
+            android:layout_marginTop="@dimen/update_add_margin_top_titles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/media"
             android:layout_marginStart="@dimen/update_add_margin_left_titles"
-            />
+            android:hint="Url"
+            android:text="@string/media"
+            android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/activity_update_and_add_media_recycler_view"
@@ -57,38 +56,37 @@
                 android:inputType="textUri" />
 
             <ImageView
-                android:layout_centerVertical="true"
                 android:id="@+id/activity_update_and_add_media_add_icon"
-                android:layout_alignParentRight="true"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_add_black_24dp"/>
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_add_black_24dp" />
 
         </RelativeLayout>
 
         <TextView
-            android:layout_marginTop="@dimen/update_add_margin_top_titles"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/short_description"
             android:layout_marginStart="@dimen/update_add_margin_left_titles"
-            />
+            android:layout_marginTop="@dimen/update_add_margin_top_titles"
+            android:text="@string/short_description"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/activity_update_and_add_short_description_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textShortMessage" />
+            android:inputType="textShortMessage"
+            android:maxLength="70" />
 
         <TextView
-            android:layout_marginTop="@dimen/update_add_margin_top_titles"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/long_description"
             android:layout_marginStart="@dimen/update_add_margin_left_titles"
-            />
+            android:layout_marginTop="@dimen/update_add_margin_top_titles"
+            android:text="@string/long_description"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/activity_update_and_add_long_description_edit_text"
@@ -97,13 +95,12 @@
             android:inputType="textLongMessage" />
 
         <TextView
-            android:layout_marginTop="@dimen/update_add_margin_top_titles"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/surface"
             android:layout_marginStart="@dimen/update_add_margin_left_titles"
-            />
+            android:layout_marginTop="@dimen/update_add_margin_top_titles"
+            android:text="@string/surface"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/activity_update_and_add_surface_edit_text"
@@ -113,13 +110,12 @@
             android:inputType="number" />
 
         <TextView
-            android:layout_marginTop="@dimen/update_add_margin_top_titles"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/number_of_rooms"
             android:layout_marginStart="@dimen/update_add_margin_left_titles"
-            />
+            android:layout_marginTop="@dimen/update_add_margin_top_titles"
+            android:text="@string/number_of_rooms"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/activity_update_and_add_num_of_rooms_edit_text"
@@ -128,28 +124,63 @@
             android:inputType="number" />
 
         <TextView
-            android:layout_marginTop="@dimen/update_add_margin_top_titles"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/location"
             android:layout_marginStart="@dimen/update_add_margin_left_titles"
-            />
+            android:layout_marginTop="@dimen/update_add_margin_top_titles"
+            android:text="@string/location"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/activity_update_and_add_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Address"
+            android:hint="@string/address"
             android:inputType="textLongMessage" />
+
+        <TextView
+            android:layout_marginStart="@dimen/update_add_margin_left_titles"
+            android:layout_marginTop="@dimen/update_add_margin_top_titles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/points_of_interest"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_update_and_add_points_of_interest_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/activity_update_and_add_v_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/activity_update_and_add_points_of_interest_add_icon"
+                android:inputType="textUri" />
+
+            <ImageView
+                android:id="@+id/activity_update_and_add_points_of_interest_add_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_add_black_24dp" />
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/activity_update_and_add_submit_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/submit"
             android:layout_marginTop="@dimen/update_add_margin_top_titles"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:text="@string/submit" />
 
     </LinearLayout>
 

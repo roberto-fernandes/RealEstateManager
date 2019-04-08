@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +27,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.RealEstateAdapter;
+import com.openclassrooms.realestatemanager.adapters.VerticalListAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,7 @@ public class NavigationActivity extends AppCompatActivity {
     private TextView itemDescription;
     private int realEstateIndex;
     private int listType;
+    private ImageView map;
 
 
     @Override
@@ -70,6 +74,13 @@ public class NavigationActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         configureDrawer();
         // generateFakeList();
+    }
+
+    private void setMap() {
+        Picasso.get().load("https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap\n" +
+                "&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318\n" +
+                "&markers=color:red%7Clabel:C%7C40.718217,-73.998284\n" +
+                "&key=AIzaSyCfGh3QhZ7ebhHfL5cit6gylQ7-MKBrj3E").into(map);
     }
 
     private void configureDrawer() {
@@ -167,6 +178,7 @@ public class NavigationActivity extends AppCompatActivity {
     private void setViews() {
         toolbar = findViewById(R.id.navigation_activity_toolbar);
         itemDescription = findViewById(R.id.navigation_activity_description);
+        map = findViewById(R.id.map);
     }
 
     @Override
@@ -296,9 +308,23 @@ public class NavigationActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
+    private void setPointsOfInterestRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this
+                , LinearLayoutManager.VERTICAL, false);
+        RecyclerView recyclerView;
+        recyclerView = findViewById(R.id.points_of_interest_recycler_view);
+        recyclerView.setLayoutManager(layoutManager);
+        VerticalListAdapter verticalListAdapter = new VerticalListAdapter(
+                listings.get(realEstateIndex).getPointsOfInterest());
+        recyclerView.setAdapter(verticalListAdapter);
+    }
+
+
     private void displayRealEstateInformation() {
         String longDescription = listings.get(realEstateIndex).getLongDescription();
         itemDescription.setText(longDescription);
+        setPointsOfInterestRecyclerView();
+        setMap();
     }
 
     private void generateFakeList() {

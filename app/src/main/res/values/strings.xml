@@ -28,4 +28,7 @@
     <string name="long_description">Long Description</string>
     <string name="type">Type</string>
     <string name="submit">Submit</string>
+    <string name="points_of_interest">Points of interest</string>
+    <string name="address">Address</string>
+    <string name="map">Map</string>
 </resources>

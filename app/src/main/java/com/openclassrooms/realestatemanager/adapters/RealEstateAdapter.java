@@ -69,14 +69,6 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
         return realEstateList.size();
     }
 
-    public void setOnSelectionItem(OnItemSelectedListener listener) {
-        this.listener = listener;
-    }
-
-    public interface OnItemSelectedListener {
-        void onSelection(int position);
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView type;
@@ -93,5 +85,13 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
             price = itemView.findViewById(R.id.listining_item_price);
             cardView = itemView.findViewById(R.id.listining_item_card_view);
         }
+    }
+
+    public void setOnSelectionItem(OnItemSelectedListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemSelectedListener {
+        void onSelection(int position);
     }
 }

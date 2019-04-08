@@ -12,13 +12,15 @@ import android.widget.Toast;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.MediaDisplayAdapter;
-import com.openclassrooms.realestatemanager.adapters.RealEstateAdapter;
+import com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter.*;
 
 public class UpdateAndAddActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,11 +30,16 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
     private EditText media;
     private EditText type;
     private EditText numOfRooms;
+    private EditText location;
     private EditText surface;
     private ImageView mediaAdd;
+    private ImageView pointsOfIntAdd;
     private RecyclerView mediaRecyclerView;
     private MediaDisplayAdapter mediaDisplayAdapter;
     private Button submitBtn;
+    private PointsOfInterestAdapter pointsOfInterestAdapter;
+    private RecyclerView pointsOfInterestRecyclerView;
+    private EditText pointsOfInterestEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,27 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         setViews();
         setParams();
     }
+    private void setViews() {
+        pointsOfIntAdd = findViewById(R.id.activity_update_and_add_points_of_interest_add_icon);
+        shortDescription = findViewById(R.id.activity_update_and_add_short_description_edit_text);
+        longDescription = findViewById(R.id.activity_update_and_add_long_description_edit_text);
+        mediaAdd = findViewById(R.id.activity_update_and_add_media_add_icon);
+        mediaRecyclerView = findViewById(R.id.activity_update_and_add_media_recycler_view);
+        media = findViewById(R.id.activity_update_and_add_media_edit_text);
+        type = findViewById(R.id.activity_update_and_add_type_edit_text);
+        numOfRooms = findViewById(R.id.activity_update_and_add_num_of_rooms_edit_text);
+        surface = findViewById(R.id.activity_update_and_add_surface_edit_text);
+        location = findViewById(R.id.activity_update_and_add_location);
+        submitBtn = findViewById(R.id.activity_update_and_add_submit_btn);
+        pointsOfInterestRecyclerView
+                = findViewById(R.id.activity_update_and_add_points_of_interest_recycler_view);
+        pointsOfInterestEditText = findViewById(R.id.activity_update_and_add_v_edit_text);
+
+        mediaAdd.setOnClickListener(this);
+        submitBtn.setOnClickListener(this);
+        pointsOfIntAdd.setOnClickListener(this);
+    }
+
 
     private void setParams() {
         if (realEstate != null) {
@@ -51,9 +79,14 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
             numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
             type.setText(realEstate.getType());
             surface.setText(String.valueOf(realEstate.getSurfaceArea()));
-
-            setMediaRecyclerView();
+        } else {
+            realEstate = new RealEstate();
+            realEstate.setPhotos(new ArrayList<String>());
+            realEstate.setPointsOfInterest(new ArrayList<String>());
+            realEstate.setPointsOfInterest(new ArrayList<String>());
         }
+        setMediaRecyclerView();
+        setPointsOfInterestRecyclerView();
     }
 
     private void setMediaRecyclerView() {
@@ -74,19 +107,19 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         mediaRecyclerView.setAdapter(mediaDisplayAdapter);
     }
 
-    private void setViews() {
-        shortDescription = findViewById(R.id.activity_update_and_add_location);
-        longDescription = findViewById(R.id.activity_update_and_add_long_description_edit_text);
-        mediaAdd = findViewById(R.id.activity_update_and_add_media_add_icon);
-        mediaRecyclerView = findViewById(R.id.activity_update_and_add_media_recycler_view);
-        media = findViewById(R.id.activity_update_and_add_media_edit_text);
-        type = findViewById(R.id.activity_update_and_add_type_edit_text);
-        numOfRooms = findViewById(R.id.activity_update_and_add_num_of_rooms_edit_text);
-        surface = findViewById(R.id.activity_update_and_add_surface_edit_text);
-        submitBtn = findViewById(R.id.activity_update_and_add_submit_btn);
-
-        mediaAdd.setOnClickListener(this);
-        submitBtn.setOnClickListener(this);
+    private void setPointsOfInterestRecyclerView() {
+        pointsOfInterestAdapter = new PointsOfInterestAdapter(realEstate.getPointsOfInterest());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                UpdateAndAddActivity.this);
+        pointsOfInterestRecyclerView.setLayoutManager(layoutManager);
+        pointsOfInterestAdapter.setDeleteItemListener(new DeleteItemListener() {
+            @Override
+            public void onDeleteIconPress(int position) {
+                realEstate.getPointsOfInterest().remove(position);
+                pointsOfInterestAdapter.notifyDataSetChanged();
+            }
+        });
+        pointsOfInterestRecyclerView.setAdapter(pointsOfInterestAdapter);
     }
 
     @Override
@@ -98,11 +131,10 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
             case R.id.activity_update_and_add_submit_btn:
                 submitRealEstate();
                 break;
+            case R.id.activity_update_and_add_points_of_interest_add_icon:
+                addPointsOfInterest();
+                break;
         }
-    }
-
-    private void submitRealEstate() {
-        Toast.makeText(this, "submitRealEstate", Toast.LENGTH_SHORT).show();
     }
 
     private void addMedia() {
@@ -114,6 +146,51 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
             mediaDisplayAdapter.notifyDataSetChanged();
             Objects.requireNonNull(mediaRecyclerView.getLayoutManager())
                     .scrollToPosition(realEstate.getPhotos().size() - 1);
+            media.setText("");
+        }
+    }
+
+    private void addPointsOfInterest() {
+        String pointOfInterest = pointsOfInterestEditText.getText().toString();
+        if (pointOfInterest.isEmpty()) {
+            Toast.makeText(this, "You must add a point of intensest"
+                    , Toast.LENGTH_SHORT).show();
+        } else {
+            realEstate.getPointsOfInterest().add(pointOfInterest);
+            pointsOfInterestAdapter.notifyDataSetChanged();
+            pointsOfInterestEditText.setText("");
+        }
+    }
+
+    private void submitRealEstate() {
+        if (type.getText().toString().isEmpty()) {
+            Toast.makeText(this, "You must add a type"
+                    , Toast.LENGTH_SHORT).show();
+        } else if (realEstate.getPhotos().size() < 1) {
+            Toast.makeText(this, "You must add at least one photo"
+                    , Toast.LENGTH_SHORT).show();
+        } else if (shortDescription.getText().toString().isEmpty()) {
+            Toast.makeText(this, "You must add a short description"
+                    , Toast.LENGTH_SHORT).show();
+        } else if (longDescription.getText().toString().isEmpty()) {
+            Toast.makeText(this, "You must add a long description"
+                    , Toast.LENGTH_SHORT).show();
+        } else if (surface.getText().toString().isEmpty()) {
+            Toast.makeText(this, "You must add the surface area"
+                    , Toast.LENGTH_SHORT).show();
+        } else if (numOfRooms.getText().toString().isEmpty()) {
+            Toast.makeText(this, "You must add the number of rooms"
+                    , Toast.LENGTH_SHORT).show();
+        } else if (location.getText().toString().isEmpty()) {
+            Toast.makeText(this, "You must add the location"
+                    , Toast.LENGTH_SHORT).show();
+        }else if (realEstate.getPointsOfInterest().size() < 1) {
+            Toast.makeText(this, "You must add at least one point of interest"
+                    , Toast.LENGTH_SHORT).show();
+        }
+
+        else {
+
         }
     }
 }
