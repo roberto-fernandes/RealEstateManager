@@ -31,6 +31,10 @@ public class LoanSimulationActivity extends AppCompatActivity {
 
         setViews();
         setListeners();
+        setToolbar();
+    }
+
+    private void setToolbar() {
         Toolbar toolbar = findViewById(R.id.loan_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

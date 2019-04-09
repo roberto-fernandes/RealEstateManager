@@ -153,10 +153,7 @@ public class NavigationActivity extends AppCompatActivity {
                                 break;
                             case R.id.menu_drawer_filter:
                                 intent = new Intent(NavigationActivity.this
-                                        , NavigationActivity.class);
-                                Toast.makeText(getApplicationContext(), "filter"
-                                        , Toast.LENGTH_SHORT).show();
-                                intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.FILTERED);
+                                        , FilterActivity.class);
                                 break;
                             case R.id.menu_drawer_sing_out:
                                 signOutUser();
