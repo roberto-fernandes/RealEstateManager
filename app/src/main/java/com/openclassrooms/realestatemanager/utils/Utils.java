@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 
@@ -60,5 +61,10 @@ public class Utils {
 
     public interface BundleKeys {
         String REAL_ESTATE_OBJECT_KEY = "REAL_ESTATE_OBJECT_KEY";
+    }
+
+    @SuppressLint("DefaultLocale")
+    public static String formatDoubleToString(Double value) {
+        return String.format("%,.2f", value);
     }
 }

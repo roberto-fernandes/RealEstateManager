@@ -2,10 +2,12 @@ package com.openclassrooms.realestatemanager.ui.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.utils.Utils;
 
 public class LoanSimulationActivity extends AppCompatActivity {
 
@@ -16,6 +18,11 @@ public class LoanSimulationActivity extends AppCompatActivity {
     private TextView interestTextView;
     private int months;
     private int amount;
+    private double interestRate;
+    private double totalPayment;
+    private double monthlyPayment;
+    private TextView monthPaymentTextView;
+    private TextView totalPaymentTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,9 @@ public class LoanSimulationActivity extends AppCompatActivity {
 
         setViews();
         setListeners();
+        Toolbar toolbar = findViewById(R.id.loan_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setViews() {
@@ -32,6 +42,8 @@ public class LoanSimulationActivity extends AppCompatActivity {
         amountTextView = findViewById(R.id.amount_text_view);
         timeTextView = findViewById(R.id.time_text_view);
         interestTextView = findViewById(R.id.interest_text_view);
+        totalPaymentTextView = findViewById(R.id.payment_total_text_view);
+        monthPaymentTextView = findViewById(R.id.month_payment_text_view);
     }
 
     private void setListeners() {
@@ -75,10 +87,13 @@ public class LoanSimulationActivity extends AppCompatActivity {
         amountTextView.setText(String.valueOf(amount));
         timeTextView.setText(String.valueOf(months));
 
-        double interestRate = getInterestRate();
+        interestRate = getInterestRate();
+        totalPayment = getTotalPayment();
+        monthlyPayment = getMonthlyPayment();
 
-        String interestString = String.format("%,.2f", interestRate);
-        interestTextView.setText(interestString);
+        interestTextView.setText(Utils.formatDoubleToString(interestRate));
+        totalPaymentTextView.setText(Utils.formatDoubleToString(totalPayment));
+        monthPaymentTextView.setText(Utils.formatDoubleToString(monthlyPayment));
     }
 
     private double getInterestRate() {
@@ -89,4 +104,11 @@ public class LoanSimulationActivity extends AppCompatActivity {
         return Math.max( (months / factor), 3d);
     }
 
+    private double getTotalPayment() {
+        return interestRate / 100 * amount + amount;
+    }
+
+    private double getMonthlyPayment() {
+        return totalPayment/months;
+    }
 }
