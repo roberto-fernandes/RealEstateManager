@@ -7,4 +7,5 @@
     <dimen name="navigation_activity_topics_margin">5dp</dimen>
     <dimen name="update_add_margin_left_titles">5dp</dimen>
     <dimen name="update_add_margin_top_titles">10dp</dimen>
+    <dimen name="activity_loan_simulation_items_margin">10dp</dimen>
 </resources>

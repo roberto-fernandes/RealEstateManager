@@ -31,4 +31,5 @@
     <string name="points_of_interest">Points of interest</string>
     <string name="address">Address</string>
     <string name="map">Map</string>
+    <string name="amount">Amount</string>
 </resources>
