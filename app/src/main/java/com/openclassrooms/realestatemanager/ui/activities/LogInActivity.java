@@ -16,7 +16,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.openclassrooms.realestatemanager.R;
+
+import java.util.Objects;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -25,6 +32,8 @@ public class LogInActivity extends AppCompatActivity {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private EditText emailEditText;
     private EditText passwordEditText;
+    private TextView dontRememberPasswordYextView;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = LogInActivity.class.getSimpleName();
 
     @Override
@@ -41,6 +50,7 @@ public class LogInActivity extends AppCompatActivity {
         logInBtn = findViewById(R.id.activity_log_in_register_button);
         emailEditText = findViewById(R.id.activity_log_in_email_edit_text);
         passwordEditText = findViewById(R.id.activity_log_in_password_edit_text);
+        dontRememberPasswordYextView = findViewById(R.id.don_t_remember_password_text_view);
     }
 
     private void setListeners() {
@@ -59,6 +69,17 @@ public class LogInActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
                 logInUser(email, password);
+            }
+        });
+        dontRememberPasswordYextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (emailEditText.getText().toString().isEmpty()) {
+                    Toast.makeText(LogInActivity.this, "Email field is empty"
+                            , Toast.LENGTH_SHORT).show();
+                } else {
+                    displayHint();
+                }
             }
         });
     }
@@ -90,5 +111,28 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
+    private void displayHint() {
+        DocumentReference docRef = db.collection("hints").document(
+                emailEditText.getText().toString());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String hint = (String) document.getData().get("hint");
+                        Toast.makeText(LogInActivity.this, "Hint: " +
+                                hint, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LogInActivity.this, "No such document"
+                                , Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(LogInActivity.this, "else"
+                            , Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
+    }
 }

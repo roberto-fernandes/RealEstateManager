@@ -15,8 +15,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import okhttp3.internal.Util;
-
 public class MediaDisplayAdapter  extends RecyclerView.Adapter<MediaDisplayAdapter.ViewHolder> {
 
     private List<String> mediaList;

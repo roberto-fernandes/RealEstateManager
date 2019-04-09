@@ -64,7 +64,7 @@
 
     <TextView
         android:textStyle="bold"
-        android:id="@+id/textView2"
+        android:id="@+id/don_t_remember_password_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_login_margin_horizontal_input_text"

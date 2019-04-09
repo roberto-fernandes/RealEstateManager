@@ -54,6 +54,7 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         setViews();
         setParams();
     }
+
     private void setViews() {
         pointsOfIntAdd = findViewById(R.id.activity_update_and_add_points_of_interest_add_icon);
         shortDescription = findViewById(R.id.activity_update_and_add_short_description_edit_text);
@@ -189,13 +190,21 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         } else if (location.getText().toString().isEmpty()) {
             Toast.makeText(this, "You must add the location"
                     , Toast.LENGTH_SHORT).show();
-        }else if (realEstate.getPointsOfInterest().size() < 1) {
+        } else if (realEstate.getPointsOfInterest().size() < 1) {
             Toast.makeText(this, "You must add at least one point of interest"
                     , Toast.LENGTH_SHORT).show();
-        } else if (updating){
-           repository.updateListing(realEstate);
         } else {
-            repository.insertListing(realEstate);
+            realEstate.setType(type.getText().toString());
+            realEstate.setDescription(shortDescription.getText().toString());
+            realEstate.setLongDescription(longDescription.getText().toString());
+    //        realEstate.setSurfaceArea(Integer.getInteger(surface.getText().toString()));
+        //    realEstate.setNumberOfRooms(Integer.getInteger(numOfRooms.getText().toString()));
+            realEstate.setAddress(location.getText().toString());
+            if (updating) {
+                repository.updateListing(realEstate);
+            } else {
+                repository.insertListing(realEstate);
+            }
         }
     }
 }

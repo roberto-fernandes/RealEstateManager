@@ -12,10 +12,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.openclassrooms.realestatemanager.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -25,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText passwordHint;
     private FirebaseAuth auth;
     private static final String TAG = "RegisterActivity";
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void registerUser(final String email, String password, final String passwordHintString) {
+    private void registerUser(final String email, String password, final String passwordHintString)
+    {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -83,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            storePasswordHint();
                             displayToast("Register succeed");
                             goToNavigationActivity();
                             //     savePasswordHint(email, passwordHintString);
@@ -100,20 +109,24 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private class PasswordHintClass {
-        private String hint;
+    private void storePasswordHint() {
+        // Create a new user with a first and last name
+        Map<String, Object> hint = new HashMap<>();
+        hint.put("hint", passwordHint.getText().toString());
 
-        public PasswordHintClass(String hint) {
-            this.hint = hint;
-        }
-
-        public String getHint() {
-            return hint;
-        }
-
-        public void setHint(String hint) {
-            this.hint = hint;
-        }
+// Add a new document with a generated ID
+        db.collection("hints").document(email.getText().toString())
+                .set(hint)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
     }
 
 }
