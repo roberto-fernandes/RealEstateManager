@@ -27,6 +27,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.NavigationActivity" />
         </activity>
         <activity android:name=".ui.activities.RegisterActivity" />
         <activity android:name=".ui.activities.MainActivity">

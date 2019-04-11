@@ -69,8 +69,7 @@
                     <TextView
                         android:id="@+id/navigation_activity_description"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/no_description_found" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -94,7 +93,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="100m2"
                             android:layout_marginBottom="@dimen/navigation_activity_topics_margin"/>
 
                         <TextView
@@ -105,7 +103,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5"
                             android:layout_marginBottom="@dimen/navigation_activity_topics_margin"/>
                         <TextView
                             android:layout_width="wrap_content"
@@ -115,7 +112,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2"
                             android:layout_marginBottom="@dimen/navigation_activity_topics_margin"/>
                     </LinearLayout>
                     <LinearLayout
@@ -131,8 +127,7 @@
                             android:textStyle="bold"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Some address" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -178,6 +173,17 @@
             android:orientation="horizontal">
 
         </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/no_entries"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/navigation_activity_toolbar"
+            android:text="@string/no_entries"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:visibility="gone"
+            android:background="@color/white"/>
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView

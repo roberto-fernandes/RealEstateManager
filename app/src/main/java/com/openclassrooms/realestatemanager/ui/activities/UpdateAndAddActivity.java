@@ -1,9 +1,11 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,10 +51,29 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_and_add);
 
+        setToolbar();
         realEstate = getIntent().getParcelableExtra(Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY);
         repository = new Repository(UpdateAndAddActivity.this);
         setViews();
         setParams();
+        setDebugData();
+    }
+
+    private void setToolbar() {
+        Toolbar toolbar = findViewById(R.id.update_and_add_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setDebugData() {
+        media.setText("https://cdn.pixabay.com/photo/2016/10/02/00/53/a-1708752_960_720.png");
+        shortDescription.setText("short desc");
+        longDescription.setText("long desc");
+        type.setText("flat");
+        numOfRooms.setText("4");
+        surface.setText("12");
+        location.setText("Coimbra");
+        pointsOfInterestEditText.setText("Shopping Center");
     }
 
     private void setViews() {
@@ -78,14 +99,14 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
 
     private void setParams() {
         if (realEstate != null) {
-            updating = false;
+            updating = true;
             shortDescription.setText(realEstate.getDescription());
             longDescription.setText(realEstate.getLongDescription());
             numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
             type.setText(realEstate.getType());
             surface.setText(String.valueOf(realEstate.getSurfaceArea()));
         } else {
-            updating = true;
+            updating = false;
             realEstate = new RealEstate();
             realEstate.setPhotos(new ArrayList<String>());
             realEstate.setPointsOfInterest(new ArrayList<String>());
@@ -197,14 +218,24 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
             realEstate.setType(type.getText().toString());
             realEstate.setDescription(shortDescription.getText().toString());
             realEstate.setLongDescription(longDescription.getText().toString());
-    //        realEstate.setSurfaceArea(Integer.getInteger(surface.getText().toString()));
-        //    realEstate.setNumberOfRooms(Integer.getInteger(numOfRooms.getText().toString()));
+            int surfaceInt = Integer.valueOf(surface.getText().toString());
+            int numOfRoomsInt = Integer.valueOf(numOfRooms.getText().toString());
+            realEstate.setSurfaceArea(surfaceInt);
+            realEstate.setNumberOfRooms(numOfRoomsInt);
             realEstate.setAddress(location.getText().toString());
             if (updating) {
                 repository.updateListing(realEstate);
             } else {
                 repository.insertListing(realEstate);
             }
+            goToNavigationActivity();
         }
+    }
+
+    private void goToNavigationActivity() {
+        Intent intent = new Intent(UpdateAndAddActivity.this
+                , NavigationActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

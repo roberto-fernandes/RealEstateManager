@@ -51,6 +51,7 @@ public class NavigationActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private TextView itemDescription;
+    private TextView noEntries;
     private int realEstateIndex;
     private int listType;
     private ImageView map;
@@ -185,6 +186,7 @@ public class NavigationActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.navigation_activity_toolbar);
         itemDescription = findViewById(R.id.navigation_activity_description);
         map = findViewById(R.id.map);
+        noEntries = findViewById(R.id.no_entries);
     }
 
     @Override
@@ -246,10 +248,25 @@ public class NavigationActivity extends AppCompatActivity {
                 goToUpdateAndAddActivity(null);
                 break;
             case R.id.menu_toolbar_edit:
-                goToUpdateAndAddActivity(listings.get(realEstateIndex));
+                try {
+                    goToUpdateAndAddActivity(listings.get(realEstateIndex));
+                } catch (Exception e) {
+                    Toast.makeText(this, "It is not possible to edit"
+                            , Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.menu_toolbar_delete:
-                repository.deleteListing(listings.get(realEstateIndex));
+                try {
+                    repository.deleteListing(listings.get(realEstateIndex));
+                    realEstateIndex = 0;
+
+                    if (listings.size() < 2) {
+                        restartActivity();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(this, "It is not possible to delete"
+                            , Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
 
@@ -284,9 +301,7 @@ public class NavigationActivity extends AppCompatActivity {
                         }
                         listings.addAll(realEstates);
                         recyclerViewAdapter.notifyDataSetChanged();
-                        if (listings.size() > 0) {
-                            displayRealEstateInformation();
-                        }
+                        displayRealEstateInformation();
                         //delete all
                         //if (listings.size() > 0) { repository.deleteListing(listings.get(0)); }
                     }
@@ -324,10 +339,15 @@ public class NavigationActivity extends AppCompatActivity {
 
 
     private void displayRealEstateInformation() {
-        String longDescription = listings.get(realEstateIndex).getLongDescription();
-        itemDescription.setText(longDescription);
-        setPointsOfInterestRecyclerView();
-        setMap();
+        if (listings.size() > 0) {
+            String longDescription = listings.get(realEstateIndex).getLongDescription();
+            itemDescription.setText(longDescription);
+            setPointsOfInterestRecyclerView();
+            setMap();
+            noEntries.setVisibility(View.GONE);
+        } else {
+            noEntries.setVisibility(View.VISIBLE);
+        }
     }
 
     private void generateFakeList() {
@@ -371,6 +391,12 @@ public class NavigationActivity extends AppCompatActivity {
     private void goToLogInActivity() {
         Intent intent = new Intent(NavigationActivity.this, LogInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void restartActivity() {
+        Intent intent = getIntent();
+        finish();
         startActivity(intent);
     }
 }
