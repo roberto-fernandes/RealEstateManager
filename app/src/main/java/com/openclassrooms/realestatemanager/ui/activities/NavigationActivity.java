@@ -37,6 +37,9 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.openclassrooms.realestatemanager.utils.Utils.*;
+import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.BUNDLE_EXTRA;
+import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.MAX_SURFACE;
+import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.MIN_SURFACE;
 import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY;
 
 public class NavigationActivity extends AppCompatActivity {
@@ -55,6 +58,7 @@ public class NavigationActivity extends AppCompatActivity {
     private int realEstateIndex;
     private int listType;
     private ImageView map;
+    private Bundle extras;
 
 
     @Override
@@ -66,7 +70,12 @@ public class NavigationActivity extends AppCompatActivity {
         repository = new Repository(NavigationActivity.this);
         realEstateIndex = 0;
 
-        listType = getIntent().getIntExtra(TypesList.TYPE_LIST_KEY, TypesList.ALL);
+        extras = getIntent().getBundleExtra(BUNDLE_EXTRA);
+        if (extras != null) {
+            listType = extras.getInt(TypesList.TYPE_LIST_KEY, TypesList.ALL);
+        } else {
+            listType = TypesList.ALL;
+        }
 
         setViews();
         setListingRecyclerView();
@@ -148,8 +157,6 @@ public class NavigationActivity extends AppCompatActivity {
                             case R.id.menu_drawer_all:
                                 intent = new Intent(NavigationActivity.this
                                         , NavigationActivity.class);
-                                Toast.makeText(getApplicationContext(), "all"
-                                        , Toast.LENGTH_SHORT).show();
                                 intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.ALL);
                                 break;
                             case R.id.menu_drawer_filter:
@@ -285,10 +292,14 @@ public class NavigationActivity extends AppCompatActivity {
         LiveData<List<RealEstate>> listLiveData = null;
         switch (listType) {
             case TypesList.ALL:
+                Toast.makeText(getApplicationContext(), "All"
+                        , Toast.LENGTH_SHORT).show();
                 listLiveData = repository.getAllListings();
                 break;
             case TypesList.FILTERED:
-                listLiveData = repository.getAllListingsByStatus("a");
+                Toast.makeText(getApplicationContext(), "Filtered"
+                        , Toast.LENGTH_SHORT).show();
+                listLiveData = getFilteredList();
                 break;
         }
 
@@ -306,6 +317,14 @@ public class NavigationActivity extends AppCompatActivity {
                         //if (listings.size() > 0) { repository.deleteListing(listings.get(0)); }
                     }
                 });
+    }
+
+    private LiveData<List<RealEstate>> getFilteredList() {
+        LiveData<List<RealEstate>> listLiveData;
+        String minSurface = extras.getString(MIN_SURFACE, String.valueOf(Integer.MIN_VALUE));
+        String maxSurface = extras.getString(MAX_SURFACE, String.valueOf(Integer.MAX_VALUE));
+        listLiveData = repository.filterList(minSurface, maxSurface);
+        return listLiveData;
     }
 
     private void setListingRecyclerView() {

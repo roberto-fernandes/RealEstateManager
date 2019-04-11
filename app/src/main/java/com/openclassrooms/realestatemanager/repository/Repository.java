@@ -38,4 +38,8 @@ public class Repository {
     public LiveData<List<RealEstate>> getAllListingsByStatus (String status) {
         return dao.getListingByStatus(status);
     }
+
+    public LiveData<List<RealEstate>> filterList (String minSurface, String maxSurface) {
+        return dao.getFilteredListing(minSurface, maxSurface);
+    }
 }

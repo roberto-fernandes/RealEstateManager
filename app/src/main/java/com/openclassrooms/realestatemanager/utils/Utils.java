@@ -48,6 +48,12 @@ public class Utils {
         return wifi.isWifiEnabled();
     }
 
+
+    @SuppressLint("DefaultLocale")
+    public static String formatDoubleToString(Double value) {
+        return String.format("%,.2f", value);
+    }
+
     public interface Status {
         String SOLD = "SOLD";
         String AVAILABLE = "AVAILABLE";
@@ -60,11 +66,10 @@ public class Utils {
     }
 
     public interface BundleKeys {
+        String BUNDLE_EXTRA = "BUNDLE_EXTRA";
         String REAL_ESTATE_OBJECT_KEY = "REAL_ESTATE_OBJECT_KEY";
+        String MIN_SURFACE = "MIN_SURFACE";
+        String MAX_SURFACE = "MAX_SURFACE";
     }
 
-    @SuppressLint("DefaultLocale")
-    public static String formatDoubleToString(Double value) {
-        return String.format("%,.2f", value);
-    }
 }

@@ -32,4 +32,7 @@ public interface RealEstateDao {
     @Query("SELECT * FROM realEstateListings WHERE status = :status")
     LiveData<List<RealEstate>> getListingByStatus(String status);
 
+    @Query("SELECT * FROM realEstateListings WHERE surfaceArea BETWEEN :minSurface AND :maxSurface")
+    LiveData<List<RealEstate>> getFilteredListing(String minSurface, String maxSurface);
+
 }
