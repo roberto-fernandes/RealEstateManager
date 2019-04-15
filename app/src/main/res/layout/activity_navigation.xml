@@ -46,7 +46,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/activity_navigation_media_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="100dp"
                         android:orientation="horizontal">
 
                     </android.support.v7.widget.RecyclerView>
@@ -91,6 +92,7 @@
                             android:text="@string/surface"
                             android:textStyle="bold"/>
                         <TextView
+                            android:id="@+id/navigation_activity_surface"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/navigation_activity_topics_margin"/>
@@ -101,6 +103,7 @@
                             android:text="@string/number_of_rooms"
                             android:textStyle="bold"/>
                         <TextView
+                            android:id="@+id/navigation_activity_num_of_rooms"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/navigation_activity_topics_margin"/>
@@ -110,6 +113,7 @@
                             android:text="@string/number_of_bedrooms"
                             android:textStyle="bold"/>
                         <TextView
+                            android:id="@+id/navigation_activity_num_of_bedrooms"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/navigation_activity_topics_margin"/>
@@ -126,6 +130,7 @@
                             android:text="Location"
                             android:textStyle="bold"/>
                         <TextView
+                            android:id="@+id/navigation_activity_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>

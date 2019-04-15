@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.adapters.MediaDisplayAdapter;
 import com.openclassrooms.realestatemanager.adapters.RealEstateAdapter;
 import com.openclassrooms.realestatemanager.adapters.VerticalListAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
@@ -36,11 +37,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.openclassrooms.realestatemanager.utils.Utils.*;
 import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.BUNDLE_EXTRA;
 import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.MAX_SURFACE;
 import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.MIN_SURFACE;
 import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY;
+import static com.openclassrooms.realestatemanager.utils.Utils.TypesList;
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -55,10 +56,16 @@ public class NavigationActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private TextView itemDescription;
     private TextView noEntries;
+    private TextView surface;
+    private TextView numOfRooms;
+    private TextView numOfBedrooms;
+    private RecyclerView mediaRecyclerView;
+    private TextView location;
     private int realEstateIndex;
     private int listType;
     private ImageView map;
     private Bundle extras;
+    private MediaDisplayAdapter mediaDisplayAdapter;
 
 
     @Override
@@ -194,6 +201,11 @@ public class NavigationActivity extends AppCompatActivity {
         itemDescription = findViewById(R.id.navigation_activity_description);
         map = findViewById(R.id.map);
         noEntries = findViewById(R.id.no_entries);
+        surface = findViewById(R.id.navigation_activity_surface);
+        numOfRooms = findViewById(R.id.navigation_activity_num_of_rooms);
+        numOfBedrooms = findViewById(R.id.navigation_activity_num_of_bedrooms);
+        location = findViewById(R.id.navigation_activity_location);
+        mediaRecyclerView = findViewById(R.id.activity_navigation_media_recycler_view);
     }
 
     @Override
@@ -359,14 +371,38 @@ public class NavigationActivity extends AppCompatActivity {
 
     private void displayRealEstateInformation() {
         if (listings.size() > 0) {
-            String longDescription = listings.get(realEstateIndex).getLongDescription();
-            itemDescription.setText(longDescription);
+            RealEstate realEstate = listings.get(realEstateIndex);
+            itemDescription.setText(realEstate.getLongDescription());
             setPointsOfInterestRecyclerView();
+            surface.setText(String.valueOf(realEstate.getSurfaceArea()));
+            numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
+            numOfBedrooms.setText("Todo on next db version and price");
+            location.setText(realEstate.getAddress());
+            setMediaRecyclerView(realEstate);
             setMap();
+
             noEntries.setVisibility(View.GONE);
         } else {
             noEntries.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setMediaRecyclerView(final RealEstate realEstate) {
+        mediaDisplayAdapter = new MediaDisplayAdapter(realEstate.getPhotos(), false
+                , getApplicationContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this
+                , LinearLayoutManager.HORIZONTAL, false);
+        mediaRecyclerView.setLayoutManager(layoutManager);
+
+        mediaDisplayAdapter.setOnDeleteIconListener(new MediaDisplayAdapter.ItemDeleteListener() {
+            @Override
+            public void deleteIconClicked(int position) {
+                realEstate.getPhotos().remove(position);
+                mediaDisplayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        mediaRecyclerView.setAdapter(mediaDisplayAdapter);
     }
 
     private void generateFakeList() {
