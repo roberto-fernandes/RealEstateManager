@@ -93,11 +93,18 @@ public class NavigationActivity extends AppCompatActivity {
         // generateFakeList();
     }
 
-    private void setMap() {
-        Picasso.get().load("https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap\n" +
+    private void setMap(RealEstate realEstate) {
+
+        String mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center="
+                + realEstate.getAddress() + "&markers=%7Ccolor:0xFFFF00%7Clabel:%7C"+ realEstate.getAddress() +
+                "&zoom=13&size=600x300&maptype=roadmap&key=" + getString(R.string.google_api_key);
+        Picasso.get().load(mapUrl).into(map);
+
+
+/*        Picasso.get().load("https://maps.googleapis.com/maps/api/staticmap?center=Coimbra,Portugal&zoom=13&size=600x300&maptype=roadmap\n" +
                 "&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318\n" +
                 "&markers=color:red%7Clabel:C%7C40.718217,-73.998284\n" +
-                "&key=AIzaSyCfGh3QhZ7ebhHfL5cit6gylQ7-MKBrj3E").into(map);
+                "&key=").into(map);*/
     }
 
     private void configureDrawer() {
@@ -379,7 +386,7 @@ public class NavigationActivity extends AppCompatActivity {
             numOfBedrooms.setText("Todo on next db version and price");
             location.setText(realEstate.getAddress());
             setMediaRecyclerView(realEstate);
-            setMap();
+            setMap(realEstate);
 
             noEntries.setVisibility(View.GONE);
         } else {
