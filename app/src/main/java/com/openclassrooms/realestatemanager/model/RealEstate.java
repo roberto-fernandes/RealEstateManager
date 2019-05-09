@@ -29,45 +29,10 @@ public class RealEstate implements Parcelable {
     private long datePutInMarket;
     private long saleData;
     private String agentID;
+    private String price;
+    private String numberOfBedrooms;
 
     public RealEstate() {
-    }
-
-    protected RealEstate(Parcel in) {
-        id = in.readInt();
-        type = in.readString();
-        priceInDollars = in.readInt();
-        surfaceArea = in.readInt();
-        numberOfRooms = in.readInt();
-        description = in.readString();
-        longDescription = in.readString();
-        photos = in.createStringArrayList();
-        address = in.readString();
-        pointsOfInterest = in.createStringArrayList();
-        status = in.readString();
-        datePutInMarket = in.readLong();
-        saleData = in.readLong();
-        agentID = in.readString();
-    }
-
-    public static final Creator<RealEstate> CREATOR = new Creator<RealEstate>() {
-        @Override
-        public RealEstate createFromParcel(Parcel in) {
-            return new RealEstate(in);
-        }
-
-        @Override
-        public RealEstate[] newArray(int size) {
-            return new RealEstate[size];
-        }
-    };
-
-    public String getLongDescription() {
-        return longDescription;
-    }
-
-    public void setLongDescription(String longDescription) {
-        this.longDescription = longDescription;
     }
 
     public int getId() {
@@ -116,6 +81,14 @@ public class RealEstate implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
     }
 
     public List<String> getPhotos() {
@@ -174,6 +147,53 @@ public class RealEstate implements Parcelable {
         this.agentID = agentID;
     }
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getNumberOfBedrooms() {
+        return numberOfBedrooms;
+    }
+
+    public void setNumberOfBedrooms(String numberOfBedrooms) {
+        this.numberOfBedrooms = numberOfBedrooms;
+    }
+
+    protected RealEstate(Parcel in) {
+        id = in.readInt();
+        type = in.readString();
+        priceInDollars = in.readInt();
+        surfaceArea = in.readInt();
+        numberOfRooms = in.readInt();
+        description = in.readString();
+        longDescription = in.readString();
+        photos = in.createStringArrayList();
+        address = in.readString();
+        pointsOfInterest = in.createStringArrayList();
+        status = in.readString();
+        datePutInMarket = in.readLong();
+        saleData = in.readLong();
+        agentID = in.readString();
+        price = in.readString();
+        numberOfBedrooms = in.readString();
+    }
+
+    public static final Creator<RealEstate> CREATOR = new Creator<RealEstate>() {
+        @Override
+        public RealEstate createFromParcel(Parcel in) {
+            return new RealEstate(in);
+        }
+
+        @Override
+        public RealEstate[] newArray(int size) {
+            return new RealEstate[size];
+        }
+    };
+
     @Override
     public int describeContents() {
         return 0;
@@ -195,5 +215,7 @@ public class RealEstate implements Parcelable {
         dest.writeLong(datePutInMarket);
         dest.writeLong(saleData);
         dest.writeString(agentID);
+        dest.writeString(price);
+        dest.writeString(numberOfBedrooms);
     }
 }

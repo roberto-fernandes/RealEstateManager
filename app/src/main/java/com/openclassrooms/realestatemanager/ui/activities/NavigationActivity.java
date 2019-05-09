@@ -380,7 +380,7 @@ public class NavigationActivity extends AppCompatActivity {
             setPointsOfInterestRecyclerView();
             surface.setText(String.valueOf(realEstate.getSurfaceArea()));
             numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
-            numOfBedrooms.setText("Todo on next db version and price");
+            numOfBedrooms.setText(realEstate.getNumberOfBedrooms());
             location.setText(realEstate.getAddress());
             setMediaRecyclerView(realEstate);
             setMap(realEstate);
