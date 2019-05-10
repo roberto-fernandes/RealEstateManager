@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.model;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
@@ -17,7 +18,8 @@ public class RealEstate implements Parcelable {
     private int id = 0;
 
     private String type;
-    private int priceInDollars;
+    @ColumnInfo(name = "priceInDollars")
+    private int _;
     private int surfaceArea;
     private int numberOfRooms;
     private String description;
@@ -51,12 +53,12 @@ public class RealEstate implements Parcelable {
         this.type = type;
     }
 
-    public int getPriceInDollars() {
-        return priceInDollars;
+    public int get_() {
+        return _;
     }
 
-    public void setPriceInDollars(int priceInDollars) {
-        this.priceInDollars = priceInDollars;
+    public void set_(int priceInDollars) {
+        this._ = priceInDollars;
     }
 
     public int getSurfaceArea() {
@@ -166,7 +168,7 @@ public class RealEstate implements Parcelable {
     protected RealEstate(Parcel in) {
         id = in.readInt();
         type = in.readString();
-        priceInDollars = in.readInt();
+        _ = in.readInt();
         surfaceArea = in.readInt();
         numberOfRooms = in.readInt();
         description = in.readString();
@@ -203,7 +205,7 @@ public class RealEstate implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(type);
-        dest.writeInt(priceInDollars);
+        dest.writeInt(_);
         dest.writeInt(surfaceArea);
         dest.writeInt(numberOfRooms);
         dest.writeString(description);

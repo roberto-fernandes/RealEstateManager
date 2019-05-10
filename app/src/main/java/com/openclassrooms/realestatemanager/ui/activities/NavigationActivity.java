@@ -414,7 +414,7 @@ public class NavigationActivity extends AppCompatActivity {
             RealEstate realEstate = new RealEstate();
             realEstate.setDescription("House near the river From DB");
             realEstate.setType("Flat");
-            realEstate.setPriceInDollars(2000);
+            realEstate.set_(2000);
             List<String> photos = new ArrayList<>();
             photos.add("https://pmcvariety.files.wordpress.com/2018/07/" +
                     "bradybunchhouse_sc11.jpg?w=1000&h=563&crop=1");
@@ -428,7 +428,7 @@ public class NavigationActivity extends AppCompatActivity {
             pointsOfInterest.add("2 point of interest");
             realEstate.setPointsOfInterest(pointsOfInterest);
             realEstate.setDatePutInMarket(321456L);
-            realEstate.setPriceInDollars(324);
+            realEstate.set_(324);
             realEstate.setLongDescription(i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
                     " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim " +
                     "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." +
