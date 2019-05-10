@@ -29,6 +29,7 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.MediaDisplayAdapter;
 import com.openclassrooms.realestatemanager.adapters.RealEstateAdapter;
 import com.openclassrooms.realestatemanager.adapters.VerticalListAdapter;
+import com.openclassrooms.realestatemanager.model.FilterParams;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
 import com.squareup.picasso.Picasso;
@@ -38,8 +39,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.BUNDLE_EXTRA;
-import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.MAX_SURFACE;
-import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.MIN_SURFACE;
+import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.FILTERED_PARAMS_KEY;
 import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY;
 import static com.openclassrooms.realestatemanager.utils.Utils.TypesList;
 
@@ -337,9 +337,10 @@ public class NavigationActivity extends AppCompatActivity {
 
     private LiveData<List<RealEstate>> getFilteredList() {
         LiveData<List<RealEstate>> listLiveData;
-        String minSurface = extras.getString(MIN_SURFACE, String.valueOf(Integer.MIN_VALUE));
-        String maxSurface = extras.getString(MAX_SURFACE, String.valueOf(Integer.MAX_VALUE));
-        listLiveData = repository.filterList(minSurface, maxSurface);
+        FilterParams filterParams = extras.getParcelable(FILTERED_PARAMS_KEY);
+        String startSurfaceArea = String.valueOf(filterParams.getStartSurfaceArea());
+        String endSurfaceArea = String.valueOf(filterParams.getEndSurfaceArea());
+        listLiveData = repository.filterList(startSurfaceArea, endSurfaceArea);
         return listLiveData;
     }
 

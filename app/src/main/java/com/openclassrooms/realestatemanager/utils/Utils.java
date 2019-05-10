@@ -54,11 +54,6 @@ public class Utils {
         return String.format("%,.2f", value);
     }
 
-    public interface Status {
-        String SOLD = "SOLD";
-        String AVAILABLE = "AVAILABLE";
-    }
-
     public interface TypesList{
         String TYPE_LIST_KEY =  "TYPE_LIST_KEY";
         int ALL = 0;
@@ -68,8 +63,7 @@ public class Utils {
     public interface BundleKeys {
         String BUNDLE_EXTRA = "BUNDLE_EXTRA";
         String REAL_ESTATE_OBJECT_KEY = "REAL_ESTATE_OBJECT_KEY";
-        String MIN_SURFACE = "MIN_SURFACE";
-        String MAX_SURFACE = "MAX_SURFACE";
+        String FILTERED_PARAMS_KEY = "FILTERED_PARAMS_KEY";
     }
 
 }
