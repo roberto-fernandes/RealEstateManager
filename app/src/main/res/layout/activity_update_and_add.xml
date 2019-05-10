@@ -143,6 +143,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/update_add_margin_left_titles"
                 android:layout_marginTop="@dimen/update_add_margin_top_titles"
+                android:text="@string/price"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/activity_update_and_add_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/update_add_margin_left_titles"
+                android:layout_marginTop="@dimen/update_add_margin_top_titles"
                 android:text="@string/location"
                 android:textStyle="bold" />
 
@@ -152,6 +166,20 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/address"
                 android:inputType="textLongMessage" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/update_add_margin_left_titles"
+                android:layout_marginTop="@dimen/update_add_margin_top_titles"
+                android:text="@string/number_of_bedrooms"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/activity_update_and_add_num_of_bedrooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
 
             <TextView
                 android:layout_width="match_parent"

@@ -35,6 +35,8 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
     private EditText numOfRooms;
     private EditText location;
     private EditText surface;
+    private EditText price;
+    private EditText numOfBedrooms;
     private ImageView mediaAdd;
     private ImageView pointsOfIntAdd;
     private RecyclerView mediaRecyclerView;
@@ -91,6 +93,8 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         pointsOfInterestRecyclerView
                 = findViewById(R.id.activity_update_and_add_points_of_interest_recycler_view);
         pointsOfInterestEditText = findViewById(R.id.activity_update_and_add_v_edit_text);
+        price = findViewById(R.id.activity_update_and_add_price);
+        numOfBedrooms = findViewById(R.id.activity_update_and_add_num_of_bedrooms);
 
         mediaAdd.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
@@ -214,7 +218,15 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         } else if (realEstate.getPointsOfInterest().size() < 1) {
             Toast.makeText(this, "You must add at least one point of interest"
                     , Toast.LENGTH_SHORT).show();
+        } else if (price.getText().toString().isEmpty()) {
+            Toast.makeText(this, "You must add the price"
+                    , Toast.LENGTH_SHORT).show();
+        } else if (numOfBedrooms.getText().toString().isEmpty()) {
+            Toast.makeText(this, "You must add at least one point of interest"
+                    , Toast.LENGTH_SHORT).show();
         } else {
+            realEstate.setPrice(price.getText().toString());
+            realEstate.setNumberOfBedrooms(numOfBedrooms.getText().toString());
             realEstate.setType(type.getText().toString());
             realEstate.setDescription(shortDescription.getText().toString());
             realEstate.setLongDescription(longDescription.getText().toString());

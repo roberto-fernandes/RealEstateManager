@@ -34,4 +34,5 @@
     <string name="amount">Amount</string>
     <string name="no_entries">No Entries</string>
     <string name="get_filtered_list">Get filtered list</string>
+    <string name="price">Price in dollars</string>
 </resources>

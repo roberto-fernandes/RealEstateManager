@@ -41,7 +41,7 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
         RealEstate realEstate = realEstateList.get(position);
 
         holder.description.setText(realEstate.getDescription());
-        holder.price.setText("$" + realEstate.getPriceInDollars());
+        holder.price.setText("$" + realEstate.getPrice());
         holder.type.setText(realEstate.getType());
         Picasso.get().load(realEstate.getPhotos().get(0)).into(holder.imageView);
 
