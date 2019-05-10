@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.model.FilterParams;
@@ -25,10 +27,10 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
+        filterParams = new FilterParams();
         setToolbar();
         setViews();
         setListeners();
-        filterParams = new FilterParams();
     }
 
     private void setToolbar() {
@@ -41,10 +43,11 @@ public class FilterActivity extends AppCompatActivity {
         filterBtn = findViewById(R.id.filter_btn);
     }
 
-    private void setListeners() {
+    private void setListeners(){
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateParams();
                 Intent intent = new Intent(FilterActivity.this
                         , NavigationActivity.class);
                 Bundle bundle = new Bundle();
@@ -54,5 +57,37 @@ public class FilterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void updateParams() {
+        CheckBox available = findViewById(R.id.activity_filter_available);
+        CheckBox sold = findViewById(R.id.activity_filter_sold);
+        EditText startNumOfRooms = findViewById(R.id.activity_filter_start_number_of_rooms);
+        EditText endNumOfRooms = findViewById(R.id.activity_filter_end_number_of_rooms);
+        EditText startNumOfBedRooms = findViewById(R.id.activity_filter_start_number_of_bedrooms);
+        EditText endNumOfBedRooms = findViewById(R.id.activity_filter_end_number_of_bedrooms);
+        EditText startSurfaceArea = findViewById(R.id.activity_filter_start_surface);
+        EditText endSurfaceArea = findViewById(R.id.activity_filter_end_surface);
+
+        filterParams.setAvailable(available.isChecked());
+        filterParams.setSold(sold.isChecked());
+        if (!startNumOfRooms.getText().toString().isEmpty()) {
+            filterParams.setStartNumOfRooms(startNumOfRooms.getText().toString());
+        }
+        if (!endNumOfRooms.getText().toString().isEmpty()) {
+            filterParams.setEndNumOfRooms(endNumOfRooms.getText().toString());
+        }
+        if (!startNumOfBedRooms.getText().toString().isEmpty()) {
+            filterParams.setStartNumOfBedRooms(startNumOfBedRooms.getText().toString());
+        }
+        if (!endNumOfBedRooms.getText().toString().isEmpty()) {
+            filterParams.setEndNumOfBedRooms(endNumOfBedRooms.getText().toString());
+        }
+        if (!startSurfaceArea.getText().toString().isEmpty()) {
+            filterParams.setStartSurfaceArea(startSurfaceArea.getText().toString());
+        }
+        if (!endSurfaceArea.getText().toString().isEmpty()) {
+            filterParams.setEndSurfaceArea(endSurfaceArea.getText().toString());
+        }
     }
 }

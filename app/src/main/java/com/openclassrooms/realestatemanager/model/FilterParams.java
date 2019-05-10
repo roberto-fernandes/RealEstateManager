@@ -4,22 +4,26 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class FilterParams implements Parcelable {
-    private int startNumOfRooms = Integer.MIN_VALUE;
-    private int endNumOfRooms = Integer.MAX_VALUE;
-    private int startNumOfBedRooms = Integer.MIN_VALUE;
-    private int endNumOfBedRooms = Integer.MAX_VALUE;
-    private int startSurfaceArea = Integer.MIN_VALUE;
-    private int endSurfaceArea = Integer.MAX_VALUE;
+    private String startNumOfRooms = String.valueOf(Integer.MIN_VALUE);
+    private String endNumOfRooms = String.valueOf(Integer.MAX_VALUE);
+    private String startNumOfBedRooms = String.valueOf(Integer.MIN_VALUE);
+    private String endNumOfBedRooms = String.valueOf(Integer.MAX_VALUE);
+    private String startSurfaceArea = String.valueOf(Integer.MIN_VALUE);
+    private String endSurfaceArea = String.valueOf(Integer.MAX_VALUE);
     private boolean sold;
     private boolean available;
 
+    public FilterParams() {
+    }
+
+
     protected FilterParams(Parcel in) {
-        startNumOfRooms = in.readInt();
-        endNumOfRooms = in.readInt();
-        startNumOfBedRooms = in.readInt();
-        endNumOfBedRooms = in.readInt();
-        startSurfaceArea = in.readInt();
-        endSurfaceArea = in.readInt();
+        startNumOfRooms = in.readString();
+        endNumOfRooms = in.readString();
+        startNumOfBedRooms = in.readString();
+        endNumOfBedRooms = in.readString();
+        startSurfaceArea = in.readString();
+        endSurfaceArea = in.readString();
         sold = in.readByte() != 0;
         available = in.readByte() != 0;
     }
@@ -36,51 +40,51 @@ public class FilterParams implements Parcelable {
         }
     };
 
-    public int getStartNumOfRooms() {
+    public String getStartNumOfRooms() {
         return startNumOfRooms;
     }
 
-    public void setStartNumOfRooms(int startNumOfRooms) {
+    public void setStartNumOfRooms(String startNumOfRooms) {
         this.startNumOfRooms = startNumOfRooms;
     }
 
-    public int getEndNumOfRooms() {
+    public String getEndNumOfRooms() {
         return endNumOfRooms;
     }
 
-    public void setEndNumOfRooms(int endNumOfRooms) {
+    public void setEndNumOfRooms(String endNumOfRooms) {
         this.endNumOfRooms = endNumOfRooms;
     }
 
-    public int getStartNumOfBedRooms() {
+    public String getStartNumOfBedRooms() {
         return startNumOfBedRooms;
     }
 
-    public void setStartNumOfBedRooms(int startNumOfBedRooms) {
+    public void setStartNumOfBedRooms(String startNumOfBedRooms) {
         this.startNumOfBedRooms = startNumOfBedRooms;
     }
 
-    public int getEndNumOfBedRooms() {
+    public String getEndNumOfBedRooms() {
         return endNumOfBedRooms;
     }
 
-    public void setEndNumOfBedRooms(int endNumOfBedRooms) {
+    public void setEndNumOfBedRooms(String endNumOfBedRooms) {
         this.endNumOfBedRooms = endNumOfBedRooms;
     }
 
-    public int getStartSurfaceArea() {
+    public String getStartSurfaceArea() {
         return startSurfaceArea;
     }
 
-    public void setStartSurfaceArea(int startSurfaceArea) {
+    public void setStartSurfaceArea(String startSurfaceArea) {
         this.startSurfaceArea = startSurfaceArea;
     }
 
-    public int getEndSurfaceArea() {
+    public String getEndSurfaceArea() {
         return endSurfaceArea;
     }
 
-    public void setEndSurfaceArea(int endSurfaceArea) {
+    public void setEndSurfaceArea(String endSurfaceArea) {
         this.endSurfaceArea = endSurfaceArea;
     }
 
@@ -107,12 +111,12 @@ public class FilterParams implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(startNumOfRooms);
-        dest.writeInt(endNumOfRooms);
-        dest.writeInt(startNumOfBedRooms);
-        dest.writeInt(endNumOfBedRooms);
-        dest.writeInt(startSurfaceArea);
-        dest.writeInt(endSurfaceArea);
+        dest.writeString(startNumOfRooms);
+        dest.writeString(endNumOfRooms);
+        dest.writeString(startNumOfBedRooms);
+        dest.writeString(endNumOfBedRooms);
+        dest.writeString(startSurfaceArea);
+        dest.writeString(endSurfaceArea);
         dest.writeByte((byte) (sold ? 1 : 0));
         dest.writeByte((byte) (available ? 1 : 0));
     }
