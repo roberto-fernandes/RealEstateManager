@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter.*;
+import static com.openclassrooms.realestatemanager.utils.Utils.Status.AVAILABLE;
 
 public class UpdateAndAddActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -225,6 +226,7 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
             Toast.makeText(this, "You must add at least one point of interest"
                     , Toast.LENGTH_SHORT).show();
         } else {
+            realEstate.setStatus(AVAILABLE);
             realEstate.setPrice(price.getText().toString());
             realEstate.setNumberOfBedrooms(numOfBedrooms.getText().toString());
             realEstate.setType(type.getText().toString());

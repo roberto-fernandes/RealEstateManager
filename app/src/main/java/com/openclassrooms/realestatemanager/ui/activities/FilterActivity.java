@@ -72,22 +72,22 @@ public class FilterActivity extends AppCompatActivity {
         filterParams.setAvailable(available.isChecked());
         filterParams.setSold(sold.isChecked());
         if (!startNumOfRooms.getText().toString().isEmpty()) {
-            filterParams.setStartNumOfRooms(startNumOfRooms.getText().toString());
+            filterParams.setMinNumOfRooms(startNumOfRooms.getText().toString());
         }
         if (!endNumOfRooms.getText().toString().isEmpty()) {
-            filterParams.setEndNumOfRooms(endNumOfRooms.getText().toString());
+            filterParams.setMaxNumOfRooms(endNumOfRooms.getText().toString());
         }
         if (!startNumOfBedRooms.getText().toString().isEmpty()) {
-            filterParams.setStartNumOfBedRooms(startNumOfBedRooms.getText().toString());
+            filterParams.setMinNumOfBedRooms(startNumOfBedRooms.getText().toString());
         }
         if (!endNumOfBedRooms.getText().toString().isEmpty()) {
-            filterParams.setEndNumOfBedRooms(endNumOfBedRooms.getText().toString());
+            filterParams.setMaxNumOfBedRooms(endNumOfBedRooms.getText().toString());
         }
         if (!startSurfaceArea.getText().toString().isEmpty()) {
-            filterParams.setStartSurfaceArea(startSurfaceArea.getText().toString());
+            filterParams.setMinSurfaceArea(startSurfaceArea.getText().toString());
         }
         if (!endSurfaceArea.getText().toString().isEmpty()) {
-            filterParams.setEndSurfaceArea(endSurfaceArea.getText().toString());
+            filterParams.setMaxSurfaceArea(endSurfaceArea.getText().toString());
         }
     }
 }

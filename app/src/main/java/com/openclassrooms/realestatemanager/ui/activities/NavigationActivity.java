@@ -338,9 +338,7 @@ public class NavigationActivity extends AppCompatActivity {
     private LiveData<List<RealEstate>> getFilteredList() {
         LiveData<List<RealEstate>> listLiveData;
         FilterParams filterParams = extras.getParcelable(FILTERED_PARAMS_KEY);
-        String startSurfaceArea = String.valueOf(filterParams.getStartSurfaceArea());
-        String endSurfaceArea = String.valueOf(filterParams.getEndSurfaceArea());
-        listLiveData = repository.filterList(startSurfaceArea, endSurfaceArea);
+        listLiveData = repository.filterList(filterParams);
         return listLiveData;
     }
 

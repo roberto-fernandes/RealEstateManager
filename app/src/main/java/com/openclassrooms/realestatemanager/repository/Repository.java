@@ -8,9 +8,13 @@ import com.openclassrooms.realestatemanager.async.AsyncDBInsert;
 import com.openclassrooms.realestatemanager.async.AsyncDBUpdate;
 import com.openclassrooms.realestatemanager.db.RealEstateDao;
 import com.openclassrooms.realestatemanager.db.RoomDB;
+import com.openclassrooms.realestatemanager.model.FilterParams;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 
 import java.util.List;
+
+import static com.openclassrooms.realestatemanager.utils.Utils.Status.AVAILABLE;
+import static com.openclassrooms.realestatemanager.utils.Utils.Status.SOLD;
 
 public class Repository {
    private RealEstateDao dao;
@@ -35,11 +39,24 @@ public class Repository {
         return dao.getAllListings();
     }
 
-    public LiveData<List<RealEstate>> getAllListingsByStatus (String status) {
-        return dao.getListingByStatus(status);
-    }
-
-    public LiveData<List<RealEstate>> filterList (String minSurface, String maxSurface) {
-        return dao.getFilteredListing(minSurface, maxSurface);
+    public LiveData<List<RealEstate>> filterList (FilterParams filterParamse) {
+        String soldTerm = "";
+        String availableTerm = "";
+        if (filterParamse.isSold()) {
+            soldTerm = SOLD;
+        }
+        if (filterParamse.isAvailable()) {
+            availableTerm = AVAILABLE;
+        }
+        return dao.getFilteredListing(
+            //    filterParamse.getMinSurfaceArea(),
+            //    filterParamse.getMaxSurfaceArea()
+           //     ,filterParamse.getMinNumOfRooms()
+            //    ,filterParamse.getMaxNumOfRooms()
+          //      , filterParamse.getMinNumOfBedRooms()
+         //       ,filterParamse.getMaxNumOfBedRooms() ,
+         //        soldTerm
+         //       , availableTerm
+        );
     }
 }

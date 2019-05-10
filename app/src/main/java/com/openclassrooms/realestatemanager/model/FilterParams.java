@@ -4,12 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class FilterParams implements Parcelable {
-    private String startNumOfRooms = String.valueOf(Integer.MIN_VALUE);
-    private String endNumOfRooms = String.valueOf(Integer.MAX_VALUE);
-    private String startNumOfBedRooms = String.valueOf(Integer.MIN_VALUE);
-    private String endNumOfBedRooms = String.valueOf(Integer.MAX_VALUE);
-    private String startSurfaceArea = String.valueOf(Integer.MIN_VALUE);
-    private String endSurfaceArea = String.valueOf(Integer.MAX_VALUE);
+    private String minNumOfRooms = String.valueOf(Integer.MIN_VALUE);
+    private String maxNumOfRooms = String.valueOf(Integer.MAX_VALUE);
+    private String minNumOfBedRooms = String.valueOf(Integer.MIN_VALUE);
+    private String maxNumOfBedRooms = String.valueOf(Integer.MAX_VALUE);
+    private String minSurfaceArea = String.valueOf(Integer.MIN_VALUE);
+    private String maxSurfaceArea = String.valueOf(Integer.MAX_VALUE);
     private boolean sold;
     private boolean available;
 
@@ -18,12 +18,12 @@ public class FilterParams implements Parcelable {
 
 
     protected FilterParams(Parcel in) {
-        startNumOfRooms = in.readString();
-        endNumOfRooms = in.readString();
-        startNumOfBedRooms = in.readString();
-        endNumOfBedRooms = in.readString();
-        startSurfaceArea = in.readString();
-        endSurfaceArea = in.readString();
+        minNumOfRooms = in.readString();
+        maxNumOfRooms = in.readString();
+        minNumOfBedRooms = in.readString();
+        maxNumOfBedRooms = in.readString();
+        minSurfaceArea = in.readString();
+        maxSurfaceArea = in.readString();
         sold = in.readByte() != 0;
         available = in.readByte() != 0;
     }
@@ -40,52 +40,52 @@ public class FilterParams implements Parcelable {
         }
     };
 
-    public String getStartNumOfRooms() {
-        return startNumOfRooms;
+    public String getMinNumOfRooms() {
+        return minNumOfRooms;
     }
 
-    public void setStartNumOfRooms(String startNumOfRooms) {
-        this.startNumOfRooms = startNumOfRooms;
+    public void setMinNumOfRooms(String minNumOfRooms) {
+        this.minNumOfRooms = minNumOfRooms;
     }
 
-    public String getEndNumOfRooms() {
-        return endNumOfRooms;
+    public String getMaxNumOfRooms() {
+        return maxNumOfRooms;
     }
 
-    public void setEndNumOfRooms(String endNumOfRooms) {
-        this.endNumOfRooms = endNumOfRooms;
+    public void setMaxNumOfRooms(String maxNumOfRooms) {
+        this.maxNumOfRooms = maxNumOfRooms;
     }
 
-    public String getStartNumOfBedRooms() {
-        return startNumOfBedRooms;
+    public String getMinNumOfBedRooms() {
+        return minNumOfBedRooms;
     }
 
-    public void setStartNumOfBedRooms(String startNumOfBedRooms) {
-        this.startNumOfBedRooms = startNumOfBedRooms;
+    public void setMinNumOfBedRooms(String minNumOfBedRooms) {
+        this.minNumOfBedRooms = minNumOfBedRooms;
     }
 
-    public String getEndNumOfBedRooms() {
-        return endNumOfBedRooms;
+    public String getMaxNumOfBedRooms() {
+        return maxNumOfBedRooms;
     }
 
-    public void setEndNumOfBedRooms(String endNumOfBedRooms) {
-        this.endNumOfBedRooms = endNumOfBedRooms;
+    public void setMaxNumOfBedRooms(String maxNumOfBedRooms) {
+        this.maxNumOfBedRooms = maxNumOfBedRooms;
     }
 
-    public String getStartSurfaceArea() {
-        return startSurfaceArea;
+    public String getMinSurfaceArea() {
+        return minSurfaceArea;
     }
 
-    public void setStartSurfaceArea(String startSurfaceArea) {
-        this.startSurfaceArea = startSurfaceArea;
+    public void setMinSurfaceArea(String minSurfaceArea) {
+        this.minSurfaceArea = minSurfaceArea;
     }
 
-    public String getEndSurfaceArea() {
-        return endSurfaceArea;
+    public String getMaxSurfaceArea() {
+        return maxSurfaceArea;
     }
 
-    public void setEndSurfaceArea(String endSurfaceArea) {
-        this.endSurfaceArea = endSurfaceArea;
+    public void setMaxSurfaceArea(String maxSurfaceArea) {
+        this.maxSurfaceArea = maxSurfaceArea;
     }
 
     public boolean isSold() {
@@ -111,12 +111,12 @@ public class FilterParams implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(startNumOfRooms);
-        dest.writeString(endNumOfRooms);
-        dest.writeString(startNumOfBedRooms);
-        dest.writeString(endNumOfBedRooms);
-        dest.writeString(startSurfaceArea);
-        dest.writeString(endSurfaceArea);
+        dest.writeString(minNumOfRooms);
+        dest.writeString(maxNumOfRooms);
+        dest.writeString(minNumOfBedRooms);
+        dest.writeString(maxNumOfBedRooms);
+        dest.writeString(minSurfaceArea);
+        dest.writeString(maxSurfaceArea);
         dest.writeByte((byte) (sold ? 1 : 0));
         dest.writeByte((byte) (available ? 1 : 0));
     }
