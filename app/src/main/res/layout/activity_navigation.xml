@@ -38,6 +38,25 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/navigation_activity_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/navigation_activity_short_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/navigation_activity_scroll_items_margin"
+                    android:orientation="vertical">
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/media"
@@ -53,7 +72,6 @@
                     </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,10 +93,78 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_margin="@dimen/navigation_activity_scroll_items_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Status"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/navigation_activity_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Added date"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/navigation_activity_added_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/navigation_activity_sold_date_container"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sold date"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/navigation_activity_sold_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="Not sold yet" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="@dimen/navigation_activity_scroll_items_margin">
+                    android:layout_margin="@dimen/navigation_activity_scroll_items_margin"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -90,34 +176,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/surface"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/navigation_activity_surface"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/navigation_activity_topics_margin"/>
+                            android:layout_marginBottom="@dimen/navigation_activity_topics_margin" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/number_of_rooms"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/navigation_activity_num_of_rooms"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/navigation_activity_topics_margin"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/number_of_bedrooms"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/navigation_activity_num_of_bedrooms"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/navigation_activity_topics_margin"/>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -128,43 +196,93 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Location"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/navigation_activity_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/points_of_interest"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/points_of_interest_recycler_view"
                             android:layout_width="match_parent"
-                            android:layout_height="150dp" />
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/navigation_activity_scroll_items_margin">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number_of_rooms"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/navigation_activity_num_of_rooms"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/navigation_activity_topics_margin" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number_of_bedrooms"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/navigation_activity_num_of_bedrooms"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/navigation_activity_topics_margin" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:text="@string/map"
-                    android:textStyle="bold"
-                    android:layout_marginStart="10dp"/>
+                    android:textStyle="bold" />
+
                 <ImageView
                     android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
                     android:layout_gravity="top"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_marginEnd="10dp" />
             </LinearLayout>
         </ScrollView>
 
@@ -184,11 +302,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/navigation_activity_toolbar"
-            android:text="@string/no_entries"
+            android:background="@color/white"
             android:gravity="center"
+            android:text="@string/no_entries"
             android:textSize="40sp"
-            android:visibility="gone"
-            android:background="@color/white"/>
+            android:visibility="gone" />
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView

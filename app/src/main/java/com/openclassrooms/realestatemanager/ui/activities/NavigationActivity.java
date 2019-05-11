@@ -59,6 +59,11 @@ public class NavigationActivity extends AppCompatActivity {
     private TextView surface;
     private TextView numOfRooms;
     private TextView numOfBedrooms;
+    private TextView type;
+    private TextView shortDescription;
+    private TextView status;
+    private TextView addedDate;
+    private TextView soldDate;
     private RecyclerView mediaRecyclerView;
     private TextView location;
     private int realEstateIndex;
@@ -210,6 +215,11 @@ public class NavigationActivity extends AppCompatActivity {
         numOfBedrooms = findViewById(R.id.navigation_activity_num_of_bedrooms);
         location = findViewById(R.id.navigation_activity_location);
         mediaRecyclerView = findViewById(R.id.activity_navigation_media_recycler_view);
+        type = findViewById(R.id.navigation_activity_type);
+        shortDescription = findViewById(R.id.navigation_activity_short_description);
+        status = findViewById(R.id.navigation_activity_status);
+        addedDate = findViewById(R.id.navigation_activity_added_date);
+        soldDate = findViewById(R.id.navigation_activity_sold_date);
     }
 
     @Override
@@ -371,7 +381,6 @@ public class NavigationActivity extends AppCompatActivity {
         recyclerView.setAdapter(verticalListAdapter);
     }
 
-
     private void displayRealEstateInformation() {
         if (listings.size() > 0) {
             RealEstate realEstate = listings.get(realEstateIndex);
@@ -381,8 +390,16 @@ public class NavigationActivity extends AppCompatActivity {
             numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
             numOfBedrooms.setText(String.valueOf(realEstate.getNumbOfBedRooms()));
             location.setText(realEstate.getAddress());
+            type.setText(realEstate.getType());
             setMediaRecyclerView(realEstate);
             setMap(realEstate);
+            shortDescription.setText(realEstate.getDescription());
+            status.setText(realEstate.getStatus());
+            addedDate.setText(String.valueOf(realEstate.getDatePutInMarket()));
+            long soldDateLong =realEstate.getSaleData();
+            if (soldDateLong>0) {
+                soldDate.setText(String.valueOf(soldDateLong));
+            }
 
             noEntries.setVisibility(View.GONE);
         } else {
@@ -406,34 +423,6 @@ public class NavigationActivity extends AppCompatActivity {
         });
 
         mediaRecyclerView.setAdapter(mediaDisplayAdapter);
-    }
-
-    private void generateFakeList() {
-        for (int i = 0; i < 51; i++) {
-            RealEstate realEstate = new RealEstate();
-            realEstate.setDescription("House near the river From DB");
-            realEstate.setType("Flat");
-            List<String> photos = new ArrayList<>();
-            photos.add("https://pmcvariety.files.wordpress.com/2018/07/" +
-                    "bradybunchhouse_sc11.jpg?w=1000&h=563&crop=1");
-            realEstate.setPhotos(photos);
-            realEstate.setAddress("some address");
-            realEstate.setAgentID("21");
-            realEstate.setDatePutInMarket(2311456L);
-            realEstate.setNumberOfRooms(5);
-            List<String> pointsOfInterest = new ArrayList<>();
-            pointsOfInterest.add("1 point of interest");
-            pointsOfInterest.add("2 point of interest");
-            realEstate.setPointsOfInterest(pointsOfInterest);
-            realEstate.setDatePutInMarket(321456L);
-            realEstate.setLongDescription(i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim " +
-                    "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." +
-                    " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla" +
-                    " pariatur. Excepteur sint occaecat " +
-                    "cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-            repository.insertListing(realEstate);
-        }
     }
 
     @Override
