@@ -175,6 +175,10 @@ public class NavigationActivity extends AppCompatActivity {
                                         , NavigationActivity.class);
                                 intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.ALL);
                                 break;
+                            case R.id.menu_drawer_map:
+                                intent = new Intent(NavigationActivity.this
+                                        , MapActivity.class);
+                                break;
                             case R.id.menu_drawer_filter:
                                 intent = new Intent(NavigationActivity.this
                                         , FilterActivity.class);

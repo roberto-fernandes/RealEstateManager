@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
+import java.text.NumberFormat;
+
 public class LoanSimulationActivity extends AppCompatActivity {
 
     private SeekBar amountSeekBar;
@@ -88,7 +90,7 @@ public class LoanSimulationActivity extends AppCompatActivity {
     }
 
     private void updateValues() {
-        amountTextView.setText(String.valueOf(amount));
+        amountTextView.setText(NumberFormat.getInstance().format(amount));
         timeTextView.setText(String.valueOf(months));
 
         interestRate = getInterestRate();

@@ -28,7 +28,7 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        String text = "- " + stringList.get(i);
+        String text = stringList.get(i);
         viewHolder.pointOfInterestTextView.setText(text);
     }
 
