@@ -17,7 +17,7 @@ import static com.openclassrooms.realestatemanager.utils.Utils.Status.AVAILABLE;
 import static com.openclassrooms.realestatemanager.utils.Utils.Status.SOLD;
 
 public class Repository {
-   private RealEstateDao dao;
+    private RealEstateDao dao;
 
     public Repository(Context context) {
         dao = RoomDB.getInstance(context).getDao();
@@ -39,7 +39,7 @@ public class Repository {
         return dao.getAllListings();
     }
 
-    public LiveData<List<RealEstate>> filterList (FilterParams filterParamse) {
+    public LiveData<List<RealEstate>> filterList(FilterParams filterParamse) {
         String soldTerm = "";
         String availableTerm = "";
         if (filterParamse.isSold()) {
@@ -49,14 +49,14 @@ public class Repository {
             availableTerm = AVAILABLE;
         }
         return dao.getFilteredListing(
-               filterParamse.getMinSurfaceArea(),
-               filterParamse.getMaxSurfaceArea()
-               ,filterParamse.getMinNumOfRooms()
-                ,filterParamse.getMaxNumOfRooms()
-         //      , filterParamse.getMinNumOfBedRooms()
-          //     ,filterParamse.getMaxNumOfBedRooms()
-             ,    soldTerm
-               , availableTerm
+                filterParamse.getMinSurfaceArea(),
+                filterParamse.getMaxSurfaceArea()
+                , filterParamse.getMinNumOfRooms()
+                , filterParamse.getMaxNumOfRooms()
+                , filterParamse.getMinNumOfBedRooms()
+                , filterParamse.getMaxNumOfBedRooms()
+                , soldTerm
+                , availableTerm
         );
     }
 }

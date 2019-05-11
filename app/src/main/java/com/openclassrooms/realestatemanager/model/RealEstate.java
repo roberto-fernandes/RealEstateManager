@@ -19,7 +19,7 @@ public class RealEstate implements Parcelable {
 
     private String type;
     @ColumnInfo(name = "priceInDollars")
-    private int depreciatedVal;
+    private int numbOfBedRooms;
     private int surfaceArea;
     private int numberOfRooms;
     private String description;
@@ -32,10 +32,42 @@ public class RealEstate implements Parcelable {
     private long saleData;
     private String agentID;
     private String price;
-    private String numberOfBedrooms;
+    @ColumnInfo(name = "numberOfBedrooms")
+    private String depreciatedVal2;
 
     public RealEstate() {
     }
+
+    protected RealEstate(Parcel in) {
+        id = in.readInt();
+        type = in.readString();
+        numbOfBedRooms = in.readInt();
+        surfaceArea = in.readInt();
+        numberOfRooms = in.readInt();
+        description = in.readString();
+        longDescription = in.readString();
+        photos = in.createStringArrayList();
+        address = in.readString();
+        pointsOfInterest = in.createStringArrayList();
+        status = in.readString();
+        datePutInMarket = in.readLong();
+        saleData = in.readLong();
+        agentID = in.readString();
+        price = in.readString();
+        depreciatedVal2 = in.readString();
+    }
+
+    public static final Creator<RealEstate> CREATOR = new Creator<RealEstate>() {
+        @Override
+        public RealEstate createFromParcel(Parcel in) {
+            return new RealEstate(in);
+        }
+
+        @Override
+        public RealEstate[] newArray(int size) {
+            return new RealEstate[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -53,12 +85,12 @@ public class RealEstate implements Parcelable {
         this.type = type;
     }
 
-    public int getDepreciatedVal() {
-        return depreciatedVal;
+    public int getNumbOfBedRooms() {
+        return numbOfBedRooms;
     }
 
-    public void setDepreciatedVal(int priceInDollars) {
-        this.depreciatedVal = priceInDollars;
+    public void setNumbOfBedRooms(int numbOfBedRooms) {
+        this.numbOfBedRooms = numbOfBedRooms;
     }
 
     public int getSurfaceArea() {
@@ -157,44 +189,14 @@ public class RealEstate implements Parcelable {
         this.price = price;
     }
 
-    public String getNumberOfBedrooms() {
-        return numberOfBedrooms;
+    public String getDepreciatedVal2() {
+        return depreciatedVal2;
     }
 
-    public void setNumberOfBedrooms(String numberOfBedrooms) {
-        this.numberOfBedrooms = numberOfBedrooms;
+    public void setDepreciatedVal2(String depreciatedVal2) {
+        this.depreciatedVal2 = depreciatedVal2;
     }
 
-    protected RealEstate(Parcel in) {
-        id = in.readInt();
-        type = in.readString();
-        depreciatedVal = in.readInt();
-        surfaceArea = in.readInt();
-        numberOfRooms = in.readInt();
-        description = in.readString();
-        longDescription = in.readString();
-        photos = in.createStringArrayList();
-        address = in.readString();
-        pointsOfInterest = in.createStringArrayList();
-        status = in.readString();
-        datePutInMarket = in.readLong();
-        saleData = in.readLong();
-        agentID = in.readString();
-        price = in.readString();
-        numberOfBedrooms = in.readString();
-    }
-
-    public static final Creator<RealEstate> CREATOR = new Creator<RealEstate>() {
-        @Override
-        public RealEstate createFromParcel(Parcel in) {
-            return new RealEstate(in);
-        }
-
-        @Override
-        public RealEstate[] newArray(int size) {
-            return new RealEstate[size];
-        }
-    };
 
     @Override
     public int describeContents() {
@@ -205,7 +207,7 @@ public class RealEstate implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(type);
-        dest.writeInt(depreciatedVal);
+        dest.writeInt(numbOfBedRooms);
         dest.writeInt(surfaceArea);
         dest.writeInt(numberOfRooms);
         dest.writeString(description);
@@ -218,6 +220,6 @@ public class RealEstate implements Parcelable {
         dest.writeLong(saleData);
         dest.writeString(agentID);
         dest.writeString(price);
-        dest.writeString(numberOfBedrooms);
+        dest.writeString(depreciatedVal2);
     }
 }

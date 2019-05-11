@@ -40,6 +40,7 @@ public abstract class RoomDB extends RoomDatabase {
         }
     };
 
+
     public static RoomDB getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(

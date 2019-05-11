@@ -20,7 +20,6 @@ import com.openclassrooms.realestatemanager.repository.Repository;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter.*;
@@ -228,12 +227,14 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         } else {
             realEstate.setStatus(AVAILABLE);
             realEstate.setPrice(price.getText().toString());
-            realEstate.setNumberOfBedrooms(numOfBedrooms.getText().toString());
+            realEstate.setDepreciatedVal2(numOfBedrooms.getText().toString());
             realEstate.setType(type.getText().toString());
             realEstate.setDescription(shortDescription.getText().toString());
             realEstate.setLongDescription(longDescription.getText().toString());
             int surfaceInt = Integer.valueOf(surface.getText().toString());
             int numOfRoomsInt = Integer.valueOf(numOfRooms.getText().toString());
+            int numOfBedroomsInt = Integer.valueOf(numOfBedrooms.getText().toString());
+            realEstate.setNumbOfBedRooms(numOfBedroomsInt);
             realEstate.setSurfaceArea(surfaceInt);
             realEstate.setNumberOfRooms(numOfRoomsInt);
             realEstate.setAddress(location.getText().toString());
