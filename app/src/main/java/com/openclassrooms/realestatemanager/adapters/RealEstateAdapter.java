@@ -43,6 +43,7 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
         holder.description.setText(realEstate.getDescription());
         holder.price.setText("$" + realEstate.getPrice());
         holder.type.setText(realEstate.getType());
+        holder.status.setText(realEstate.getStatus());
         Picasso.get().load(realEstate.getPhotos().get(0)).into(holder.imageView);
 
         if (selectedPosition == position) {
@@ -75,6 +76,7 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
         private TextView description;
         private TextView price;
         private CardView cardView;
+        private TextView status;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -84,6 +86,7 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
             description = itemView.findViewById(R.id.listining_item_description);
             price = itemView.findViewById(R.id.listining_item_price);
             cardView = itemView.findViewById(R.id.listining_item_card_view);
+            status = itemView.findViewById(R.id.listining_item_status);
         }
     }
 

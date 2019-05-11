@@ -32,17 +32,17 @@ public interface RealEstateDao {
     @Query("SELECT * FROM realEstateListings WHERE status = :status")
     LiveData<List<RealEstate>> getListingByStatus(String status);
 
-    @Query("SELECT * FROM realEstateListings" )
-   // @Query("SELECT * FROM realEstateListings WHERE " )
-         //   "surfaceArea BETWEEN :minSurface AND :maxSurface " +
-         //   "AND numberOfRooms BETWEEN :minNumOfRooms AND :maxNumOfRooms " +
-        //    "AND numberOfBedrooms BETWEEN :minNumOfBedrooms AND :maxNumOfBedrooms "+
+    @Query("SELECT * FROM realEstateListings WHERE surfaceArea BETWEEN :minSurface  AND :maxSurface" +
+            " AND numberOfRooms BETWEEN  :minNumOfRooms AND :maxNumOfRooms "
+        //  +  "AND numberOfBedrooms BETWEEN 0 AND 456789 "
+            +  "AND (status LIKE :sold OR status LIKE :available)"
+    )
        //     "AND status = :sold OR :available")
     LiveData<List<RealEstate>> getFilteredListing(
-          //  String minSurface, String maxSurface
-          //  , String minNumOfRooms, String maxNumOfRooms
-         //   , String minNumOfBedrooms, String maxNumOfBedrooms,
-            //   String sold, String available
+            String minSurface, String maxSurface
+            , String minNumOfRooms, String maxNumOfRooms
+        //    , String minNumOfBedrooms, String maxNumOfBedrooms
+             , String sold, String available
     );
 
 }

@@ -54,6 +54,13 @@
                     android:textColor="@android:color/holo_red_light"
                     android:text="$120,0000" />
 
+                <TextView
+                    android:id="@+id/listining_item_status"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sold" />
+
             </LinearLayout>
 
 

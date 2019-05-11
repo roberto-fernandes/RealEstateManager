@@ -19,7 +19,7 @@ public class RealEstate implements Parcelable {
 
     private String type;
     @ColumnInfo(name = "priceInDollars")
-    private int _;
+    private int depreciatedVal;
     private int surfaceArea;
     private int numberOfRooms;
     private String description;
@@ -53,12 +53,12 @@ public class RealEstate implements Parcelable {
         this.type = type;
     }
 
-    public int get_() {
-        return _;
+    public int getDepreciatedVal() {
+        return depreciatedVal;
     }
 
-    public void set_(int priceInDollars) {
-        this._ = priceInDollars;
+    public void setDepreciatedVal(int priceInDollars) {
+        this.depreciatedVal = priceInDollars;
     }
 
     public int getSurfaceArea() {
@@ -168,7 +168,7 @@ public class RealEstate implements Parcelable {
     protected RealEstate(Parcel in) {
         id = in.readInt();
         type = in.readString();
-        _ = in.readInt();
+        depreciatedVal = in.readInt();
         surfaceArea = in.readInt();
         numberOfRooms = in.readInt();
         description = in.readString();
@@ -205,7 +205,7 @@ public class RealEstate implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(type);
-        dest.writeInt(_);
+        dest.writeInt(depreciatedVal);
         dest.writeInt(surfaceArea);
         dest.writeInt(numberOfRooms);
         dest.writeString(description);

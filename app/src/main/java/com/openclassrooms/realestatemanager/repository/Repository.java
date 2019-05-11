@@ -49,14 +49,14 @@ public class Repository {
             availableTerm = AVAILABLE;
         }
         return dao.getFilteredListing(
-            //    filterParamse.getMinSurfaceArea(),
-            //    filterParamse.getMaxSurfaceArea()
-           //     ,filterParamse.getMinNumOfRooms()
-            //    ,filterParamse.getMaxNumOfRooms()
-          //      , filterParamse.getMinNumOfBedRooms()
-         //       ,filterParamse.getMaxNumOfBedRooms() ,
-         //        soldTerm
-         //       , availableTerm
+               filterParamse.getMinSurfaceArea(),
+               filterParamse.getMaxSurfaceArea()
+               ,filterParamse.getMinNumOfRooms()
+                ,filterParamse.getMaxNumOfRooms()
+         //      , filterParamse.getMinNumOfBedRooms()
+          //     ,filterParamse.getMaxNumOfBedRooms()
+             ,    soldTerm
+               , availableTerm
         );
     }
 }
