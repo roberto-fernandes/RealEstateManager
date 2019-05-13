@@ -32,16 +32,16 @@ import com.openclassrooms.realestatemanager.adapters.VerticalListAdapter;
 import com.openclassrooms.realestatemanager.model.FilterParams;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
+import com.openclassrooms.realestatemanager.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.BUNDLE_EXTRA;
-import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.FILTERED_PARAMS_KEY;
-import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY;
-import static com.openclassrooms.realestatemanager.utils.Utils.TypesList;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_EXTRA;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.FILTERED_PARAMS_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.REAL_ESTATE_OBJECT_KEY;
 import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
 
 public class NavigationActivity extends AppCompatActivity {
@@ -85,9 +85,9 @@ public class NavigationActivity extends AppCompatActivity {
 
         extras = getIntent().getBundleExtra(BUNDLE_EXTRA);
         if (extras != null) {
-            listType = extras.getInt(TypesList.TYPE_LIST_KEY, TypesList.ALL);
+            listType = extras.getInt(Constants.TypesList.TYPE_LIST_KEY, Constants.TypesList.ALL);
         } else {
-            listType = TypesList.ALL;
+            listType = Constants.TypesList.ALL;
         }
 
         setViews();
@@ -174,7 +174,7 @@ public class NavigationActivity extends AppCompatActivity {
                             case R.id.menu_drawer_all:
                                 intent = new Intent(NavigationActivity.this
                                         , NavigationActivity.class);
-                                intent.putExtra(TypesList.TYPE_LIST_KEY, TypesList.ALL);
+                                intent.putExtra(Constants.TypesList.TYPE_LIST_KEY, Constants.TypesList.ALL);
                                 break;
                             case R.id.menu_drawer_map:
                                 intent = new Intent(NavigationActivity.this
@@ -322,12 +322,12 @@ public class NavigationActivity extends AppCompatActivity {
     private void addDataObservers() {
         LiveData<List<RealEstate>> listLiveData = null;
         switch (listType) {
-            case TypesList.ALL:
+            case Constants.TypesList.ALL:
                 Toast.makeText(getApplicationContext(), "All"
                         , Toast.LENGTH_SHORT).show();
                 listLiveData = repository.getAllListings();
                 break;
-            case TypesList.FILTERED:
+            case Constants.TypesList.FILTERED:
                 Toast.makeText(getApplicationContext(), "Filtered"
                         , Toast.LENGTH_SHORT).show();
                 listLiveData = getFilteredList();

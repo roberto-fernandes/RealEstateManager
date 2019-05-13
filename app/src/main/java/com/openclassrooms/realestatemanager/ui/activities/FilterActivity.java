@@ -12,10 +12,10 @@ import android.widget.EditText;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.model.FilterParams;
 
-import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.BUNDLE_EXTRA;
-import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.FILTERED_PARAMS_KEY;
-import static com.openclassrooms.realestatemanager.utils.Utils.TypesList.FILTERED;
-import static com.openclassrooms.realestatemanager.utils.Utils.TypesList.TYPE_LIST_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_EXTRA;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.FILTERED_PARAMS_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.TypesList.FILTERED;
+import static com.openclassrooms.realestatemanager.utils.Constants.TypesList.TYPE_LIST_KEY;
 
 public class FilterActivity extends AppCompatActivity {
 

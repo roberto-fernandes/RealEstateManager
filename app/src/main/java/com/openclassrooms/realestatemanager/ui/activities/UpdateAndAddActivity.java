@@ -1,19 +1,15 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -27,7 +23,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.openclassrooms.realestatemanager.R;
@@ -36,19 +31,17 @@ import com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
 import com.openclassrooms.realestatemanager.ui.fragments.DatePickerFragment;
-import com.openclassrooms.realestatemanager.utils.Utils;
+import com.openclassrooms.realestatemanager.utils.Constants;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 import java.util.UUID;
 
-import static com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter.*;
-import static com.openclassrooms.realestatemanager.utils.Utils.Status.AVAILABLE;
-import static com.openclassrooms.realestatemanager.utils.Utils.Status.SOLD;
+import static com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter.DeleteItemListener;
+import static com.openclassrooms.realestatemanager.utils.Constants.Status.AVAILABLE;
+import static com.openclassrooms.realestatemanager.utils.Constants.Status.SOLD;
 import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
-import static com.openclassrooms.realestatemanager.utils.Utils.isInternetAvailable;
 
 public class UpdateAndAddActivity extends AppCompatActivity
         implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
@@ -94,7 +87,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
         storageReference = storage.getReference();
 
         setToolbar();
-        realEstate = getIntent().getParcelableExtra(Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY);
+        realEstate = getIntent().getParcelableExtra(Constants.BundleKeys.REAL_ESTATE_OBJECT_KEY);
         repository = new Repository(UpdateAndAddActivity.this);
         setViews();
         setParams();

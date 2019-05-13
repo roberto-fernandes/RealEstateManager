@@ -13,8 +13,8 @@ import com.openclassrooms.realestatemanager.model.RealEstate;
 
 import java.util.List;
 
-import static com.openclassrooms.realestatemanager.utils.Utils.Status.AVAILABLE;
-import static com.openclassrooms.realestatemanager.utils.Utils.Status.SOLD;
+import static com.openclassrooms.realestatemanager.utils.Constants.Status.AVAILABLE;
+import static com.openclassrooms.realestatemanager.utils.Constants.Status.SOLD;
 
 public class Repository {
     private RealEstateDao dao;

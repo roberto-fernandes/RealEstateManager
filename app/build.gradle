@@ -48,6 +48,13 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+
+    //Google Play Services for Maps
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+
+    // Google play services for location information
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+
     def room_version = "1.1.1"
 
     implementation "android.arch.persistence.room:runtime:$room_version"
