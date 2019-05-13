@@ -47,7 +47,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GeoPoint mUserPosition;
     private LatLngBounds mMapBoundary;
     private FusedLocationProviderClient mFusedLocationClient;
-    private static final double MAP_SCOPE = 0.25D;
+    private static final double MAP_SCOPE = 0.07D;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void setCameraView() {
+
         // Set a boundary to start
         double bottomBoundary = mUserPosition.getLatitude() - MAP_SCOPE;
         double leftBoundary = mUserPosition.getLongitude() - MAP_SCOPE;
@@ -276,6 +277,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         map.setMyLocationEnabled(true);
         mGoogleMap = map;
     }
+
 
 
     @Override
