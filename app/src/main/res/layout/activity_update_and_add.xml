@@ -20,9 +20,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/update_and_add_toolbar">
 
-
         <LinearLayout
-            android:descendantFocusability="blocksDescendants"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"

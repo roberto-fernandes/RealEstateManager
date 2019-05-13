@@ -42,6 +42,7 @@ import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.BUNDLE
 import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.FILTERED_PARAMS_KEY;
 import static com.openclassrooms.realestatemanager.utils.Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY;
 import static com.openclassrooms.realestatemanager.utils.Utils.TypesList;
+import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -399,10 +400,10 @@ public class NavigationActivity extends AppCompatActivity {
             setMap(realEstate);
             shortDescription.setText(realEstate.getDescription());
             status.setText(realEstate.getStatus());
-            addedDate.setText(String.valueOf(realEstate.getDatePutInMarket()));
+            addedDate.setText(formatDate(realEstate.getDatePutInMarket()));
             long soldDateLong =realEstate.getSaleData();
             if (soldDateLong>0) {
-                soldDate.setText(String.valueOf(soldDateLong));
+                soldDate.setText(formatDate(soldDateLong));
             }
 
             noEntries.setVisibility(View.GONE);
