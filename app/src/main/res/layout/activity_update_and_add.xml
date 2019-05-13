@@ -68,6 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/activity_update_and_add_media_add_icon"
+                    android:hint="Url"
                     android:inputType="textUri" />
 
                 <ImageView
@@ -79,6 +80,12 @@
                     android:src="@drawable/ic_add_black_24dp" />
 
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/activity_update_and_add_picture_from_storage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose a picture from storage"/>
 
             <TextView
                 android:layout_width="match_parent"

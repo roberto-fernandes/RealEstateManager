@@ -1,13 +1,19 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -18,6 +24,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.adapters.MediaDisplayAdapter;
 import com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter;
@@ -26,9 +38,11 @@ import com.openclassrooms.realestatemanager.repository.Repository;
 import com.openclassrooms.realestatemanager.ui.fragments.DatePickerFragment;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.UUID;
 
 import static com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter.*;
 import static com.openclassrooms.realestatemanager.utils.Utils.Status.AVAILABLE;
@@ -38,6 +52,8 @@ import static com.openclassrooms.realestatemanager.utils.Utils.isInternetAvailab
 
 public class UpdateAndAddActivity extends AppCompatActivity
         implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     private RealEstate realEstate;
     private EditText shortDescription;
@@ -64,11 +80,18 @@ public class UpdateAndAddActivity extends AppCompatActivity
     private boolean updating;
     private RadioButton soldRadio;
     private RadioButton availableRadio;
+    private Button selectPicFromInternalStorageBtn;
+    private Uri filePath;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_and_add);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         setToolbar();
         realEstate = getIntent().getParcelableExtra(Utils.BundleKeys.REAL_ESTATE_OBJECT_KEY);
@@ -127,10 +150,13 @@ public class UpdateAndAddActivity extends AppCompatActivity
         availableRadio = findViewById(R.id.activity_update_and_add_available_radio);
         soldDateTextView = findViewById(R.id.activity_update_and_add_sold_date);
         dateContainer = findViewById(R.id.activity_update_and_add_sold_date_container);
+        selectPicFromInternalStorageBtn = findViewById(R.id
+                .activity_update_and_add_picture_from_storage);
 
         mediaAdd.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
         pointsOfIntAdd.setOnClickListener(this);
+        selectPicFromInternalStorageBtn.setOnClickListener(this);
     }
 
     private void setParams() {
@@ -206,6 +232,26 @@ public class UpdateAndAddActivity extends AppCompatActivity
             case R.id.activity_update_and_add_points_of_interest_add_icon:
                 addPointsOfInterest();
                 break;
+            case R.id.activity_update_and_add_picture_from_storage:
+                chooseImage();
+                break;
+        }
+    }
+
+    private void chooseImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            filePath = data.getData();
+            uploadImage();
         }
     }
 
@@ -222,10 +268,32 @@ public class UpdateAndAddActivity extends AppCompatActivity
         }
     }
 
+    private void uploadImage() {
+        if (filePath != null) {
+            StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+            ref.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getApplicationContext(), "Uploaded"
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Failed " + e.getMessage()
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        }
+    }
+
     private void addPointsOfInterest() {
         String pointOfInterest = pointsOfInterestEditText.getText().toString();
         if (pointOfInterest.isEmpty()) {
-            Toast.makeText(this, "You must add a point of intensest"
+            Toast.makeText(this, "You must add a point of interest"
                     , Toast.LENGTH_SHORT).show();
         } else {
             realEstate.getPointsOfInterest().add(pointOfInterest);
