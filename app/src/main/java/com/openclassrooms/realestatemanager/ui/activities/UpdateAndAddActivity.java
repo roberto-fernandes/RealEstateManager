@@ -224,7 +224,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_update_and_add_media_add_icon:
-                addMedia();
+                addMedia(media.getText().toString());
                 break;
             case R.id.activity_update_and_add_submit_btn:
                 submitRealEstate();
@@ -255,8 +255,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
         }
     }
 
-    private void addMedia() {
-        String url = media.getText().toString();
+    private void addMedia(String url) {
         if (url.isEmpty()) {
             Toast.makeText(this, "You must add an url", Toast.LENGTH_SHORT).show();
         } else {
@@ -270,13 +269,17 @@ public class UpdateAndAddActivity extends AppCompatActivity
 
     private void uploadImage() {
         if (filePath != null) {
-            StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+            final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getApplicationContext(), "Uploaded"
-                                    , Toast.LENGTH_SHORT).show();
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    addMedia(uri.toString());
+                                }
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
