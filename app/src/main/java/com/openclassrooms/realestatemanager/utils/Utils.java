@@ -6,6 +6,7 @@ import android.net.wifi.WifiManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -52,6 +53,20 @@ public class Utils {
     @SuppressLint("DefaultLocale")
     public static String formatDoubleToString(Double value) {
         return String.format("%,.2f", value);
+    }
+
+    public static Calendar unixToCalendar(long unixTime){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(unixTime);
+        return calendar;
+    }
+
+    public static String formatDate(long unixTime) {
+        return formatDate(unixToCalendar(unixTime));
+    }
+
+    public static String formatDate(Calendar calendar) {
+        return DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
     }
 
     public interface TypesList {

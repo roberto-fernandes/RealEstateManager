@@ -1,6 +1,8 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,8 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.openclassrooms.realestatemanager.R;
@@ -17,15 +24,20 @@ import com.openclassrooms.realestatemanager.adapters.MediaDisplayAdapter;
 import com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
+import com.openclassrooms.realestatemanager.ui.fragments.DatePickerFragment;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 import static com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter.*;
 import static com.openclassrooms.realestatemanager.utils.Utils.Status.AVAILABLE;
+import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
 
-public class UpdateAndAddActivity extends AppCompatActivity implements View.OnClickListener {
+public class UpdateAndAddActivity extends AppCompatActivity
+        implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     private RealEstate realEstate;
     private EditText shortDescription;
@@ -46,7 +58,11 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
     private RecyclerView pointsOfInterestRecyclerView;
     private EditText pointsOfInterestEditText;
     private Repository repository;
+    private View dateContainer;
+    private TextView soldDate;
     private boolean updating;
+    private RadioButton soldRadio;
+    private RadioButton availableRadio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +74,30 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         repository = new Repository(UpdateAndAddActivity.this);
         setViews();
         setParams();
+        setClickListneres();
         setDebugData();
+    }
+
+    private void setClickListneres() {
+        soldRadio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    dateContainer.setVisibility(View.VISIBLE);
+                    soldDate.setText(formatDate(System.currentTimeMillis()));
+                } else {
+                    dateContainer.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        soldDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
     }
 
     private void setToolbar() {
@@ -95,6 +134,10 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
         pointsOfInterestEditText = findViewById(R.id.activity_update_and_add_v_edit_text);
         price = findViewById(R.id.activity_update_and_add_price);
         numOfBedrooms = findViewById(R.id.activity_update_and_add_num_of_bedrooms);
+        soldRadio = findViewById(R.id.activity_update_and_add_sold_radio);
+        availableRadio = findViewById(R.id.activity_update_and_add_available_radio);
+        soldDate = findViewById(R.id.activity_update_and_add_sold_date);
+        dateContainer = findViewById(R.id.activity_update_and_add_sold_date_container);
 
         mediaAdd.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
@@ -252,5 +295,16 @@ public class UpdateAndAddActivity extends AppCompatActivity implements View.OnCl
                 , NavigationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = formatDate(c);
+
+        soldDate.setText(currentDateString);
     }
 }

@@ -22,6 +22,7 @@
 
 
         <LinearLayout
+            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -216,6 +217,59 @@
                     android:src="@drawable/ic_add_black_24dp" />
 
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/update_add_margin_left_titles"
+                android:layout_marginTop="@dimen/update_add_margin_top_titles"
+                android:text="Status"
+                android:textStyle="bold" />
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/activity_update_and_add_available_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/update_add_margin_left_titles"
+                    android:checked="true"
+                    android:text="Available" />
+
+                <RadioButton
+                    android:id="@+id/activity_update_and_add_sold_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/update_add_margin_left_titles"
+                    android:text="Sold" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/activity_update_and_add_sold_date_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/update_add_margin_left_titles"
+                    android:layout_marginTop="@dimen/update_add_margin_top_titles"
+                    android:text="Sold date"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/activity_update_and_add_sold_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/update_add_margin_left_titles"
+                    android:layout_marginTop="@dimen/update_add_margin_top_titles"
+                    android:text="01/01/2018" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/activity_update_and_add_submit_btn"
