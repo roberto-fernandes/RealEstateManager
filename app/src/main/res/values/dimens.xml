@@ -9,4 +9,6 @@
     <dimen name="update_add_margin_top_titles">10dp</dimen>
     <dimen name="activity_loan_simulation_items_margin">10dp</dimen>
     <dimen name="filter_margint_top_tiems">10dp</dimen>
+    <dimen name="custom_marker_image">50dp</dimen>
+    <dimen name="custom_marker_padding">2dp</dimen>
 </resources>

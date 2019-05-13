@@ -55,6 +55,9 @@ dependencies {
     // Google play services for location information
     implementation 'com.google.android.gms:play-services-location:15.0.1'
 
+    // Maps utils (required for custom markers)
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
+
     def room_version = "1.1.1"
 
     implementation "android.arch.persistence.room:runtime:$room_version"

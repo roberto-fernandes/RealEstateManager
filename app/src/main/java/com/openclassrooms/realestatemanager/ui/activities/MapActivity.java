@@ -2,14 +2,18 @@ package com.openclassrooms.realestatemanager.ui.activities;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -31,7 +35,16 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.maps.android.clustering.ClusterManager;
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.model.ClusterMarker;
+import com.openclassrooms.realestatemanager.model.RealEstate;
+import com.openclassrooms.realestatemanager.repository.Repository;
+import com.openclassrooms.realestatemanager.utils.ClusterManagerRenderer;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.ERROR_DIALOG_REQUEST;
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.MAPVIEW_BUNDLE_KEY;
@@ -48,6 +61,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LatLngBounds mMapBoundary;
     private FusedLocationProviderClient mFusedLocationClient;
     private static final double MAP_SCOPE = 0.07D;
+    private ClusterManager<ClusterMarker> mClusterManager;
+    private ClusterManagerRenderer mClusterManagerRenderer;
+    private ArrayList<ClusterMarker> mClusterMarkers = new ArrayList<>();
+    private Repository repository;
+    private LiveData<List<RealEstate>> allListings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +73,74 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
 
         setToolbar();
+        repository = new Repository(getBaseContext());
+        allListings = repository.getAllListings();
+        allListings.observe(this, new Observer<List<RealEstate>>() {
+            @Override
+            public void onChanged(@Nullable List<RealEstate> realEstates) {
+                addMapMarkers();
+            }
+        });
         mLocationPermissionGranted = checkMapServices();
         mMapView = findViewById(R.id.activity_map_map_view);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastKnownLocation();
         initGoogleMap(savedInstanceState);
     }
+
+    private void addMapMarkers(){
+
+        if(mGoogleMap != null){
+
+            if(mClusterManager == null){
+                mClusterManager = new ClusterManager<>(getApplicationContext(), mGoogleMap);
+            }
+            if(mClusterManagerRenderer == null){
+                mClusterManagerRenderer = new ClusterManagerRenderer(
+                        this,
+                        mGoogleMap,
+                        mClusterManager
+                );
+                mClusterManager.setRenderer(mClusterManagerRenderer);
+            }
+
+            for(RealEstate realEstate: allListings.getValue()){
+                try{
+                    Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
+                  //  List<Address> fromLocationName = geoCoder.getFromLocationName(realEstate.getAddress(), 1);
+                    int avatar = R.drawable.internet_access_error; // set the default avatar
+                    try{
+                        avatar = Integer.parseInt(realEstate.getPhotos().get(0));
+                    }catch (NumberFormatException e){
+                    }
+                    ClusterMarker newClusterMarker = new ClusterMarker(
+                            new LatLng(
+                              //      fromLocationName.get(0).getLatitude(),
+                              //      fromLocationName.get(0).getLongitude()
+                                    38.697770,
+                                    -9.209432
+                                    ),
+
+                            realEstate.getType(),
+                            realEstate.getDescription(),
+                            avatar
+                    );
+                    mClusterManager.addItem(newClusterMarker);
+                    mClusterMarkers.add(newClusterMarker);
+
+                }catch (NullPointerException e){
+                    Log.e(TAG, "addMapMarkers: NullPointerException: " + e.getMessage() );
+                } /*catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+
+            }
+            mClusterManager.cluster();
+
+           // setCameraView();
+        }
+    }
+
 
     private void getLastKnownLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -73,7 +153,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     Location location = task.getResult();
                     GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
                     mUserPosition = geoPoint;
-                    setCameraView();
+                    if (mUserPosition!=null) {
+                        setCameraView();
+                    }
                 }
             }
         });
@@ -119,9 +201,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
     private void initGoogleMap(Bundle savedInstanceState) {
-        // *** IMPORTANT ***
-        // MapView requires that the Bundle you pass contain _ONLY_ MapView SDK
-        // objects or sub-Bundles.
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
