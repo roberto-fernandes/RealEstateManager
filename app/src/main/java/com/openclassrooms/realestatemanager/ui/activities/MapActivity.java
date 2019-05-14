@@ -79,6 +79,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         if (isInternetAvailable(MapActivity.this)) {
             initMap(savedInstanceState);
+        } else {
+            Toast.makeText(getBaseContext(), "No wifi internet connection",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -160,17 +163,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     Location location = task.getResult();
                     GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
                     mUserPosition = geoPoint;
-                    if (mUserPosition != null) {
+                    Log.d(TAG, "aaaaaaaaaavd setCameraView: getLastKnownLocation()");
+                    if (mGoogleMap != null) {
                         setCameraView();
                     }
                 }
             }
         });
-
     }
 
     private void setCameraView() {
-
         // Set a boundary to start
         double bottomBoundary = mUserPosition.getLatitude() - MAP_SCOPE;
         double leftBoundary = mUserPosition.getLongitude() - MAP_SCOPE;
@@ -181,7 +183,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 new LatLng(bottomBoundary, leftBoundary),
                 new LatLng(topBoundary, rightBoundary)
         );
-
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(mMapBoundary, 0));
     }
 
@@ -330,19 +331,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onResume() {
         super.onResume();
-        mMapView.onResume();
+        if (mMapView != null)
+            mMapView.onResume();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mMapView.onStart();
+        if (mMapView != null)
+            mMapView.onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mMapView.onStop();
+        if (mMapView != null)
+            mMapView.onStop();
     }
 
     @Override
@@ -351,36 +355,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         map.setMyLocationEnabled(true);
         mGoogleMap = map;
+        if (mUserPosition != null) {
+            setCameraView();
+        }
     }
 
 
     @Override
     public void onPause() {
-        mMapView.onPause();
+        if (mMapView != null)
+            mMapView.onPause();
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        mMapView.onDestroy();
+        if (mMapView != null)
+            mMapView.onDestroy();
         super.onDestroy();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mMapView.onLowMemory();
+        if (mMapView != null)
+            mMapView.onLowMemory();
     }
 }
 
