@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
@@ -41,6 +42,7 @@ import com.openclassrooms.realestatemanager.model.ClusterMarker;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
 import com.openclassrooms.realestatemanager.utils.ClusterManagerRenderer;
+import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,7 @@ import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.ERR
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.MAPVIEW_BUNDLE_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.PERMISSIONS_REQUEST_ENABLE_GPS;
+import static com.openclassrooms.realestatemanager.utils.Utils.isInternetAvailable;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -73,6 +76,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
 
         setToolbar();
+
+        if (isInternetAvailable(MapActivity.this)) {
+            initMap(savedInstanceState);
+        }
+    }
+
+    private void initMap(Bundle savedInstanceState) {
         repository = new Repository(getBaseContext());
         allListings = repository.getAllListings();
         allListings.observe(this, new Observer<List<RealEstate>>() {
@@ -88,14 +98,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         initGoogleMap(savedInstanceState);
     }
 
-    private void addMapMarkers(){
+    private void addMapMarkers() {
 
-        if(mGoogleMap != null){
+        if (mGoogleMap != null) {
 
-            if(mClusterManager == null){
+            if (mClusterManager == null) {
                 mClusterManager = new ClusterManager<>(getApplicationContext(), mGoogleMap);
             }
-            if(mClusterManagerRenderer == null){
+            if (mClusterManagerRenderer == null) {
                 mClusterManagerRenderer = new ClusterManagerRenderer(
                         this,
                         mGoogleMap,
@@ -104,22 +114,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mClusterManager.setRenderer(mClusterManagerRenderer);
             }
 
-            for(RealEstate realEstate: allListings.getValue()){
-                try{
+            for (RealEstate realEstate : allListings.getValue()) {
+                try {
                     Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
-                  //  List<Address> fromLocationName = geoCoder.getFromLocationName(realEstate.getAddress(), 1);
-                    int avatar = R.drawable.internet_access_error; // set the default avatar
-                    try{
-                        avatar = Integer.parseInt(realEstate.getPhotos().get(0));
-                    }catch (NumberFormatException e){
+                    //  List<Address> fromLocationName = geoCoder.getFromLocationName(realEstate.getAddress(), 1);
+                    Bitmap avatar = null;
+                    //     avatar  = getResources().getDrawable(R.drawable.internet_access_error);// set the default avatar
+                    try {
+                        avatar = Utils.bitmapFromUrl(realEstate.getPhotos().get(0));
+                    } catch (NumberFormatException e) {
                     }
                     ClusterMarker newClusterMarker = new ClusterMarker(
                             new LatLng(
-                              //      fromLocationName.get(0).getLatitude(),
-                              //      fromLocationName.get(0).getLongitude()
+                                    //      fromLocationName.get(0).getLatitude(),
+                                    //      fromLocationName.get(0).getLongitude()
                                     38.697770,
                                     -9.209432
-                                    ),
+                            ),
 
                             realEstate.getType(),
                             realEstate.getDescription(),
@@ -128,8 +139,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     mClusterManager.addItem(newClusterMarker);
                     mClusterMarkers.add(newClusterMarker);
 
-                }catch (NullPointerException e){
-                    Log.e(TAG, "addMapMarkers: NullPointerException: " + e.getMessage() );
+                } catch (NullPointerException e) {
+                    Log.e(TAG, "addMapMarkers: NullPointerException: " + e.getMessage());
                 } /*catch (IOException e) {
                     e.printStackTrace();
                 }*/
@@ -137,7 +148,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
             mClusterManager.cluster();
 
-           // setCameraView();
+            // setCameraView();
         }
     }
 
@@ -153,7 +164,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     Location location = task.getResult();
                     GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
                     mUserPosition = geoPoint;
-                    if (mUserPosition!=null) {
+                    if (mUserPosition != null) {
                         setCameraView();
                     }
                 }
@@ -356,7 +367,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         map.setMyLocationEnabled(true);
         mGoogleMap = map;
     }
-
 
 
     @Override

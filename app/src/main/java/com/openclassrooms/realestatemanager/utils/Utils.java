@@ -4,13 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.wifi.WifiManager;
+import android.os.StrictMode;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -63,7 +60,7 @@ public class Utils {
         return String.format("%,.2f", value);
     }
 
-    public static Calendar unixToCalendar(long unixTime){
+    public static Calendar unixToCalendar(long unixTime) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(unixTime);
         return calendar;
@@ -77,14 +74,22 @@ public class Utils {
         return DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
     }
 
-    public static Drawable drawableFromUrl(String url) throws IOException {
-        Bitmap x;
-
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.connect();
-        InputStream input = connection.getInputStream();
-
-        x = BitmapFactory.decodeStream(input);
-        return new BitmapDrawable(x);
+    public static Bitmap bitmapFromUrl(String urlString) {
+        allowNetworkCallsOnMainThread();
+        Bitmap image = null;
+        try {
+            URL url = new URL(urlString);
+            image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return image;
     }
+
+    public static void allowNetworkCallsOnMainThread() {
+        StrictMode.ThreadPolicy threadPolicy;
+        threadPolicy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+    }
+
 }

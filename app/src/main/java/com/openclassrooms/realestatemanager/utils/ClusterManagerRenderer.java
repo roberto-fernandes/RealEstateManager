@@ -37,13 +37,16 @@ public class ClusterManagerRenderer extends DefaultClusterRenderer<ClusterMarker
         int padding = (int) context.getResources().getDimension(R.dimen.custom_marker_padding);
         imageView.setPadding(padding, padding, padding, padding);
         iconGenerator.setContentView(imageView);
-
     }
 
     @Override
     protected void onBeforeClusterItemRendered(ClusterMarker item, MarkerOptions markerOptions) {
+        if (item.getIconPicture()!=null) {
+            imageView.setImageBitmap(item.getIconPicture());
+        } else {
+            imageView.setImageResource(R.drawable.internet_access_error);
+        }
 
-        imageView.setImageResource(item.getIconPicture());
         Bitmap icon = iconGenerator.makeIcon();
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(item.getTitle());
     }
