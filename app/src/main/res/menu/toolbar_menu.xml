@@ -26,4 +26,10 @@
         android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_toolbar_change_currency"
+        android:icon="@drawable/ic_euro_symbol_black_24dp"
+        android:title="@string/change_currency"
+        app:showAsAction="ifRoom"/>
 </menu>

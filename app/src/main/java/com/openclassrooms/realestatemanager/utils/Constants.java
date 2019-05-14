@@ -18,10 +18,20 @@ public class Constants {
         String AVAILABLE = "AVAILABLE";
     }
 
+    public interface Currencies {
+        String EURO = "EURO";
+        String DOLLAR = "DOLLAR";
+    }
+
     public interface MapsCodes {
         int ERROR_DIALOG_REQUEST = 9001;
         int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 9002;
         int PERMISSIONS_REQUEST_ENABLE_GPS = 9003;
         String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
+    }
+
+    public interface PrefesKeys {
+        String PREFS_KEY = "SHARED_PREFERENCES_KEY";
+        String CURRENCY_KEY = "CURRENCY_KEY";
     }
 }

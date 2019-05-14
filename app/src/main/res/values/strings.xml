@@ -37,4 +37,5 @@
     <string name="price">Price in dollars</string>
     <string name="email_not_found">It was not found a user with that email</string>
     <string name="no_possible_to_acess_hint">Error it was not possible to retrieve password hint</string>
+    <string name="change_currency">Change_currency</string>
 </resources>

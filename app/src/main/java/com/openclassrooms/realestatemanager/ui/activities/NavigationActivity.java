@@ -33,6 +33,7 @@ import com.openclassrooms.realestatemanager.model.FilterParams;
 import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
 import com.openclassrooms.realestatemanager.utils.Constants;
+import com.openclassrooms.realestatemanager.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ import java.util.Objects;
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_EXTRA;
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.FILTERED_PARAMS_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.REAL_ESTATE_OBJECT_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.DOLLAR;
+import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.EURO;
 import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
 
 public class NavigationActivity extends AppCompatActivity {
@@ -71,7 +74,8 @@ public class NavigationActivity extends AppCompatActivity {
     private ImageView map;
     private Bundle extras;
     private MediaDisplayAdapter mediaDisplayAdapter;
-
+    private String currency;
+    private MenuItem currencyItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,8 @@ public class NavigationActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         repository = new Repository(NavigationActivity.this);
         realEstateIndex = 0;
+
+        currency = Utils.getCurrency(NavigationActivity.this);
 
         extras = getIntent().getBundleExtra(BUNDLE_EXTRA);
         if (extras != null) {
@@ -92,10 +98,19 @@ public class NavigationActivity extends AppCompatActivity {
         setViews();
         setListingRecyclerView();
         addDataObservers();
-        setSupportActionBar(toolbar);
+        setToolbar();
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         configureDrawer();
         // generateFakeList();
+    }
+
+    private void setToolbar() {
+        if (currency.equals(EURO)) {
+            currencyItem.setIcon(getResources().getDrawable(R.drawable.ic_euro_symbol_black_24dp));
+        } else if (currency.equals(DOLLAR)) {
+            currencyItem.setIcon(getResources().getDrawable(R.drawable.ic_attach_money_black_24dp));
+        }
+        setSupportActionBar(toolbar);
     }
 
     private void setMap(RealEstate realEstate) {
@@ -210,6 +225,7 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void setViews() {
+        currencyItem = findViewById(R.id.menu_toolbar_change_currency);
         toolbar = findViewById(R.id.navigation_activity_toolbar);
         itemDescription = findViewById(R.id.navigation_activity_description);
         map = findViewById(R.id.map);
@@ -322,13 +338,9 @@ public class NavigationActivity extends AppCompatActivity {
         LiveData<List<RealEstate>> listLiveData = null;
         switch (listType) {
             case Constants.TypesList.ALL:
-                Toast.makeText(getApplicationContext(), "All"
-                        , Toast.LENGTH_SHORT).show();
                 listLiveData = repository.getAllListings();
                 break;
             case Constants.TypesList.FILTERED:
-                Toast.makeText(getApplicationContext(), "Filtered"
-                        , Toast.LENGTH_SHORT).show();
                 listLiveData = getFilteredList();
                 break;
         }

@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -15,8 +16,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+
+import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.EURO;
+import static com.openclassrooms.realestatemanager.utils.Constants.PrefesKeys.CURRENCY_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.PrefesKeys.PREFS_KEY;
 
 /**
  * Created by Philippe on 21/02/2018.
@@ -42,8 +46,8 @@ public class Utils {
      * @return
      */
     public static String getTodayDate() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        return dateFormat.format(new Date());
+        Calendar calendar = Calendar.getInstance();
+        return formatDate(calendar);
     }
 
     /**
@@ -75,7 +79,8 @@ public class Utils {
     }
 
     public static String formatDate(Calendar calendar) {
-        return DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(calendar.getTime());
     }
 
     public static void bitmapsFromUrl(
@@ -130,4 +135,23 @@ public class Utils {
         void onFailure(Exception e);
     }
 
+    private static SharedPreferences getSharedPreference(Context context) {
+        return context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
+    }
+
+    public static void storeCurrency(Context context, String value) {
+        storeDataFromPrefs(context, value, CURRENCY_KEY);
+    }
+
+    public static String getCurrency(Context context) {
+       return getDataFromPrefs(context, EURO, CURRENCY_KEY);
+    }
+
+    private static void storeDataFromPrefs(Context context, String value, String key) {
+        getSharedPreference(context).edit().putString(key, value).apply();
+    }
+
+    private static String getDataFromPrefs(Context context, String DefaultValue, String key) {
+        return getSharedPreference(context).getString(key, DefaultValue);
+    }
 }

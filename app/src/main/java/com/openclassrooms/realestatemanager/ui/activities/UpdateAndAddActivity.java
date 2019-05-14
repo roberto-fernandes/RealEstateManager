@@ -42,6 +42,7 @@ import static com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdap
 import static com.openclassrooms.realestatemanager.utils.Constants.Status.AVAILABLE;
 import static com.openclassrooms.realestatemanager.utils.Constants.Status.SOLD;
 import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
+import static com.openclassrooms.realestatemanager.utils.Utils.getTodayDate;
 
 public class UpdateAndAddActivity extends AppCompatActivity
         implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
@@ -95,7 +96,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     dateContainer.setVisibility(View.VISIBLE);
-                    soldDateTextView.setText(formatDate(System.currentTimeMillis()));
+                    soldDateTextView.setText(getTodayDate());
                 } else {
                     dateContainer.setVisibility(View.GONE);
                 }
