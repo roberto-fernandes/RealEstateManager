@@ -123,13 +123,13 @@ public class LogInActivity extends AppCompatActivity {
                         Toast.makeText(LogInActivity.this, "Hint: " +
                                 hint, Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(LogInActivity.this, "No such document"
+                        Toast.makeText(LogInActivity.this,
+                                getString(R.string.email_not_found)
                                 , Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(LogInActivity.this, "else"
-                            , Toast.LENGTH_SHORT).show();
-                }
+                } else Toast.makeText(LogInActivity.this,
+                        getString(R.string.no_possible_to_acess_hint)
+                        , Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -66,9 +66,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final double MAP_SCOPE = 0.07D;
     private ClusterManager<ClusterMarker> mClusterManager;
     private ClusterManagerRenderer mClusterManagerRenderer;
+    private List<Bitmap> bitmapList;
+    private LiveData<List<RealEstate>> allListings;
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private ArrayList<ClusterMarker> mClusterMarkers = new ArrayList<>();
-    private LiveData<List<RealEstate>> allListings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         allListings.observe(this, new Observer<List<RealEstate>>() {
             @Override
             public void onChanged(@Nullable List<RealEstate> realEstates) {
-                addMapMarkers();
+                List<String> photosUrls = new ArrayList<>();
+
+                for (RealEstate realEstate: realEstates) {
+                    photosUrls.add(realEstate.getPhotos().get(0));
+                }
+
+                Utils.bitmapsFromUrl(photosUrls, new Utils.OnReceivingBitmapFromUrl() {
+                    @Override
+                    public void onSucess(List<Bitmap> bitmaps) {
+                        bitmapList = bitmaps;
+                        addMapMarkers();
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+
+                    }
+                }, MapActivity.this);
             }
         });
         mLocationPermissionGranted = checkMapServices();
@@ -117,12 +135,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mClusterManager.setRenderer(mClusterManagerRenderer);
             }
 
-            for (RealEstate realEstate : Objects.requireNonNull(allListings.getValue())) {
+            for (int i =0; i< allListings.getValue().size(); i++)
+            {
                 try {
+                    RealEstate realEstate = allListings.getValue().get(i);
                     Address address = getAddressClassFromString(realEstate.getAddress(), getBaseContext());
                     Bitmap avatar = null;
                     try {
-                        avatar = Utils.bitmapFromUrl(realEstate.getPhotos().get(0));
+                        avatar = bitmapList.get(i);
                     } catch (NumberFormatException ignored) {
                     }
                     ClusterMarker newClusterMarker = new ClusterMarker(

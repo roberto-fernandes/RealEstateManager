@@ -1,13 +1,13 @@
 package com.openclassrooms.realestatemanager.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.wifi.WifiManager;
-import android.os.StrictMode;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Philippe on 21/02/2018.
@@ -77,22 +78,38 @@ public class Utils {
         return DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
     }
 
-    public static Bitmap bitmapFromUrl(String urlString) {
-        allowNetworkCallsOnMainThread();
-        Bitmap image = null;
-        try {
-            URL url = new URL(urlString);
-            image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-        return image;
-    }
+    public static void bitmapsFromUrl(
+            final List<String> urlList,
+            final OnReceivingBitmapFromUrl onReceivingBitmapFromUrl,
+            final Activity activity
+    ) {
 
-    public static void allowNetworkCallsOnMainThread() {
-        StrictMode.ThreadPolicy threadPolicy;
-        threadPolicy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
-        StrictMode.setThreadPolicy(threadPolicy);
+        Thread getBitmapsThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap image;
+                final List<Bitmap> bitmaps = new ArrayList<>();
+                try {
+                    for (String urlString : urlList) {
+                        URL url = new URL(urlString);
+                        image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                        bitmaps.add(image);
+                    }
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            onReceivingBitmapFromUrl.onSucess(bitmaps);
+                        }
+                    });
+                } catch (final IOException e) {
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            onReceivingBitmapFromUrl.onFailure(e);
+                        }
+                    });
+                }
+            }
+        });
+        getBitmapsThread.start();
     }
 
     public static Address getAddressClassFromString(String adressString, Context context) {
@@ -105,6 +122,12 @@ public class Utils {
             e.printStackTrace();
         }
         return address;
+    }
+
+    public interface OnReceivingBitmapFromUrl {
+        void onSucess(List<Bitmap> bitmaps);
+
+        void onFailure(Exception e);
     }
 
 }

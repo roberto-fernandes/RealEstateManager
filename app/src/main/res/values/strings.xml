@@ -35,4 +35,6 @@
     <string name="no_entries">No Entries</string>
     <string name="get_filtered_list">Get filtered list</string>
     <string name="price">Price in dollars</string>
+    <string name="email_not_found">It was not found a user with that email</string>
+    <string name="no_possible_to_acess_hint">Error it was not possible to retrieve password hint</string>
 </resources>
