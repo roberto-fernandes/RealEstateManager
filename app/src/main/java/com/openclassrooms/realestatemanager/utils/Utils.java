@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.wifi.WifiManager;
 import android.os.StrictMode;
 
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -90,6 +93,18 @@ public class Utils {
         StrictMode.ThreadPolicy threadPolicy;
         threadPolicy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
         StrictMode.setThreadPolicy(threadPolicy);
+    }
+
+    public static Address getAddressClassFromString(String adressString, Context context) {
+        Geocoder coder = new Geocoder(context);
+        Address address = null;
+        try {
+            ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(adressString, 1);
+            address = adresses.get(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return address;
     }
 
 }

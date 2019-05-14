@@ -9,7 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.location.Geocoder;
+import android.location.Address;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -46,12 +46,12 @@ import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.ERROR_DIALOG_REQUEST;
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.MAPVIEW_BUNDLE_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.PERMISSIONS_REQUEST_ENABLE_GPS;
+import static com.openclassrooms.realestatemanager.utils.Utils.getAddressClassFromString;
 import static com.openclassrooms.realestatemanager.utils.Utils.isInternetAvailable;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -116,20 +116,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             for (RealEstate realEstate : allListings.getValue()) {
                 try {
-                    Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
-                    //  List<Address> fromLocationName = geoCoder.getFromLocationName(realEstate.getAddress(), 1);
+                    Address address = getAddressClassFromString(realEstate.getAddress(), getBaseContext());
                     Bitmap avatar = null;
-                    //     avatar  = getResources().getDrawable(R.drawable.internet_access_error);// set the default avatar
                     try {
                         avatar = Utils.bitmapFromUrl(realEstate.getPhotos().get(0));
                     } catch (NumberFormatException e) {
                     }
                     ClusterMarker newClusterMarker = new ClusterMarker(
                             new LatLng(
-                                    //      fromLocationName.get(0).getLatitude(),
-                                    //      fromLocationName.get(0).getLongitude()
-                                    38.697770,
-                                    -9.209432
+                                    address.getLatitude(),
+                                    address.getLongitude()
                             ),
 
                             realEstate.getType(),
