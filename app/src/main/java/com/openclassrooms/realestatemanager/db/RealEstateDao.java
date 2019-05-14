@@ -11,6 +11,7 @@ import com.openclassrooms.realestatemanager.model.RealEstate;
 
 import java.util.List;
 
+@SuppressWarnings("UnusedReturnValue")
 @Dao
 public interface RealEstateDao {
 

@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.openclassrooms.realestatemanager.R;
 
@@ -58,12 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String passwordString = password.getText().toString();
                 String passwordHintString = passwordHint.getText().toString();
 
-                if (emailString == null
-                        || emailString.isEmpty()
-                        || passwordString == null
-                        || passwordString.isEmpty()
-                        || passwordHintString == null
-                        || passwordHintString.isEmpty()
+                if (emailString.isEmpty() || passwordString.isEmpty() ||
+                        passwordHintString.isEmpty()
                 ) {
                     displayToast("All fields must be answer, please try again");
                 } else {

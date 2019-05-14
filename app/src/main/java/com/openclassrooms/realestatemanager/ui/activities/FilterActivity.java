@@ -12,6 +12,8 @@ import android.widget.EditText;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.model.FilterParams;
 
+import java.util.Objects;
+
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_EXTRA;
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.FILTERED_PARAMS_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.TypesList.FILTERED;
@@ -36,14 +38,14 @@ public class FilterActivity extends AppCompatActivity {
     private void setToolbar() {
         Toolbar toolbar = findViewById(R.id.filter_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     private void setViews() {
         filterBtn = findViewById(R.id.filter_btn);
     }
 
-    private void setListeners(){
+    private void setListeners() {
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

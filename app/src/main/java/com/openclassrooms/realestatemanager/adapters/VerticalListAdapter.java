@@ -40,10 +40,10 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
         return stringList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private TextView pointOfInterestTextView;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             pointOfInterestTextView = itemView.findViewById(R.id.points_of_interest_text_view);

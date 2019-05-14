@@ -40,11 +40,11 @@ public class PointsOfInterestAdapter extends RecyclerView.Adapter<PointsOfIntere
         return pointsOfInterest.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
         private ImageView deleteIcon;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.points_of_interest_text_view);
             deleteIcon = itemView.findViewById(R.id.points_of_interest_item_delete_icon);
@@ -64,6 +64,6 @@ public class PointsOfInterestAdapter extends RecyclerView.Adapter<PointsOfIntere
     }
 
     public interface DeleteItemListener {
-        void onDeleteIconPress (int position);
+        void onDeleteIconPress(int position);
     }
 }

@@ -58,11 +58,8 @@ public class UpdateAndAddActivity extends AppCompatActivity
     private EditText surface;
     private EditText price;
     private EditText numOfBedrooms;
-    private ImageView mediaAdd;
-    private ImageView pointsOfIntAdd;
     private RecyclerView mediaRecyclerView;
     private MediaDisplayAdapter mediaDisplayAdapter;
-    private Button submitBtn;
     private PointsOfInterestAdapter pointsOfInterestAdapter;
     private RecyclerView pointsOfInterestRecyclerView;
     private EditText pointsOfInterestEditText;
@@ -73,9 +70,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
     private boolean updating;
     private RadioButton soldRadio;
     private RadioButton availableRadio;
-    private Button selectPicFromInternalStorageBtn;
     private Uri filePath;
-    private FirebaseStorage storage;
     private StorageReference storageReference;
 
     @Override
@@ -83,7 +78,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_and_add);
 
-        storage = FirebaseStorage.getInstance();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
         setToolbar();
@@ -119,21 +114,21 @@ public class UpdateAndAddActivity extends AppCompatActivity
     private void setToolbar() {
         Toolbar toolbar = findViewById(R.id.update_and_add_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     private void setViews() {
-        pointsOfIntAdd = findViewById(R.id.activity_update_and_add_points_of_interest_add_icon);
+        ImageView pointsOfIntAdd = findViewById(R.id.activity_update_and_add_points_of_interest_add_icon);
         shortDescription = findViewById(R.id.activity_update_and_add_short_description_edit_text);
         longDescription = findViewById(R.id.activity_update_and_add_long_description_edit_text);
-        mediaAdd = findViewById(R.id.activity_update_and_add_media_add_icon);
+        ImageView mediaAdd = findViewById(R.id.activity_update_and_add_media_add_icon);
         mediaRecyclerView = findViewById(R.id.activity_update_and_add_media_recycler_view);
         media = findViewById(R.id.activity_update_and_add_media_edit_text);
         type = findViewById(R.id.activity_update_and_add_type_edit_text);
         numOfRooms = findViewById(R.id.activity_update_and_add_num_of_rooms_edit_text);
         surface = findViewById(R.id.activity_update_and_add_surface_edit_text);
         location = findViewById(R.id.activity_update_and_add_location);
-        submitBtn = findViewById(R.id.activity_update_and_add_submit_btn);
+        Button submitBtn = findViewById(R.id.activity_update_and_add_submit_btn);
         pointsOfInterestRecyclerView
                 = findViewById(R.id.activity_update_and_add_points_of_interest_recycler_view);
         pointsOfInterestEditText = findViewById(R.id.activity_update_and_add_v_edit_text);
@@ -143,7 +138,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
         availableRadio = findViewById(R.id.activity_update_and_add_available_radio);
         soldDateTextView = findViewById(R.id.activity_update_and_add_sold_date);
         dateContainer = findViewById(R.id.activity_update_and_add_sold_date_container);
-        selectPicFromInternalStorageBtn = findViewById(R.id
+        Button selectPicFromInternalStorageBtn = findViewById(R.id
                 .activity_update_and_add_picture_from_storage);
 
         mediaAdd.setOnClickListener(this);

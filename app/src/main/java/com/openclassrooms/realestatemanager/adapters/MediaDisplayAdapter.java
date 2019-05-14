@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MediaDisplayAdapter  extends RecyclerView.Adapter<MediaDisplayAdapter.ViewHolder> {
+public class MediaDisplayAdapter extends RecyclerView.Adapter<MediaDisplayAdapter.ViewHolder> {
 
     private List<String> mediaList;
     private boolean displayRemoveIcon;
@@ -62,12 +62,12 @@ public class MediaDisplayAdapter  extends RecyclerView.Adapter<MediaDisplayAdapt
         return mediaList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private ImageView deleteIcon;
         private TextView urlTextView;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.media_display_item_image_view);
@@ -85,7 +85,7 @@ public class MediaDisplayAdapter  extends RecyclerView.Adapter<MediaDisplayAdapt
         }
     }
 
-    public void setOnDeleteIconListener (ItemDeleteListener itemDeleteListener) {
+    public void setOnDeleteIconListener(ItemDeleteListener itemDeleteListener) {
         this.itemDeleteListener = itemDeleteListener;
     }
 

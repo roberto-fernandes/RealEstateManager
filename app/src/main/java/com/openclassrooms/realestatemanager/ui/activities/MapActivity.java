@@ -46,6 +46,7 @@ import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.ERROR_DIALOG_REQUEST;
 import static com.openclassrooms.realestatemanager.utils.Constants.MapsCodes.MAPVIEW_BUNDLE_KEY;
@@ -61,13 +62,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private MapView mMapView;
     private GoogleMap mGoogleMap;
     private GeoPoint mUserPosition;
-    private LatLngBounds mMapBoundary;
     private FusedLocationProviderClient mFusedLocationClient;
     private static final double MAP_SCOPE = 0.07D;
     private ClusterManager<ClusterMarker> mClusterManager;
     private ClusterManagerRenderer mClusterManagerRenderer;
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private ArrayList<ClusterMarker> mClusterMarkers = new ArrayList<>();
-    private Repository repository;
     private LiveData<List<RealEstate>> allListings;
 
     @Override
@@ -86,7 +86,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void initMap(Bundle savedInstanceState) {
-        repository = new Repository(getBaseContext());
+        Repository repository = new Repository(getBaseContext());
         allListings = repository.getAllListings();
         allListings.observe(this, new Observer<List<RealEstate>>() {
             @Override
@@ -117,13 +117,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mClusterManager.setRenderer(mClusterManagerRenderer);
             }
 
-            for (RealEstate realEstate : allListings.getValue()) {
+            for (RealEstate realEstate : Objects.requireNonNull(allListings.getValue())) {
                 try {
                     Address address = getAddressClassFromString(realEstate.getAddress(), getBaseContext());
                     Bitmap avatar = null;
                     try {
                         avatar = Utils.bitmapFromUrl(realEstate.getPhotos().get(0));
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException ignored) {
                     }
                     ClusterMarker newClusterMarker = new ClusterMarker(
                             new LatLng(
@@ -140,20 +140,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 } catch (NullPointerException e) {
                     Log.e(TAG, "addMapMarkers: NullPointerException: " + e.getMessage());
-                } /*catch (IOException e) {
-                    e.printStackTrace();
-                }*/
-
+                }
             }
             mClusterManager.cluster();
-
-            // setCameraView();
         }
     }
 
 
     private void getLastKnownLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -161,9 +158,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onComplete(@NonNull Task<Location> task) {
                 if (task.isSuccessful()) {
                     Location location = task.getResult();
-                    GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
-                    mUserPosition = geoPoint;
-                    Log.d(TAG, "aaaaaaaaaavd setCameraView: getLastKnownLocation()");
+                    if (location != null) {
+                        mUserPosition = new GeoPoint(location.getLatitude(), location.getLongitude());
+                    }
                     if (mGoogleMap != null) {
                         setCameraView();
                     }
@@ -179,7 +176,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         double topBoundary = mUserPosition.getLatitude() + MAP_SCOPE;
         double rightBoundary = mUserPosition.getLongitude() + MAP_SCOPE;
 
-        mMapBoundary = new LatLngBounds(
+        LatLngBounds mMapBoundary = new LatLngBounds(
                 new LatLng(bottomBoundary, leftBoundary),
                 new LatLng(topBoundary, rightBoundary)
         );
@@ -190,7 +187,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void setToolbar() {
         Toolbar toolbar = findViewById(R.id.map_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
@@ -221,9 +218,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private boolean checkMapServices() {
         if (isServicesOK()) {
-            if (isMapsEnabled()) {
-                return true;
-            }
+            return isMapsEnabled();
         }
         return false;
     }
@@ -274,39 +269,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public boolean isServicesOK() {
-        Log.d(TAG, "isServicesOK: checking google services version");
-
         int available = GoogleApiAvailability.getInstance()
                 .isGooglePlayServicesAvailable(getBaseContext());
 
         if (available == ConnectionResult.SUCCESS) {
-            //everything is fine and the user can make map requests
-            Log.d(TAG, "isServicesOK: Google Play Services is working");
             return true;
         } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            //an error occured but we can resolve it
-            Log.d(TAG, "isServicesOK: an error occured but we can fix it");
             Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MapActivity.this, available,
                     ERROR_DIALOG_REQUEST);
             dialog.show();
-        } else {
-            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
         }
         return false;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
+                                           @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         mLocationPermissionGranted = false;
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mLocationPermissionGranted = true;
-                }
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true;
             }
         }
     }
@@ -315,13 +299,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: called.");
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_ENABLE_GPS: {
-                if (mLocationPermissionGranted) {
-                    showMap();
-                } else {
-                    getLocationPermission();
-                }
+        if (requestCode == PERMISSIONS_REQUEST_ENABLE_GPS) {
+            if (mLocationPermissionGranted) {
+                showMap();
+            } else {
+                getLocationPermission();
             }
         }
 

@@ -54,7 +54,6 @@ public class NavigationActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
-    private NavigationView navigationView;
     private TextView itemDescription;
     private TextView noEntries;
     private TextView surface;
@@ -100,14 +99,13 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void setMap(RealEstate realEstate) {
-        StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/staticmap?center=");
-        sb.append(realEstate.getAddress());
-        sb.append("&markers=%7Ccolor:0xFFFF00%7Clabel:%7C");
-        sb.append(realEstate.getAddress());
-        sb.append("&zoom=13&size=600x300&maptype=roadmap&key=");
-        sb.append(getString(R.string.google_api_key));
-
-        Picasso.get().load(sb.toString()).into(map);
+        String sb = "https://maps.googleapis.com/maps/api/staticmap?center=" +
+                realEstate.getAddress() +
+                "&markers=%7Ccolor:0xFFFF00%7Clabel:%7C" +
+                realEstate.getAddress() +
+                "&zoom=13&size=600x300&maptype=roadmap&key=" +
+                getString(R.string.google_api_key);
+        Picasso.get().load(sb).into(map);
     }
 
     private void configureDrawer() {
@@ -133,7 +131,8 @@ public class NavigationActivity extends AppCompatActivity {
                 // blurBackground();
                 TextView userEmailTextView = findViewById(R.id.drawer_header_user_email);
                 try {
-                    userEmailTextView.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                    userEmailTextView.setText(Objects.requireNonNull(FirebaseAuth.getInstance()
+                            .getCurrentUser()).getEmail());
                 } catch (Exception e) {
                     Log.e(TAG, "configureDrawerLayout: " + e.getMessage());
                 }
@@ -161,7 +160,7 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void configureNavigationView() {
-        this.navigationView = findViewById(R.id.activity_navigation_nav_view);
+        NavigationView navigationView = findViewById(R.id.activity_navigation_nav_view);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -334,20 +333,20 @@ public class NavigationActivity extends AppCompatActivity {
                 break;
         }
 
-        listLiveData.observe(NavigationActivity.this,
-                new Observer<List<RealEstate>>() {
-                    @Override
-                    public void onChanged(@Nullable List<RealEstate> realEstates) {
-                        if (listings.size() > 0) {
-                            listings.clear();
+        if (listLiveData != null) {
+            listLiveData.observe(NavigationActivity.this,
+                    new Observer<List<RealEstate>>() {
+                        @Override
+                        public void onChanged(@Nullable List<RealEstate> realEstates) {
+                            if (listings.size() > 0) {
+                                listings.clear();
+                            }
+                            listings.addAll(realEstates);
+                            recyclerViewAdapter.notifyDataSetChanged();
+                            displayRealEstateInformation();
                         }
-                        listings.addAll(realEstates);
-                        recyclerViewAdapter.notifyDataSetChanged();
-                        displayRealEstateInformation();
-                        //delete all
-                        //if (listings.size() > 0) { repository.deleteListing(listings.get(0)); }
-                    }
-                });
+                    });
+        }
     }
 
     private LiveData<List<RealEstate>> getFilteredList() {
@@ -401,8 +400,8 @@ public class NavigationActivity extends AppCompatActivity {
             shortDescription.setText(realEstate.getDescription());
             status.setText(realEstate.getStatus());
             addedDate.setText(formatDate(realEstate.getDatePutInMarket()));
-            long soldDateLong =realEstate.getSaleData();
-            if (soldDateLong>0) {
+            long soldDateLong = realEstate.getSaleData();
+            if (soldDateLong > 0) {
                 soldDate.setText(formatDate(soldDateLong));
             }
 

@@ -19,8 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.openclassrooms.realestatemanager.R;
 
 import java.util.Objects;
@@ -119,8 +117,9 @@ public class LogInActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        String hint = (String) document.getData().get("hint");
+                    if (document != null && document.exists()) {
+                        String hint = (String) Objects.requireNonNull(document.getData())
+                                .get("hint");
                         Toast.makeText(LogInActivity.this, "Hint: " +
                                 hint, Toast.LENGTH_SHORT).show();
                     } else {

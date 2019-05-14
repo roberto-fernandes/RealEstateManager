@@ -10,6 +10,7 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.text.NumberFormat;
+import java.util.Objects;
 
 public class LoanSimulationActivity extends AppCompatActivity {
 
@@ -22,7 +23,6 @@ public class LoanSimulationActivity extends AppCompatActivity {
     private int amount;
     private double interestRate;
     private double totalPayment;
-    private double monthlyPayment;
     private TextView monthPaymentTextView;
     private TextView totalPaymentTextView;
 
@@ -39,7 +39,7 @@ public class LoanSimulationActivity extends AppCompatActivity {
     private void setToolbar() {
         Toolbar toolbar = findViewById(R.id.loan_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     private void setViews() {
@@ -95,7 +95,7 @@ public class LoanSimulationActivity extends AppCompatActivity {
 
         interestRate = getInterestRate();
         totalPayment = getTotalPayment();
-        monthlyPayment = getMonthlyPayment();
+        double monthlyPayment = getMonthlyPayment();
 
         interestTextView.setText(Utils.formatDoubleToString(interestRate));
         totalPaymentTextView.setText(Utils.formatDoubleToString(totalPayment));

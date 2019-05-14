@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
+@SuppressWarnings("unused")
 public class ClusterMarker implements ClusterItem {
 
     private LatLng position; // required field

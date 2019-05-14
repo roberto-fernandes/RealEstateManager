@@ -15,7 +15,7 @@ public abstract class RoomDB extends RoomDatabase {
     private static final String DB_NAME = "REAL_ESTATE_DB";
     private static RoomDB instance = null;
 
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE realEstateListings"
@@ -23,7 +23,7 @@ public abstract class RoomDB extends RoomDatabase {
         }
     };
 
-    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+    private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE realEstateListings"
@@ -32,7 +32,7 @@ public abstract class RoomDB extends RoomDatabase {
     };
 
 
-    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+    private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE realEstateListings"

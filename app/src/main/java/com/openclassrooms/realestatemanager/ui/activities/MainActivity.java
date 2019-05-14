@@ -3,13 +3,10 @@ package com.openclassrooms.realestatemanager.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.adapters.MediaDisplayAdapter;
-import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {

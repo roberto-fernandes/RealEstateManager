@@ -15,24 +15,21 @@ import com.google.maps.android.ui.IconGenerator;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.model.ClusterMarker;
 
-public class ClusterManagerRenderer extends DefaultClusterRenderer<ClusterMarker>
-{
+public class ClusterManagerRenderer extends DefaultClusterRenderer<ClusterMarker> {
 
     private final IconGenerator iconGenerator;
     private final ImageView imageView;
-    private final int markerWidth;
-    private final int markerHeight;
 
     public ClusterManagerRenderer(Context context, GoogleMap googleMap,
                                   ClusterManager<ClusterMarker> clusterManager) {
 
         super(context, googleMap, clusterManager);
 
-        // initialize cluster item icon generator
+        // initialization cluster item icon generator
         iconGenerator = new IconGenerator(context.getApplicationContext());
         imageView = new ImageView(context.getApplicationContext());
-        markerWidth = (int) context.getResources().getDimension(R.dimen.custom_marker_image);
-        markerHeight = (int) context.getResources().getDimension(R.dimen.custom_marker_image);
+        int markerWidth = (int) context.getResources().getDimension(R.dimen.custom_marker_image);
+        int markerHeight = (int) context.getResources().getDimension(R.dimen.custom_marker_image);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(markerWidth, markerHeight));
         int padding = (int) context.getResources().getDimension(R.dimen.custom_marker_padding);
         imageView.setPadding(padding, padding, padding, padding);
@@ -41,7 +38,7 @@ public class ClusterManagerRenderer extends DefaultClusterRenderer<ClusterMarker
 
     @Override
     protected void onBeforeClusterItemRendered(ClusterMarker item, MarkerOptions markerOptions) {
-        if (item.getIconPicture()!=null) {
+        if (item.getIconPicture() != null) {
             imageView.setImageBitmap(item.getIconPicture());
         } else {
             imageView.setImageResource(R.drawable.internet_access_error);
