@@ -40,5 +40,6 @@
     <string name="change_currency">Change_currency</string>
     <string name="change_to_dollars">Change to dollars</string>
     <string name="change_to_d">Change to dollars</string>
-    <string name="change_toe">Change to euros</string>
+    <string name="change_to_euro">Change to euros</string>
+    <string name="price_in_euros">Price in Euros</string>
 </resources>

@@ -151,7 +151,8 @@
                 android:layout_marginStart="@dimen/update_add_margin_left_titles"
                 android:layout_marginTop="@dimen/update_add_margin_top_titles"
                 android:text="@string/price"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:id="@+id/activity_update_and_add_price_text_view"/>
 
             <EditText
                 android:id="@+id/activity_update_and_add_price"

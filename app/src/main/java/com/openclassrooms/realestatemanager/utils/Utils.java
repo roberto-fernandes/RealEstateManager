@@ -28,6 +28,7 @@ import static com.openclassrooms.realestatemanager.utils.Constants.PrefesKeys.PR
 
 public class Utils {
 
+    private static final double currencyChangeRatio = 0.812D;
     /**
      * Conversion d'un prix d'un bien immobilier (Dollars vers Euros)
      * NOTE : NE PAS SUPPRIMER, A MONTRER DURANT LA SOUTENANCE
@@ -36,7 +37,11 @@ public class Utils {
      * @return
      */
     public static int convertDollarToEuro(int dollars) {
-        return (int) Math.round(dollars * 0.812);
+        return (int) Math.round(dollars * currencyChangeRatio);
+    }
+
+    public static int convertEuroToDollar(int dollars) {
+        return (int) Math.round(dollars / currencyChangeRatio);
     }
 
     /**

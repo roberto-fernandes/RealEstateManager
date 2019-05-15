@@ -254,18 +254,27 @@ public class NavigationActivity extends AppCompatActivity {
         final MenuItem menuItemAdd = menu.findItem(R.id.menu_toolbar_add);
         final MenuItem menuItemDelete = menu.findItem(R.id.menu_toolbar_delete);
 
+        if (currency.equals(EURO)) {
+            currencyItem.setTitle(getString(R.string.change_to_d));
+        } else if (currency.equals(DOLLAR)) {
+            currencyItem.setTitle(getString(R.string.change_to_euro));
+        }
+
         currencyItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (currency.equals(EURO)) {
                     currency = DOLLAR;
                     storeCurrency(NavigationActivity.this, DOLLAR);
-                    currencyItem.setTitle(getString(R.string.change_to_d));
+                    currencyItem.setTitle(getString(R.string.change_to_euro));
+
                 } else if (currency.equals(DOLLAR)) {
                     currency = EURO;
                     storeCurrency(NavigationActivity.this, EURO);
-                    currencyItem.setTitle(getString(R.string.change_toe));
+                    currencyItem.setTitle(getString(R.string.change_to_d));
                 }
+                recyclerViewAdapter.setCurrency(currency);
+                recyclerViewAdapter.notifyDataSetChanged();
                 return false;
             }
         });
@@ -347,6 +356,7 @@ public class NavigationActivity extends AppCompatActivity {
         Intent intent = new Intent(NavigationActivity.this
                 , UpdateAndAddActivity.class);
         intent.putExtra(REAL_ESTATE_OBJECT_KEY, realEstate);
+        intent.putExtra(BUNDLE_CURRENCY_KEY, currency);
         startActivity(intent);
 
     }
@@ -392,7 +402,7 @@ public class NavigationActivity extends AppCompatActivity {
         RecyclerView recyclerView;
         recyclerView = findViewById(R.id.activity_navigation_recycler_view);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerViewAdapter = new RealEstateAdapter(NavigationActivity.this, listings);
+        recyclerViewAdapter = new RealEstateAdapter(NavigationActivity.this, listings, currency);
         recyclerViewAdapter.setOnSelectionItem(new RealEstateAdapter.OnItemSelectedListener() {
             @Override
             public void onSelection(int position) {

@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.model.RealEstate;
+import com.openclassrooms.realestatemanager.utils.Constants;
+import com.openclassrooms.realestatemanager.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -23,10 +25,12 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
     private int selectedPosition = 0;
     private Context context;
     private OnItemSelectedListener listener = null;
+    private String currency;
 
-    public RealEstateAdapter(Context context, List<RealEstate> realEstateList) {
+    public RealEstateAdapter(Context context, List<RealEstate> realEstateList, String currency) {
         this.context = context;
         this.realEstateList = realEstateList;
+        this.currency = currency;
     }
 
     @NonNull
@@ -43,7 +47,21 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
         RealEstate realEstate = realEstateList.get(position);
 
         holder.description.setText(realEstate.getDescription());
-        holder.price.setText("$" + realEstate.getPrice());
+
+        int price = -1;
+        try {
+            price = Integer.parseInt(realEstate.getPrice());
+        } catch (Exception e) {
+        }
+
+        if (price != -1) {
+            if (currency.equals(Constants.Currencies.DOLLAR)) {
+                holder.price.setText("$" + price);
+            } else if (currency.equals(Constants.Currencies.EURO)) {
+                holder.price.setText("€" + Utils.convertDollarToEuro(price));
+            }
+        }
+
         holder.type.setText(realEstate.getType());
         holder.status.setText(realEstate.getStatus());
         Picasso.get().load(realEstate.getPhotos().get(0)).into(holder.imageView);
@@ -64,6 +82,10 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
                 listener.onSelection(position);
             }
         });
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     @Override

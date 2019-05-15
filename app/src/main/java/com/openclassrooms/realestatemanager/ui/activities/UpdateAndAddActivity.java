@@ -32,6 +32,7 @@ import com.openclassrooms.realestatemanager.model.RealEstate;
 import com.openclassrooms.realestatemanager.repository.Repository;
 import com.openclassrooms.realestatemanager.ui.fragments.DatePickerFragment;
 import com.openclassrooms.realestatemanager.utils.Constants;
+import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,8 +40,11 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static com.openclassrooms.realestatemanager.adapters.PointsOfInterestAdapter.DeleteItemListener;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_CURRENCY_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.Status.AVAILABLE;
 import static com.openclassrooms.realestatemanager.utils.Constants.Status.SOLD;
+import static com.openclassrooms.realestatemanager.utils.Utils.convertDollarToEuro;
+import static com.openclassrooms.realestatemanager.utils.Utils.convertEuroToDollar;
 import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
 import static com.openclassrooms.realestatemanager.utils.Utils.getTodayDate;
 
@@ -73,6 +77,8 @@ public class UpdateAndAddActivity extends AppCompatActivity
     private RadioButton availableRadio;
     private Uri filePath;
     private StorageReference storageReference;
+    private TextView priceTextView;
+    private String currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +92,50 @@ public class UpdateAndAddActivity extends AppCompatActivity
         realEstate = getIntent().getParcelableExtra(Constants.BundleKeys.REAL_ESTATE_OBJECT_KEY);
         repository = new Repository(UpdateAndAddActivity.this);
         setViews();
+        setCurrency();
         setParams();
         setClickListneres();
+    }
+
+    private void setViews() {
+        priceTextView = findViewById(R.id.activity_update_and_add_price_text_view);
+        ImageView pointsOfIntAdd = findViewById(R.id.activity_update_and_add_points_of_interest_add_icon);
+        shortDescription = findViewById(R.id.activity_update_and_add_short_description_edit_text);
+        longDescription = findViewById(R.id.activity_update_and_add_long_description_edit_text);
+        ImageView mediaAdd = findViewById(R.id.activity_update_and_add_media_add_icon);
+        mediaRecyclerView = findViewById(R.id.activity_update_and_add_media_recycler_view);
+        media = findViewById(R.id.activity_update_and_add_media_edit_text);
+        type = findViewById(R.id.activity_update_and_add_type_edit_text);
+        numOfRooms = findViewById(R.id.activity_update_and_add_num_of_rooms_edit_text);
+        surface = findViewById(R.id.activity_update_and_add_surface_edit_text);
+        location = findViewById(R.id.activity_update_and_add_location);
+        Button submitBtn = findViewById(R.id.activity_update_and_add_submit_btn);
+        pointsOfInterestRecyclerView
+                = findViewById(R.id.activity_update_and_add_points_of_interest_recycler_view);
+        pointsOfInterestEditText = findViewById(R.id.activity_update_and_add_v_edit_text);
+        price = findViewById(R.id.activity_update_and_add_price);
+        numOfBedrooms = findViewById(R.id.activity_update_and_add_num_of_bedrooms);
+        soldRadio = findViewById(R.id.activity_update_and_add_sold_radio);
+        availableRadio = findViewById(R.id.activity_update_and_add_available_radio);
+        soldDateTextView = findViewById(R.id.activity_update_and_add_sold_date);
+        dateContainer = findViewById(R.id.activity_update_and_add_sold_date_container);
+        Button selectPicFromInternalStorageBtn = findViewById(R.id
+                .activity_update_and_add_picture_from_storage);
+
+        mediaAdd.setOnClickListener(this);
+        submitBtn.setOnClickListener(this);
+        pointsOfIntAdd.setOnClickListener(this);
+        selectPicFromInternalStorageBtn.setOnClickListener(this);
+    }
+
+    private void setCurrency() {
+        currency = getIntent().getStringExtra(BUNDLE_CURRENCY_KEY);
+        if (currency == null) {
+            currency = Utils.getCurrency(UpdateAndAddActivity.this);
+        }
+        if (currency.equals(Constants.Currencies.EURO)) {
+            priceTextView.setText(getString(R.string.price_in_euros));
+        }
     }
 
     private void setClickListneres() {
@@ -118,36 +166,6 @@ public class UpdateAndAddActivity extends AppCompatActivity
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
-    private void setViews() {
-        ImageView pointsOfIntAdd = findViewById(R.id.activity_update_and_add_points_of_interest_add_icon);
-        shortDescription = findViewById(R.id.activity_update_and_add_short_description_edit_text);
-        longDescription = findViewById(R.id.activity_update_and_add_long_description_edit_text);
-        ImageView mediaAdd = findViewById(R.id.activity_update_and_add_media_add_icon);
-        mediaRecyclerView = findViewById(R.id.activity_update_and_add_media_recycler_view);
-        media = findViewById(R.id.activity_update_and_add_media_edit_text);
-        type = findViewById(R.id.activity_update_and_add_type_edit_text);
-        numOfRooms = findViewById(R.id.activity_update_and_add_num_of_rooms_edit_text);
-        surface = findViewById(R.id.activity_update_and_add_surface_edit_text);
-        location = findViewById(R.id.activity_update_and_add_location);
-        Button submitBtn = findViewById(R.id.activity_update_and_add_submit_btn);
-        pointsOfInterestRecyclerView
-                = findViewById(R.id.activity_update_and_add_points_of_interest_recycler_view);
-        pointsOfInterestEditText = findViewById(R.id.activity_update_and_add_v_edit_text);
-        price = findViewById(R.id.activity_update_and_add_price);
-        numOfBedrooms = findViewById(R.id.activity_update_and_add_num_of_bedrooms);
-        soldRadio = findViewById(R.id.activity_update_and_add_sold_radio);
-        availableRadio = findViewById(R.id.activity_update_and_add_available_radio);
-        soldDateTextView = findViewById(R.id.activity_update_and_add_sold_date);
-        dateContainer = findViewById(R.id.activity_update_and_add_sold_date_container);
-        Button selectPicFromInternalStorageBtn = findViewById(R.id
-                .activity_update_and_add_picture_from_storage);
-
-        mediaAdd.setOnClickListener(this);
-        submitBtn.setOnClickListener(this);
-        pointsOfIntAdd.setOnClickListener(this);
-        selectPicFromInternalStorageBtn.setOnClickListener(this);
-    }
-
     private void setParams() {
         if (realEstate != null) {
             updating = true;
@@ -156,7 +174,11 @@ public class UpdateAndAddActivity extends AppCompatActivity
             numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
             type.setText(realEstate.getType());
             surface.setText(String.valueOf(realEstate.getSurfaceArea()));
-            price.setText(realEstate.getPrice());
+            String priceString = realEstate.getPrice();
+            if (currency.equals(Constants.Currencies.EURO)) {
+                priceString = String.valueOf(convertDollarToEuro(Integer.valueOf(priceString)));
+            }
+            price.setText(priceString);
             location.setText(realEstate.getAddress());
             numOfBedrooms.setText(String.valueOf(realEstate.getNumbOfBedRooms()));
             if (realEstate.getStatus().equals(SOLD)) {
@@ -326,31 +348,41 @@ public class UpdateAndAddActivity extends AppCompatActivity
             Toast.makeText(this, "You must add at least one point of interest"
                     , Toast.LENGTH_SHORT).show();
         } else {
-            realEstate.setDatePutInMarket(System.currentTimeMillis());
-            if (soldRadio.isChecked()) {
-                realEstate.setSaleData(soldDate);
-                realEstate.setStatus(SOLD);
-            } else {
-                realEstate.setStatus(AVAILABLE);
+            try {
+                realEstate.setDatePutInMarket(System.currentTimeMillis());
+                if (soldRadio.isChecked()) {
+                    realEstate.setSaleData(soldDate);
+                    realEstate.setStatus(SOLD);
+                } else {
+                    realEstate.setStatus(AVAILABLE);
+                }
+
+                String priceString = price.getText().toString();
+                if (currency.equals(Constants.Currencies.EURO)) {
+                    priceString = String.valueOf(convertEuroToDollar(Integer.valueOf(priceString)));
+                }
+                realEstate.setPrice(priceString);
+                realEstate.setDepreciatedVal2(numOfBedrooms.getText().toString());
+                realEstate.setType(type.getText().toString());
+                realEstate.setDescription(shortDescription.getText().toString());
+                realEstate.setLongDescription(longDescription.getText().toString());
+                int surfaceInt = Integer.valueOf(surface.getText().toString());
+                int numOfRoomsInt = Integer.valueOf(numOfRooms.getText().toString());
+                int numOfBedroomsInt = Integer.valueOf(numOfBedrooms.getText().toString());
+                realEstate.setNumbOfBedRooms(numOfBedroomsInt);
+                realEstate.setSurfaceArea(surfaceInt);
+                realEstate.setNumberOfRooms(numOfRoomsInt);
+                realEstate.setAddress(location.getText().toString());
+                if (updating) {
+                    repository.updateListing(realEstate);
+                } else {
+                    repository.insertListing(realEstate);
+                }
+                goToNavigationActivity();
+            } catch (Exception e) {
+                Toast.makeText(UpdateAndAddActivity.this, "Error"
+                        , Toast.LENGTH_SHORT).show();
             }
-            realEstate.setPrice(price.getText().toString());
-            realEstate.setDepreciatedVal2(numOfBedrooms.getText().toString());
-            realEstate.setType(type.getText().toString());
-            realEstate.setDescription(shortDescription.getText().toString());
-            realEstate.setLongDescription(longDescription.getText().toString());
-            int surfaceInt = Integer.valueOf(surface.getText().toString());
-            int numOfRoomsInt = Integer.valueOf(numOfRooms.getText().toString());
-            int numOfBedroomsInt = Integer.valueOf(numOfBedrooms.getText().toString());
-            realEstate.setNumbOfBedRooms(numOfBedroomsInt);
-            realEstate.setSurfaceArea(surfaceInt);
-            realEstate.setNumberOfRooms(numOfRoomsInt);
-            realEstate.setAddress(location.getText().toString());
-            if (updating) {
-                repository.updateListing(realEstate);
-            } else {
-                repository.insertListing(realEstate);
-            }
-            goToNavigationActivity();
         }
     }
 
