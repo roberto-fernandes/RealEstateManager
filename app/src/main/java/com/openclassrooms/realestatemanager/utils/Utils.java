@@ -148,7 +148,7 @@ public class Utils {
     }
 
     private static void storeDataFromPrefs(Context context, String value, String key) {
-        getSharedPreference(context).edit().putString(key, value).apply();
+        getSharedPreference(context).edit().putString(key, value).commit();
     }
 
     private static String getDataFromPrefs(Context context, String DefaultValue, String key) {

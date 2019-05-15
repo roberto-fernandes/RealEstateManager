@@ -38,4 +38,7 @@
     <string name="email_not_found">It was not found a user with that email</string>
     <string name="no_possible_to_acess_hint">Error it was not possible to retrieve password hint</string>
     <string name="change_currency">Change_currency</string>
+    <string name="change_to_dollars">Change to dollars</string>
+    <string name="change_to_d">Change to dollars</string>
+    <string name="change_toe">Change to euros</string>
 </resources>

@@ -19,6 +19,11 @@
         android:icon="@drawable/ic_delete_black_24dp"
         android:title="@string/delete"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_toolbar_change_currency"
+        android:icon="@drawable/ic_attach_money_black_24dp"
+        android:title="@string/change_to_dollars"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_toolbar_search"
@@ -26,10 +31,4 @@
         android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/menu_toolbar_change_currency"
-        android:icon="@drawable/ic_euro_symbol_black_24dp"
-        android:title="@string/change_currency"
-        app:showAsAction="ifRoom"/>
 </menu>

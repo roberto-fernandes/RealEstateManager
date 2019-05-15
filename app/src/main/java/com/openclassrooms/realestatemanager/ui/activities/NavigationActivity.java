@@ -40,12 +40,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_CURRENCY_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_EXTRA;
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.FILTERED_PARAMS_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.REAL_ESTATE_OBJECT_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.DOLLAR;
 import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.EURO;
 import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
+import static com.openclassrooms.realestatemanager.utils.Utils.storeCurrency;
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -75,18 +77,30 @@ public class NavigationActivity extends AppCompatActivity {
     private Bundle extras;
     private MediaDisplayAdapter mediaDisplayAdapter;
     private String currency;
-    private MenuItem currencyItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+        setConfigs();
+        setViews();
+        setListingRecyclerView();
+        addDataObservers();
+        setToolbar();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        configureDrawer();
+    }
+
+    private void setConfigs() {
         auth = FirebaseAuth.getInstance();
         repository = new Repository(NavigationActivity.this);
         realEstateIndex = 0;
 
-        currency = Utils.getCurrency(NavigationActivity.this);
+        currency = getIntent().getStringExtra(BUNDLE_CURRENCY_KEY);
+        if (currency == null) {
+            currency = Utils.getCurrency(NavigationActivity.this);
+        }
 
         extras = getIntent().getBundleExtra(BUNDLE_EXTRA);
         if (extras != null) {
@@ -94,22 +108,9 @@ public class NavigationActivity extends AppCompatActivity {
         } else {
             listType = Constants.TypesList.ALL;
         }
-
-        setViews();
-        setListingRecyclerView();
-        addDataObservers();
-        setToolbar();
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-        configureDrawer();
-        // generateFakeList();
     }
 
     private void setToolbar() {
-        if (currency.equals(EURO)) {
-            currencyItem.setIcon(getResources().getDrawable(R.drawable.ic_euro_symbol_black_24dp));
-        } else if (currency.equals(DOLLAR)) {
-            currencyItem.setIcon(getResources().getDrawable(R.drawable.ic_attach_money_black_24dp));
-        }
         setSupportActionBar(toolbar);
     }
 
@@ -225,7 +226,6 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void setViews() {
-        currencyItem = findViewById(R.id.menu_toolbar_change_currency);
         toolbar = findViewById(R.id.navigation_activity_toolbar);
         itemDescription = findViewById(R.id.navigation_activity_description);
         map = findViewById(R.id.map);
@@ -246,21 +246,38 @@ public class NavigationActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         MenuItem item = menu.findItem(R.id.menu_toolbar_search);
-
+        final MenuItem currencyItem;
+        currencyItem = menu.findItem(R.id.menu_toolbar_change_currency);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         final MenuItem menuItemEdit = menu.findItem(R.id.menu_toolbar_edit);
         final MenuItem menuItemAdd = menu.findItem(R.id.menu_toolbar_add);
         final MenuItem menuItemDelete = menu.findItem(R.id.menu_toolbar_delete);
 
+        currencyItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (currency.equals(EURO)) {
+                    currency = DOLLAR;
+                    storeCurrency(NavigationActivity.this, DOLLAR);
+                    currencyItem.setTitle(getString(R.string.change_to_d));
+                } else if (currency.equals(DOLLAR)) {
+                    currency = EURO;
+                    storeCurrency(NavigationActivity.this, EURO);
+                    currencyItem.setTitle(getString(R.string.change_toe));
+                }
+                return false;
+            }
+        });
+
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //search is expanded
-                Log.d(TAG, "onClick: ");
                 menuItemEdit.setVisible(false);
                 menuItemAdd.setVisible(false);
                 menuItemDelete.setVisible(false);
+                currencyItem.setVisible(false);
                 toggle.setDrawerIndicatorEnabled(false);
             }
         });
@@ -268,10 +285,10 @@ public class NavigationActivity extends AppCompatActivity {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                Log.d(TAG, "onClose: ");
                 menuItemEdit.setVisible(true);
                 menuItemAdd.setVisible(true);
                 menuItemDelete.setVisible(true);
+                currencyItem.setVisible(true);
                 toggle.setDrawerIndicatorEnabled(true);
                 return false;
             }

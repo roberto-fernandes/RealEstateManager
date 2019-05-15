@@ -11,6 +11,7 @@ public class Constants {
         String BUNDLE_EXTRA = "BUNDLE_EXTRA";
         String REAL_ESTATE_OBJECT_KEY = "REAL_ESTATE_OBJECT_KEY";
         String FILTERED_PARAMS_KEY = "FILTERED_PARAMS_KEY";
+        String BUNDLE_CURRENCY_KEY = "BUNDLE_CURRENCY_KEY";
     }
 
     public interface Status {
