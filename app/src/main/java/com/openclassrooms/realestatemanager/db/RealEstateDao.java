@@ -31,16 +31,23 @@ public interface RealEstateDao {
     LiveData<List<RealEstate>> getAllListings();
 
     //priceInDollars is NumOfBedrooms
-    @Query("SELECT * FROM realEstateListings WHERE surfaceArea BETWEEN :minSurface  AND :maxSurface" +
-            " AND numberOfRooms BETWEEN  :minNumOfRooms AND :maxNumOfRooms "
-          +  "AND priceInDollars BETWEEN :minNumOfBedrooms AND :maxNumOfBedrooms "
-            +  "AND (status LIKE :sold OR status LIKE :available)"
+    @Query("SELECT * FROM realEstateListings WHERE surfaceArea BETWEEN :minSurface  AND :maxSurface"
+            + " AND numberOfRooms BETWEEN  :minNumOfRooms AND :maxNumOfRooms "
+            + "AND priceInDollars BETWEEN :minNumOfBedrooms AND :maxNumOfBedrooms "
+            + "AND (status LIKE :sold OR status LIKE :available)"
     )
     LiveData<List<RealEstate>> getFilteredListing(
             String minSurface, String maxSurface
             , String minNumOfRooms, String maxNumOfRooms
             , String minNumOfBedrooms, String maxNumOfBedrooms
-             , String sold, String available
+            , String sold, String available
+    );
+
+    @Query("SELECT * FROM realEstateListings WHERE (address LIKE '%' || :term || '%' " +
+            "OR description LIKE '%' || :term || '%' " +
+            "OR type LIKE '%' || :term || '%')")
+    LiveData<List<RealEstate>> getSearchedListing(
+            String term
     );
 
 }

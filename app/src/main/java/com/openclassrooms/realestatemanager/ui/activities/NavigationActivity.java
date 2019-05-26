@@ -44,8 +44,11 @@ import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BU
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_EXTRA;
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.FILTERED_PARAMS_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.REAL_ESTATE_OBJECT_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.SEARCH_PARAM_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.DOLLAR;
 import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.EURO;
+import static com.openclassrooms.realestatemanager.utils.Constants.TypesList.SEARCH;
+import static com.openclassrooms.realestatemanager.utils.Constants.TypesList.TYPE_LIST_KEY;
 import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
 import static com.openclassrooms.realestatemanager.utils.Utils.storeCurrency;
 
@@ -305,19 +308,28 @@ public class NavigationActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                Log.d(TAG, "onQueryTextSubmit: ");
+                searchTerm(s);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.d(TAG, "onQueryTextChange: ");
                 return false;
             }
         });
 
         //It must return true for the menu to be displayed; if you return false it will not be show
         return true;
+    }
+
+    private void searchTerm(String term) {
+                Intent intent = new Intent(NavigationActivity.this
+                        , NavigationActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt(TYPE_LIST_KEY, SEARCH);
+                bundle.putString(SEARCH_PARAM_KEY, term);
+                intent.putExtra(BUNDLE_EXTRA, bundle);
+                startActivity(intent);
     }
 
     @Override
@@ -370,6 +382,9 @@ public class NavigationActivity extends AppCompatActivity {
             case Constants.TypesList.FILTERED:
                 listLiveData = getFilteredList();
                 break;
+            case Constants.TypesList.SEARCH:
+                listLiveData = getSearchList();
+                break;
         }
 
         if (listLiveData != null) {
@@ -388,6 +403,13 @@ public class NavigationActivity extends AppCompatActivity {
         }
     }
 
+    private LiveData<List<RealEstate>> getSearchList() {
+        LiveData<List<RealEstate>> listLiveData;
+        String term = extras.getString(SEARCH_PARAM_KEY, "");
+        listLiveData = repository.geSheachedListings(term);
+        return listLiveData;
+    }
+
     private LiveData<List<RealEstate>> getFilteredList() {
         LiveData<List<RealEstate>> listLiveData;
         FilterParams filterParams = extras.getParcelable(FILTERED_PARAMS_KEY);
@@ -402,7 +424,8 @@ public class NavigationActivity extends AppCompatActivity {
         RecyclerView recyclerView;
         recyclerView = findViewById(R.id.activity_navigation_recycler_view);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerViewAdapter = new RealEstateAdapter(NavigationActivity.this, listings, currency);
+        recyclerViewAdapter = new RealEstateAdapter(NavigationActivity.this,
+                listings, currency);
         recyclerViewAdapter.setOnSelectionItem(new RealEstateAdapter.OnItemSelectedListener() {
             @Override
             public void onSelection(int position) {

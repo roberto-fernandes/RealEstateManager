@@ -89,8 +89,6 @@ public class RegisterActivity extends AppCompatActivity {
                             storePasswordHint();
                             displayToast("Register succeed");
                             goToNavigationActivity();
-                            //     savePasswordHint(email, passwordHintString);
-                            //  saveUserInfoInFirebase();
                         } else {
                             // If sign in fails, display a message to the user.
                             displayToast("Register failed, please try again");

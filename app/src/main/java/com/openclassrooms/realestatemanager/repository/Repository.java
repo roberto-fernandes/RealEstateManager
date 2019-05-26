@@ -59,4 +59,9 @@ public class Repository {
                 , availableTerm
         );
     }
+
+    public LiveData<List<RealEstate>> geSheachedListings(String term) {
+        LiveData<List<RealEstate>> searchedListing = dao.getSearchedListing(term);
+        return searchedListing;
+    }
 }

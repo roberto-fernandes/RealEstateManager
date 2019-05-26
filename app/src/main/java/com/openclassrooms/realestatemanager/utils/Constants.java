@@ -5,6 +5,7 @@ public class Constants {
         String TYPE_LIST_KEY = "TYPE_LIST_KEY";
         int ALL = 0;
         int FILTERED = 1;
+        int SEARCH = 2;
     }
 
     public interface BundleKeys {
@@ -12,6 +13,7 @@ public class Constants {
         String REAL_ESTATE_OBJECT_KEY = "REAL_ESTATE_OBJECT_KEY";
         String FILTERED_PARAMS_KEY = "FILTERED_PARAMS_KEY";
         String BUNDLE_CURRENCY_KEY = "BUNDLE_CURRENCY_KEY";
+        String SEARCH_PARAM_KEY = "SEARCH_PARAM_KEY";
     }
 
     public interface Status {
