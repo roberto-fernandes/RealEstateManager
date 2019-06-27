@@ -1,13 +1,12 @@
 package com.openclassrooms.realestatemanager.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.utils.Utils;
@@ -49,7 +48,6 @@ public class MediaDisplayAdapter extends RecyclerView.Adapter<MediaDisplayAdapte
         } else {
             viewHolder.imageView.setImageDrawable(context.
                     getResources().getDrawable(R.drawable.internet_access_error));
-            viewHolder.urlTextView.setText(mediaList.get(i));
         }
 
     }
@@ -65,14 +63,12 @@ public class MediaDisplayAdapter extends RecyclerView.Adapter<MediaDisplayAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private ImageView deleteIcon;
-        private TextView urlTextView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.media_display_item_image_view);
             deleteIcon = itemView.findViewById(R.id.media_display_item_delete_icon);
-            urlTextView = itemView.findViewById(R.id.media_display_item_url);
 
             deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override

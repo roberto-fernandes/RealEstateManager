@@ -1,6 +1,6 @@
 package com.openclassrooms.realestatemanager.utils;
 
-import android.arch.persistence.room.TypeConverter;
+import androidx.room.TypeConverter;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;

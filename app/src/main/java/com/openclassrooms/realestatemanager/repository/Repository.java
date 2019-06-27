@@ -1,6 +1,6 @@
 package com.openclassrooms.realestatemanager.repository;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 import android.content.Context;
 
 import com.openclassrooms.realestatemanager.async.AsyncDBDelete;

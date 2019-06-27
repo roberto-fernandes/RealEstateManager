@@ -2,8 +2,8 @@ package com.openclassrooms.realestatemanager.ui.activities;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,13 +13,13 @@ import android.location.Address;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -94,8 +94,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onChanged(@Nullable List<RealEstate> realEstates) {
                 List<String> photosUrls = new ArrayList<>();
 
-                for (RealEstate realEstate: realEstates) {
-                    photosUrls.add(realEstate.getPhotos().get(0));
+                if (realEstates != null) {
+                    for (RealEstate realEstate : realEstates) {
+                        photosUrls.add(realEstate.getPhotos().get(0));
+                    }
                 }
 
                 Utils.bitmapsFromUrl(photosUrls, new Utils.OnReceivingBitmapFromUrl() {
@@ -135,8 +137,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mClusterManager.setRenderer(mClusterManagerRenderer);
             }
 
-            for (int i =0; i< allListings.getValue().size(); i++)
-            {
+            for (int i = 0; i < allListings.getValue().size(); i++) {
                 try {
                     RealEstate realEstate = allListings.getValue().get(i);
                     Address address = getAddressClassFromString(realEstate.getAddress(), getBaseContext());
@@ -295,8 +296,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (available == ConnectionResult.SUCCESS) {
             return true;
         } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MapActivity.this, available,
-                    ERROR_DIALOG_REQUEST);
+            Dialog dialog = GoogleApiAvailability.getInstance()
+                    .getErrorDialog(MapActivity.this, available,
+                            ERROR_DIALOG_REQUEST);
             dialog.show();
         }
         return false;
@@ -318,7 +320,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: called.");
         if (requestCode == PERMISSIONS_REQUEST_ENABLE_GPS) {
             if (mLocationPermissionGranted) {
                 showMap();
@@ -328,7 +329,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
     }
-
 
     @Override
     public void onResume() {
@@ -353,9 +353,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap map) {
-        if (ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ActivityCompat.checkSelfPermission(MapActivity.this
+                , Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                && ActivityCompat.checkSelfPermission(MapActivity.this
+                , Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -365,7 +367,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             setCameraView();
         }
     }
-
 
     @Override
     public void onPause() {
