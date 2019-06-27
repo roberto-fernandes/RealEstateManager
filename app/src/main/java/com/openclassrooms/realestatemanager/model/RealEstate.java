@@ -1,11 +1,11 @@
 package com.openclassrooms.realestatemanager.model;
 
-import androidx.room.ColumnInfo;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.openclassrooms.realestatemanager.utils.ListTypeConverters;
 
@@ -18,7 +18,6 @@ public class RealEstate implements Parcelable {
     private int id = 0;
 
     private String type;
-    @ColumnInfo(name = "priceInDollars")
     private int numbOfBedRooms;
     private int surfaceArea;
     private int numberOfRooms;
@@ -32,8 +31,6 @@ public class RealEstate implements Parcelable {
     private long saleData;
     private String agentID;
     private String price;
-    @ColumnInfo(name = "numberOfBedrooms")
-    private String depreciatedVal2;
 
     public RealEstate() {
     }
@@ -54,7 +51,6 @@ public class RealEstate implements Parcelable {
         saleData = in.readLong();
         agentID = in.readString();
         price = in.readString();
-        depreciatedVal2 = in.readString();
     }
 
     public static final Creator<RealEstate> CREATOR = new Creator<RealEstate>() {
@@ -189,15 +185,6 @@ public class RealEstate implements Parcelable {
         this.price = price;
     }
 
-    public String getDepreciatedVal2() {
-        return depreciatedVal2;
-    }
-
-    public void setDepreciatedVal2(String depreciatedVal2) {
-        this.depreciatedVal2 = depreciatedVal2;
-    }
-
-
     @Override
     public int describeContents() {
         return 0;
@@ -220,6 +207,5 @@ public class RealEstate implements Parcelable {
         dest.writeLong(saleData);
         dest.writeString(agentID);
         dest.writeString(price);
-        dest.writeString(depreciatedVal2);
     }
 }

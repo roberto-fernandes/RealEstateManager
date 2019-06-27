@@ -1,5 +1,7 @@
 package com.openclassrooms.realestatemanager.db;
 
+import android.database.Cursor;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -33,7 +35,7 @@ public interface RealEstateDao {
     //priceInDollars is NumOfBedrooms
     @Query("SELECT * FROM realEstateListings WHERE surfaceArea BETWEEN :minSurface  AND :maxSurface"
             + " AND numberOfRooms BETWEEN  :minNumOfRooms AND :maxNumOfRooms "
-            + "AND priceInDollars BETWEEN :minNumOfBedrooms AND :maxNumOfBedrooms "
+            + "AND numbOfBedRooms BETWEEN :minNumOfBedrooms AND :maxNumOfBedrooms "
             + "AND (status LIKE :sold OR status LIKE :available)"
     )
     LiveData<List<RealEstate>> getFilteredListing(
@@ -50,4 +52,6 @@ public interface RealEstateDao {
             String term
     );
 
+    @Query("SELECT * FROM realEstateListings")
+    Cursor getRealEstateWithCursor();
 }

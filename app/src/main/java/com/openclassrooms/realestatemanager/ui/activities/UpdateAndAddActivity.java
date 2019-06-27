@@ -4,12 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -19,6 +13,13 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -362,7 +363,10 @@ public class UpdateAndAddActivity extends AppCompatActivity
                     priceString = String.valueOf(convertEuroToDollar(Integer.valueOf(priceString)));
                 }
                 realEstate.setPrice(priceString);
-                realEstate.setDepreciatedVal2(numOfBedrooms.getText().toString());
+                try {
+                    realEstate.setNumbOfBedRooms(Integer.valueOf(numOfBedrooms.getText().toString()));
+                } catch (Exception e) {
+                }
                 realEstate.setType(type.getText().toString());
                 realEstate.setDescription(shortDescription.getText().toString());
                 realEstate.setLongDescription(longDescription.getText().toString());

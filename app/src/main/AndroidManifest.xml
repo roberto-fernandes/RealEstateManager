@@ -53,10 +53,11 @@
         </activity>
         <activity android:name=".ui.activities.LogInActivity"></activity>
 
-<!--        <provider
-            android:name=".persistence.AppProvider"
+        <provider
+            android:name=".db.AppProvider"
             android:authorities="${applicationId}.listings.provider"
-            android:exported="true" />-->
+            android:exported="true" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
