@@ -1,20 +1,8 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.navigation.NavigationView;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +11,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.openclassrooms.realestatemanager.R;
@@ -323,13 +325,13 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void searchTerm(String term) {
-                Intent intent = new Intent(NavigationActivity.this
-                        , NavigationActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt(TYPE_LIST_KEY, SEARCH);
-                bundle.putString(SEARCH_PARAM_KEY, term);
-                intent.putExtra(BUNDLE_EXTRA, bundle);
-                startActivity(intent);
+        Intent intent = new Intent(NavigationActivity.this
+                , NavigationActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(TYPE_LIST_KEY, SEARCH);
+        bundle.putString(SEARCH_PARAM_KEY, term);
+        intent.putExtra(BUNDLE_EXTRA, bundle);
+        startActivity(intent);
     }
 
     @Override
@@ -395,9 +397,11 @@ public class NavigationActivity extends AppCompatActivity {
                             if (listings.size() > 0) {
                                 listings.clear();
                             }
-                            listings.addAll(realEstates);
-                            recyclerViewAdapter.notifyDataSetChanged();
-                            displayRealEstateInformation();
+                            if (realEstates != null) {
+                                listings.addAll(realEstates);
+                                recyclerViewAdapter.notifyDataSetChanged();
+                                displayRealEstateInformation();
+                            }
                         }
                     });
         }
@@ -406,7 +410,7 @@ public class NavigationActivity extends AppCompatActivity {
     private LiveData<List<RealEstate>> getSearchList() {
         LiveData<List<RealEstate>> listLiveData;
         String term = extras.getString(SEARCH_PARAM_KEY, "");
-        listLiveData = repository.geSheachedListings(term);
+        listLiveData = repository.geSearchedListings(term);
         return listLiveData;
     }
 
@@ -437,6 +441,7 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void setPointsOfInterestRecyclerView() {
+        @SuppressLint("WrongConstant")
         LinearLayoutManager layoutManager = new LinearLayoutManager(this
                 , LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView;

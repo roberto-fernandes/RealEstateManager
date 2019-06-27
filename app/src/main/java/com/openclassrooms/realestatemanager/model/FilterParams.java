@@ -16,7 +16,6 @@ public class FilterParams implements Parcelable {
     public FilterParams() {
     }
 
-
     private FilterParams(Parcel in) {
         minNumOfRooms = in.readString();
         maxNumOfRooms = in.readString();

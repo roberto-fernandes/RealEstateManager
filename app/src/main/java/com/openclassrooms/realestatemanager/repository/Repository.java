@@ -1,7 +1,8 @@
 package com.openclassrooms.realestatemanager.repository;
 
-import androidx.lifecycle.LiveData;
 import android.content.Context;
+
+import androidx.lifecycle.LiveData;
 
 import com.openclassrooms.realestatemanager.async.AsyncDBDelete;
 import com.openclassrooms.realestatemanager.async.AsyncDBInsert;
@@ -60,8 +61,7 @@ public class Repository {
         );
     }
 
-    public LiveData<List<RealEstate>> geSheachedListings(String term) {
-        LiveData<List<RealEstate>> searchedListing = dao.getSearchedListing(term);
-        return searchedListing;
+    public LiveData<List<RealEstate>> geSearchedListings(String term) {
+        return dao.getSearchedListing(term);
     }
 }

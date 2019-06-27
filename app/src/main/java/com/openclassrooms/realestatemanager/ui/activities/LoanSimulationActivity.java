@@ -1,10 +1,11 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.utils.Utils;
@@ -107,7 +108,7 @@ public class LoanSimulationActivity extends AppCompatActivity {
         if (months < 1) {
             return 0;
         }
-        return Math.max( (months / factor), 3d);
+        return Math.max((months / factor), 3d);
     }
 
     private double getTotalPayment() {
@@ -115,6 +116,6 @@ public class LoanSimulationActivity extends AppCompatActivity {
     }
 
     private double getMonthlyPayment() {
-        return totalPayment/months;
+        return totalPayment / months;
     }
 }

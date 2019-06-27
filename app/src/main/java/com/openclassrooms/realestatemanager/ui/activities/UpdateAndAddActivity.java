@@ -365,7 +365,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
                 realEstate.setPrice(priceString);
                 try {
                     realEstate.setNumbOfBedRooms(Integer.valueOf(numOfBedrooms.getText().toString()));
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
                 realEstate.setType(type.getText().toString());
                 realEstate.setDescription(shortDescription.getText().toString());

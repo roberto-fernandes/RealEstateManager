@@ -29,6 +29,7 @@ import static com.openclassrooms.realestatemanager.utils.Constants.PrefesKeys.PR
 public class Utils {
 
     private static final double currencyChangeRatio = 0.812D;
+
     /**
      * Conversion d'un prix d'un bien immobilier (Dollars vers Euros)
      * NOTE : NE PAS SUPPRIMER, A MONTRER DURANT LA SOUTENANCE
@@ -149,7 +150,7 @@ public class Utils {
     }
 
     public static String getCurrency(Context context) {
-       return getDataFromPrefs(context, EURO, CURRENCY_KEY);
+        return getDataFromPrefs(context, EURO, CURRENCY_KEY);
     }
 
     private static void storeDataFromPrefs(Context context, String value, String key) {

@@ -2,8 +2,6 @@ package com.openclassrooms.realestatemanager.ui.activities;
 
 import android.Manifest;
 import android.app.Dialog;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,15 +11,18 @@ import android.location.Address;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
-import android.widget.Toast;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -136,31 +137,32 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 );
                 mClusterManager.setRenderer(mClusterManagerRenderer);
             }
-
-            for (int i = 0; i < allListings.getValue().size(); i++) {
-                try {
-                    RealEstate realEstate = allListings.getValue().get(i);
-                    Address address = getAddressClassFromString(realEstate.getAddress(), getBaseContext());
-                    Bitmap avatar = null;
+            if (allListings.getValue() != null) {
+                for (int i = 0; i < allListings.getValue().size(); i++) {
                     try {
-                        avatar = bitmapList.get(i);
-                    } catch (NumberFormatException ignored) {
+                        RealEstate realEstate = allListings.getValue().get(i);
+                        Address address = getAddressClassFromString(realEstate.getAddress(), getBaseContext());
+                        Bitmap avatar = null;
+                        try {
+                            avatar = bitmapList.get(i);
+                        } catch (NumberFormatException ignored) {
+                        }
+                        ClusterMarker newClusterMarker = new ClusterMarker(
+                                new LatLng(
+                                        address.getLatitude(),
+                                        address.getLongitude()
+                                ),
+
+                                realEstate.getType(),
+                                realEstate.getDescription(),
+                                avatar
+                        );
+                        mClusterManager.addItem(newClusterMarker);
+                        mClusterMarkers.add(newClusterMarker);
+
+                    } catch (NullPointerException e) {
+                        Log.e(TAG, "addMapMarkers: NullPointerException: " + e.getMessage());
                     }
-                    ClusterMarker newClusterMarker = new ClusterMarker(
-                            new LatLng(
-                                    address.getLatitude(),
-                                    address.getLongitude()
-                            ),
-
-                            realEstate.getType(),
-                            realEstate.getDescription(),
-                            avatar
-                    );
-                    mClusterManager.addItem(newClusterMarker);
-                    mClusterMarkers.add(newClusterMarker);
-
-                } catch (NullPointerException e) {
-                    Log.e(TAG, "addMapMarkers: NullPointerException: " + e.getMessage());
                 }
             }
             mClusterManager.cluster();

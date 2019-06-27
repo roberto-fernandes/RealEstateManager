@@ -42,4 +42,7 @@
     <string name="change_to_d">Change to dollars</string>
     <string name="change_to_euro">Change to euros</string>
     <string name="price_in_euros">Price in Euros</string>
+    <string name="all_fileds">All fields must be answer, please try again</string>
+    <string name="register_sucess">Register succeed</string>
+    <string name="ry_again">Register failed, please try again</string>
 </resources>
