@@ -194,6 +194,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/update_add_margin_left_titles"
                 android:layout_marginTop="@dimen/update_add_margin_top_titles"
+                android:text="@string/agent_responsible"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/activity_update_and_add_agent_responsible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/update_add_margin_left_titles"
+                android:layout_marginTop="@dimen/update_add_margin_top_titles"
                 android:text="@string/points_of_interest"
                 android:textStyle="bold" />
 

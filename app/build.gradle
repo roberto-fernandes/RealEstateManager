@@ -6,6 +6,7 @@ android {
         applicationId "com.openclassrooms.realestatemanager"
         minSdkVersion 19
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -63,5 +64,7 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.0.0'
     annotationProcessor 'androidx.room:room-compiler:2.0.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
+
+    implementation 'androidx.multidex:multidex:2.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

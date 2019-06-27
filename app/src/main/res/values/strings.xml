@@ -45,4 +45,6 @@
     <string name="all_fileds">All fields must be answer, please try again</string>
     <string name="register_sucess">Register succeed</string>
     <string name="ry_again">Register failed, please try again</string>
+    <string name="agent_responsible">Agent responsible</string>
+    <string name="agent">Agent</string>
 </resources>

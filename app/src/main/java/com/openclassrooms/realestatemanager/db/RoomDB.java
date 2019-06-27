@@ -10,7 +10,7 @@ import com.openclassrooms.realestatemanager.model.RealEstate;
 
 @Database(entities = {RealEstate.class}, version = 1)
 public abstract class RoomDB extends RoomDatabase {
-    private static final String DB_NAME = "REAL_ESTATE";
+    private static final String DB_NAME = "R_ESTATE";
     private static RoomDB instance = null;
 
     public static RoomDB getInstance(Context context) {

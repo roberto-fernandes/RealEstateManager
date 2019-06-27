@@ -70,6 +70,7 @@ public class NavigationActivity extends AppCompatActivity {
     private TextView numOfRooms;
     private TextView numOfBedrooms;
     private TextView type;
+    private TextView agent;
     private TextView shortDescription;
     private TextView status;
     private TextView addedDate;
@@ -245,6 +246,7 @@ public class NavigationActivity extends AppCompatActivity {
         status = findViewById(R.id.navigation_activity_status);
         addedDate = findViewById(R.id.navigation_activity_added_date);
         soldDate = findViewById(R.id.navigation_activity_sold_date);
+        agent = findViewById(R.id.navigation_activity_agent);
     }
 
     @Override
@@ -461,6 +463,7 @@ public class NavigationActivity extends AppCompatActivity {
             numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
             numOfBedrooms.setText(String.valueOf(realEstate.getNumbOfBedRooms()));
             location.setText(realEstate.getAddress());
+            agent.setText(realEstate.getAgent());
             type.setText(realEstate.getType());
             setMediaRecyclerView(realEstate);
             setMap(realEstate);

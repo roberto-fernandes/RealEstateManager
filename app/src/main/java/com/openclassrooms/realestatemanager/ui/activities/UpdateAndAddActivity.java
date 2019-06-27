@@ -64,6 +64,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
     private EditText surface;
     private EditText price;
     private EditText numOfBedrooms;
+    private EditText agenteResposible;
     private RecyclerView mediaRecyclerView;
     private MediaDisplayAdapter mediaDisplayAdapter;
     private PointsOfInterestAdapter pointsOfInterestAdapter;
@@ -122,7 +123,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
         dateContainer = findViewById(R.id.activity_update_and_add_sold_date_container);
         Button selectPicFromInternalStorageBtn = findViewById(R.id
                 .activity_update_and_add_picture_from_storage);
-
+        agenteResposible = findViewById(R.id.activity_update_and_add_agent_responsible);
         mediaAdd.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
         pointsOfIntAdd.setOnClickListener(this);
@@ -339,6 +340,9 @@ public class UpdateAndAddActivity extends AppCompatActivity
         } else if (location.getText().toString().isEmpty()) {
             Toast.makeText(this, "You must add the location"
                     , Toast.LENGTH_SHORT).show();
+        } else if (agenteResposible.getText().toString().isEmpty()) {
+            Toast.makeText(this, "You must add an agent"
+                    , Toast.LENGTH_SHORT).show();
         } else if (realEstate.getPointsOfInterest().size() < 1) {
             Toast.makeText(this, "You must add at least one point of interest"
                     , Toast.LENGTH_SHORT).show();
@@ -376,6 +380,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
                 realEstate.setNumbOfBedRooms(numOfBedroomsInt);
                 realEstate.setSurfaceArea(surfaceInt);
                 realEstate.setNumberOfRooms(numOfRoomsInt);
+                realEstate.setAgent(agenteResposible.getText().toString());
                 realEstate.setAddress(location.getText().toString());
                 if (updating) {
                     repository.updateListing(realEstate);

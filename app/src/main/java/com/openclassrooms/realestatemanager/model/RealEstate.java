@@ -29,7 +29,7 @@ public class RealEstate implements Parcelable {
     private String status;
     private long datePutInMarket;
     private long saleData;
-    private String agentID;
+    private String agent;
     private String price;
 
     public RealEstate() {
@@ -49,7 +49,7 @@ public class RealEstate implements Parcelable {
         status = in.readString();
         datePutInMarket = in.readLong();
         saleData = in.readLong();
-        agentID = in.readString();
+        agent = in.readString();
         price = in.readString();
     }
 
@@ -169,12 +169,12 @@ public class RealEstate implements Parcelable {
         this.saleData = saleData;
     }
 
-    public String getAgentID() {
-        return agentID;
+    public String getAgent() {
+        return agent;
     }
 
-    public void setAgentID(String agentID) {
-        this.agentID = agentID;
+    public void setAgent(String agent) {
+        this.agent = agent;
     }
 
     public String getPrice() {
@@ -205,7 +205,7 @@ public class RealEstate implements Parcelable {
         dest.writeString(status);
         dest.writeLong(datePutInMarket);
         dest.writeLong(saleData);
-        dest.writeString(agentID);
+        dest.writeString(agent);
         dest.writeString(price);
     }
 }
