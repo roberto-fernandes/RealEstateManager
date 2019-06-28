@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.Calendar;
 
 import static com.openclassrooms.realestatemanager.ui.activities.LoanSimulationActivity.getInterestRate;
+import static com.openclassrooms.realestatemanager.ui.activities.LoanSimulationActivity.getMonthlyPayment;
+import static com.openclassrooms.realestatemanager.ui.activities.LoanSimulationActivity.getTotalPayment;
 import static com.openclassrooms.realestatemanager.utils.Utils.convertDollarToEuro;
 import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
 import static org.junit.Assert.assertEquals;
@@ -100,14 +102,43 @@ public class UnitTests {
         assertEquals(0.0d, interestRate, 0.001);
     }
 
-    /*
+    @Test
+    public void totalPayment_3rate_20m() {
+        double interestRate = 3d;
+        int amount = 20000;
 
-    private double getTotalPayment() {
-        return interestRate / 100 * amount + amount;
+        double totalPayment = getTotalPayment(interestRate, amount);
+
+        assertEquals(20600.0d, totalPayment, 0.001);
     }
 
-    private double getMonthlyPayment() {
-        return totalPayment / months;
+    @Test
+    public void totalPayment_5rate_48m() {
+        double interestRate = 5d;
+        int amount = 48000;
+
+        double totalPayment = getTotalPayment(interestRate, amount);
+
+        assertEquals(50400.0d, totalPayment, 0.001);
     }
-     */
+
+    @Test
+    public void monthlyPayment_50400amount_18months() {
+        double totalPayment = 50400;
+        int months = 18;
+
+        double monthlyPayment = getMonthlyPayment(totalPayment, months);
+
+        assertEquals(2800.0d, monthlyPayment, 0.001);
+    }
+
+    @Test
+    public void monthlyPayment_120000amount_96months() {
+        double totalPayment = 120000;
+        int months = 96;
+
+        double monthlyPayment = getMonthlyPayment(totalPayment, months);
+
+        assertEquals(1250.0d, monthlyPayment, 0.001);
+    }
 }
