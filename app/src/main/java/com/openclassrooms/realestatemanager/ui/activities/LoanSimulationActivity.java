@@ -22,8 +22,6 @@ public class LoanSimulationActivity extends AppCompatActivity {
     private TextView interestTextView;
     private int months;
     private int amount;
-    private double interestRate;
-    private double totalPayment;
     private TextView monthPaymentTextView;
     private TextView totalPaymentTextView;
 
@@ -94,16 +92,16 @@ public class LoanSimulationActivity extends AppCompatActivity {
         amountTextView.setText(NumberFormat.getInstance().format(amount));
         timeTextView.setText(String.valueOf(months));
 
-        interestRate = getInterestRate();
-        totalPayment = getTotalPayment();
-        double monthlyPayment = getMonthlyPayment();
+        double interestRate = getInterestRate(months);
+        double totalPayment = getTotalPayment(interestRate, amount);
+        double monthlyPayment = getMonthlyPayment(totalPayment, months);
 
         interestTextView.setText(Utils.formatDoubleToString(interestRate));
         totalPaymentTextView.setText(Utils.formatDoubleToString(totalPayment));
         monthPaymentTextView.setText(Utils.formatDoubleToString(monthlyPayment));
     }
 
-    private double getInterestRate() {
+    public static double getInterestRate(int months) {
         double factor = 9D;
         if (months < 1) {
             return 0;
@@ -111,11 +109,11 @@ public class LoanSimulationActivity extends AppCompatActivity {
         return Math.max((months / factor), 3d);
     }
 
-    private double getTotalPayment() {
+    public static double getTotalPayment(double interestRate, int amount) {
         return interestRate / 100 * amount + amount;
     }
 
-    private double getMonthlyPayment() {
+    public static double getMonthlyPayment(double totalPayment, int months) {
         return totalPayment / months;
     }
 }

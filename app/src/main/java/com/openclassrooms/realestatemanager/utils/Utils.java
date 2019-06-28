@@ -127,7 +127,8 @@ public class Utils {
         Geocoder coder = new Geocoder(context);
         Address address = null;
         try {
-            ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(adressString, 1);
+            ArrayList<Address> adresses = (ArrayList<Address>)
+                    coder.getFromLocationName(adressString, 1);
             address = adresses.get(0);
         } catch (IOException e) {
             e.printStackTrace();

@@ -33,17 +33,23 @@ public class AppProvider extends ContentProvider {
 
     @androidx.annotation.Nullable
     @Override
-    public Uri insert(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable ContentValues values) {
+    public Uri insert(@androidx.annotation.NonNull Uri uri,
+                      @androidx.annotation.Nullable ContentValues values) {
         return null;
     }
 
     @Override
-    public int delete(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable String selection, @androidx.annotation.Nullable String[] selectionArgs) {
+    public int delete(@androidx.annotation.NonNull Uri uri,
+                      @androidx.annotation.Nullable String selection,
+                      @androidx.annotation.Nullable String[] selectionArgs) {
         return 0;
     }
 
     @Override
-    public int update(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable ContentValues values, @androidx.annotation.Nullable String selection, @androidx.annotation.Nullable String[] selectionArgs) {
+    public int update(@androidx.annotation.NonNull Uri uri,
+                      @androidx.annotation.Nullable ContentValues values,
+                      @androidx.annotation.Nullable String selection,
+                      @androidx.annotation.Nullable String[] selectionArgs) {
         return 0;
     }
 }
