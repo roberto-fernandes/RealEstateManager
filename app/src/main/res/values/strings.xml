@@ -47,4 +47,5 @@
     <string name="ry_again">Register failed, please try again</string>
     <string name="agent_responsible">Agent responsible</string>
     <string name="agent">Agent</string>
+    <string name="you_must_add_at_least">You must add at least one photo</string>
 </resources>

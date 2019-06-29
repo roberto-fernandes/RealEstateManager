@@ -37,6 +37,7 @@ import com.openclassrooms.realestatemanager.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -173,17 +174,34 @@ public class UpdateAndAddActivity extends AppCompatActivity
             updating = true;
             shortDescription.setText(realEstate.getDescription());
             longDescription.setText(realEstate.getLongDescription());
-            numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
-            type.setText(realEstate.getType());
-            surface.setText(String.valueOf(realEstate.getSurfaceArea()));
-            String priceString = realEstate.getPrice();
-            if (currency.equals(Constants.Currencies.EURO)) {
-                priceString = String.valueOf(convertDollarToEuro(Integer.valueOf(priceString)));
+            int numberOfRooms = realEstate.getNumberOfRooms();
+            if (numberOfRooms > 0) {
+                numOfRooms.setText(String.valueOf(numberOfRooms));
             }
-            price.setText(priceString);
+
+            type.setText(realEstate.getType());
+            int surfaceArea = realEstate.getSurfaceArea();
+            if (surfaceArea > 0) {
+                surface.setText(String.valueOf(surfaceArea));
+            }
+            try {
+                String priceString = realEstate.getPrice();
+                int priceInt = Integer.valueOf(priceString);
+                if (priceInt > 0) {
+                    if (currency.equals(Constants.Currencies.EURO)) {
+                        priceString = String.valueOf(convertDollarToEuro(priceInt));
+                    }
+                    price.setText(priceString);
+                }
+            } catch (Exception ignored) {
+            }
+
             agenteResposible.setText(realEstate.getAgent());
             location.setText(realEstate.getAddress());
-            numOfBedrooms.setText(String.valueOf(realEstate.getNumbOfBedRooms()));
+            int numbOfBedRooms = realEstate.getNumbOfBedRooms();
+            if (numbOfBedRooms > 0) {
+                numOfBedrooms.setText(String.valueOf(numbOfBedRooms));
+            }
             if (realEstate.getStatus().equals(SOLD)) {
                 soldRadio.setChecked(true);
                 availableRadio.setChecked(false);
@@ -197,8 +215,11 @@ public class UpdateAndAddActivity extends AppCompatActivity
             realEstate.setPointsOfInterest(new ArrayList<String>());
             realEstate.setPointsOfInterest(new ArrayList<String>());
         }
+
         setMediaRecyclerView();
+
         setPointsOfInterestRecyclerView();
+
     }
 
     private void setMediaRecyclerView() {
@@ -320,38 +341,9 @@ public class UpdateAndAddActivity extends AppCompatActivity
     }
 
     private void submitRealEstate() {
-        if (type.getText().toString().isEmpty()) {
-            Toast.makeText(this, "You must add a type"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (realEstate.getPhotos().size() < 1) {
-            Toast.makeText(this, "You must add at least one photo"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (shortDescription.getText().toString().isEmpty()) {
-            Toast.makeText(this, "You must add a short description"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (longDescription.getText().toString().isEmpty()) {
-            Toast.makeText(this, "You must add a long description"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (surface.getText().toString().isEmpty()) {
-            Toast.makeText(this, "You must add the surface area"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (numOfRooms.getText().toString().isEmpty()) {
-            Toast.makeText(this, "You must add the number of rooms"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (location.getText().toString().isEmpty()) {
-            Toast.makeText(this, "You must add the location"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (agenteResposible.getText().toString().isEmpty()) {
-            Toast.makeText(this, "You must add an agent"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (realEstate.getPointsOfInterest().size() < 1) {
-            Toast.makeText(this, "You must add at least one point of interest"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (price.getText().toString().isEmpty()) {
-            Toast.makeText(this, "You must add the price"
-                    , Toast.LENGTH_SHORT).show();
-        } else if (numOfBedrooms.getText().toString().isEmpty()) {
-            Toast.makeText(this, "You must add at least one point of interest"
+        List<String> photos = realEstate.getPhotos();
+        if (photos == null || photos.size() < 1) {
+            Toast.makeText(getBaseContext(), getString(R.string.you_must_add_at_least)
                     , Toast.LENGTH_SHORT).show();
         } else {
             try {
@@ -365,19 +357,41 @@ public class UpdateAndAddActivity extends AppCompatActivity
 
                 String priceString = price.getText().toString();
                 if (currency.equals(Constants.Currencies.EURO)) {
-                    priceString = String.valueOf(convertEuroToDollar(Integer.valueOf(priceString)));
+                    try {
+                        priceString = String.valueOf(convertEuroToDollar(Integer.valueOf(priceString)));
+                    } catch (Exception e) {
+                        priceString = "";
+                    }
                 }
                 realEstate.setPrice(priceString);
+                Integer numOfBedInt;
                 try {
-                    realEstate.setNumbOfBedRooms(Integer.valueOf(numOfBedrooms.getText().toString()));
+                    numOfBedInt = Integer.valueOf(numOfBedrooms.getText().toString());
                 } catch (Exception ignored) {
+                    numOfBedInt = -1;
                 }
+                realEstate.setNumbOfBedRooms(numOfBedInt);
                 realEstate.setType(type.getText().toString());
                 realEstate.setDescription(shortDescription.getText().toString());
                 realEstate.setLongDescription(longDescription.getText().toString());
-                int surfaceInt = Integer.valueOf(surface.getText().toString());
-                int numOfRoomsInt = Integer.valueOf(numOfRooms.getText().toString());
-                int numOfBedroomsInt = Integer.valueOf(numOfBedrooms.getText().toString());
+                int surfaceInt;
+                try {
+                    surfaceInt = Integer.valueOf(surface.getText().toString());
+                } catch (Exception e) {
+                    surfaceInt = -1;
+                }
+                int numOfRoomsInt;
+                try {
+                    numOfRoomsInt = Integer.valueOf(numOfRooms.getText().toString());
+                } catch (Exception e) {
+                    numOfRoomsInt = -1;
+                }
+                int numOfBedroomsInt;
+                try {
+                    numOfBedroomsInt = numOfBedInt;
+                } catch (Exception e) {
+                    numOfBedroomsInt = -1;
+                }
                 realEstate.setNumbOfBedRooms(numOfBedroomsInt);
                 realEstate.setSurfaceArea(surfaceInt);
                 realEstate.setNumberOfRooms(numOfRoomsInt);
@@ -395,6 +409,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
             }
         }
     }
+
 
     private void goToNavigationActivity() {
         Intent intent = new Intent(UpdateAndAddActivity.this

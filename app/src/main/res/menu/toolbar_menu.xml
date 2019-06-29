@@ -14,11 +14,11 @@
         android:title="@string/add"
         app:showAsAction="never"/>
 
-    <item
+<!--    <item
         android:id="@+id/menu_toolbar_delete"
         android:icon="@drawable/ic_delete_black_24dp"
         android:title="@string/delete"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/>-->
     <item
         android:id="@+id/menu_toolbar_change_currency"
         android:icon="@drawable/ic_attach_money_black_24dp"

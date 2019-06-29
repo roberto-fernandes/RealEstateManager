@@ -121,13 +121,19 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void setMap(RealEstate realEstate) {
-        String sb = "https://maps.googleapis.com/maps/api/staticmap?center=" +
-                realEstate.getAddress() +
-                "&markers=%7Ccolor:0xFFFF00%7Clabel:%7C" +
-                realEstate.getAddress() +
-                "&zoom=13&size=600x300&maptype=roadmap&key=" +
-                getString(R.string.google_api_key);
-        Picasso.get().load(sb).into(map);
+        String address = realEstate.getAddress();
+        if (address.isEmpty()) {
+            map.setVisibility(View.INVISIBLE);
+        } else {
+            map.setVisibility(View.VISIBLE);
+            String sb = "https://maps.googleapis.com/maps/api/staticmap?center=" +
+                    address +
+                    "&markers=%7Ccolor:0xFFFF00%7Clabel:%7C" +
+                    address +
+                    "&zoom=13&size=600x300&maptype=roadmap&key=" +
+                    getString(R.string.google_maps_api_key);
+            Picasso.get().load(sb).into(map);
+        }
     }
 
     private void configureDrawer() {
@@ -259,7 +265,7 @@ public class NavigationActivity extends AppCompatActivity {
         searchView.setMaxWidth(Integer.MAX_VALUE);
         final MenuItem menuItemEdit = menu.findItem(R.id.menu_toolbar_edit);
         final MenuItem menuItemAdd = menu.findItem(R.id.menu_toolbar_add);
-        final MenuItem menuItemDelete = menu.findItem(R.id.menu_toolbar_delete);
+        // final MenuItem menuItemDelete = menu.findItem(R.id.menu_toolbar_delete);
 
         if (currency.equals(EURO)) {
             currencyItem.setTitle(getString(R.string.change_to_d));
@@ -292,7 +298,7 @@ public class NavigationActivity extends AppCompatActivity {
                 //search is expanded
                 menuItemEdit.setVisible(false);
                 menuItemAdd.setVisible(false);
-                menuItemDelete.setVisible(false);
+                //menuItemDelete.setVisible(false);
                 currencyItem.setVisible(false);
                 toggle.setDrawerIndicatorEnabled(false);
             }
@@ -303,7 +309,7 @@ public class NavigationActivity extends AppCompatActivity {
             public boolean onClose() {
                 menuItemEdit.setVisible(true);
                 menuItemAdd.setVisible(true);
-                menuItemDelete.setVisible(true);
+                // menuItemDelete.setVisible(true);
                 currencyItem.setVisible(true);
                 toggle.setDrawerIndicatorEnabled(true);
                 return false;
@@ -347,19 +353,6 @@ public class NavigationActivity extends AppCompatActivity {
                     goToUpdateAndAddActivity(listings.get(realEstateIndex));
                 } catch (Exception e) {
                     Toast.makeText(this, "It is not possible to edit"
-                            , Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.menu_toolbar_delete:
-                try {
-                    repository.deleteListing(listings.get(realEstateIndex));
-                    realEstateIndex = 0;
-
-                    if (listings.size() < 2) {
-                        restartActivity();
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(this, "It is not possible to delete"
                             , Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -459,9 +452,25 @@ public class NavigationActivity extends AppCompatActivity {
             RealEstate realEstate = listings.get(realEstateIndex);
             itemDescription.setText(realEstate.getLongDescription());
             setPointsOfInterestRecyclerView();
-            surface.setText(String.valueOf(realEstate.getSurfaceArea()));
-            numOfRooms.setText(String.valueOf(realEstate.getNumberOfRooms()));
-            numOfBedrooms.setText(String.valueOf(realEstate.getNumbOfBedRooms()));
+            int surfaceArea = realEstate.getSurfaceArea();
+            if (surfaceArea > 0) {
+                surface.setText(String.valueOf(surfaceArea));
+            } else {
+                surface.setText("");
+            }
+            int numberOfRooms = realEstate.getNumberOfRooms();
+            if (numberOfRooms > 0) {
+                numOfRooms.setText(String.valueOf(numberOfRooms));
+            } else {
+                numOfRooms.setText("");
+            }
+            int numbOfBedRooms = realEstate.getNumbOfBedRooms();
+            if (numbOfBedRooms > 0) {
+                numOfBedrooms.setText(String.valueOf(numbOfBedRooms));
+            } else {
+                numOfBedrooms.setText("");
+            }
+
             location.setText(realEstate.getAddress());
             agent.setText(realEstate.getAgent());
             type.setText(realEstate.getType());
@@ -504,18 +513,14 @@ public class NavigationActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser == null) goToLogInActivity();
+        if (currentUser == null) {
+            goToLogInActivity();
+        }
     }
 
     private void goToLogInActivity() {
         Intent intent = new Intent(NavigationActivity.this, LogInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private void restartActivity() {
-        Intent intent = getIntent();
-        finish();
         startActivity(intent);
     }
 }
