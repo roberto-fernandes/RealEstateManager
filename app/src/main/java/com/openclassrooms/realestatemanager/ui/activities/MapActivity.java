@@ -26,6 +26,7 @@ import androidx.lifecycle.Observer;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,7 +58,7 @@ import static com.openclassrooms.realestatemanager.utils.Utils.getAddressClassFr
 import static com.openclassrooms.realestatemanager.utils.Utils.isInternetAvailable;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
-
+    private static final int DEVICE_PERMISSION_REQUEST_CODE = 12;
     private boolean mLocationPermissionGranted = false;
     private static final String TAG = MapActivity.class.getSimpleName();
     private MapView mMapView;
@@ -174,6 +175,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
+            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
+
+            ActivityCompat.requestPermissions(this,
+                    permissions,
+                     DEVICE_PERMISSION_REQUEST_CODE);
             return;
         }
         mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -316,7 +322,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionGranted = true;
             }
+        } else if (requestCode ==  DEVICE_PERMISSION_REQUEST_CODE) {
+            restartMapActivity();
         }
+    }
+
+    private void restartMapActivity() {
+        Intent intent = new Intent(MapActivity.this, MapActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -329,7 +342,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 getLocationPermission();
             }
         }
-
     }
 
     @Override

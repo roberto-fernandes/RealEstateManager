@@ -34,7 +34,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.NavigationActivity" />
         </activity>
-        <activity android:name=".ui.activities.UpdateAndAddActivity" />
+        <activity android:name=".ui.activities.UpdateAndAddActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.NavigationActivity" />
+        </activity>
         <activity android:name=".ui.activities.NavigationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
