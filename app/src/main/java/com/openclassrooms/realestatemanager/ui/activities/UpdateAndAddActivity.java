@@ -181,6 +181,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
                 priceString = String.valueOf(convertDollarToEuro(Integer.valueOf(priceString)));
             }
             price.setText(priceString);
+            agenteResposible.setText(realEstate.getAgent());
             location.setText(realEstate.getAddress());
             numOfBedrooms.setText(String.valueOf(realEstate.getNumbOfBedRooms()));
             if (realEstate.getStatus().equals(SOLD)) {
