@@ -323,10 +323,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionGranted = true;
+            } else {
+                showDontHavePermissionsDialog();
             }
         } else if (requestCode == DEVICE_PERMISSION_REQUEST_CODE) {
-            restartMapActivity();
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                restartMapActivity();
+            } else {
+                showDontHavePermissionsDialog();
+            }
         }
+    }
+
+    private void showDontHavePermissionsDialog() {
+        new AlertDialog.Builder(MapActivity.this)
+                .setTitle(getString(R.string.we_cant_show_the_map))
+                .setMessage(getString(R.string.doesnt_have_map_permitions))
+                .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void restartMapActivity() {

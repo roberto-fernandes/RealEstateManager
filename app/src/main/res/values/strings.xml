@@ -56,4 +56,7 @@
     <string name="short_description">Short description</string>
     <string name="type">Type</string>
     <string name="register">Register</string>
+    <string name="doesnt_have_map_permitions">This aplication doen\'t have permition to show the map</string>
+    <string name="we_cant_show_the_map">We can\'t show the map</string>
+    <string name="ok">Ok</string>
 </resources>
