@@ -61,6 +61,8 @@ public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateAdapter.Vi
             } else if (currency.equals(Constants.Currencies.EURO)) {
                 holder.price.setText("€" + Utils.convertDollarToEuro(price));
             }
+        } else {
+            holder.price.setText(context.getString(R.string.price_not_set_yet));
         }
 
         holder.type.setText(realEstate.getType());
