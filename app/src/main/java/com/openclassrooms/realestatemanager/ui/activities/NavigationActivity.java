@@ -522,5 +522,6 @@ public class NavigationActivity extends AppCompatActivity {
         Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 }
