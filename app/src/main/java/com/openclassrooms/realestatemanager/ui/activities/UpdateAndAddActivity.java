@@ -331,7 +331,7 @@ public class UpdateAndAddActivity extends AppCompatActivity
     private void addPointsOfInterest() {
         String pointOfInterest = pointsOfInterestEditText.getText().toString();
         if (pointOfInterest.isEmpty()) {
-            Toast.makeText(this, "You must add a point of interest"
+            Toast.makeText(this, getString(R.string.you_must_add_a_point_of_int)
                     , Toast.LENGTH_SHORT).show();
         } else {
             realEstate.getPointsOfInterest().add(pointOfInterest);
@@ -398,13 +398,19 @@ public class UpdateAndAddActivity extends AppCompatActivity
                 realEstate.setAgent(agenteResposible.getText().toString());
                 realEstate.setAddress(location.getText().toString());
                 if (updating) {
+                    String title = realEstate.getDescription() + " " + getString(R.string.updated);
+                    String message = getString(R.string.real_estate_updated);
+                    Utils.createNotification(getApplicationContext(), title, message);
                     repository.updateListing(realEstate);
                 } else {
+                    String title = realEstate.getDescription() + " " + getString(R.string.added);
+                    String message = getString(R.string.real_estate_added);
+                    Utils.createNotification(getApplicationContext(), title, message);
                     repository.insertListing(realEstate);
                 }
                 goToNavigationActivity();
             } catch (Exception e) {
-                Toast.makeText(UpdateAndAddActivity.this, "Error"
+                Toast.makeText(UpdateAndAddActivity.this, getString(R.string.error)
                         , Toast.LENGTH_SHORT).show();
             }
         }

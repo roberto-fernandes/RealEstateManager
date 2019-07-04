@@ -10,6 +10,12 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.wifi.WifiManager;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.utils.Constants.NotificationsChannels;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -68,6 +74,29 @@ public class Utils {
         return wifi.isWifiEnabled();
     }
 
+    public static void createNotification(Context context, String title, String message) {
+        createNotification(context, title, message, null);
+    }
+
+    public static void createNotification(
+            Context context,
+            String title,
+            String message,
+            String channelId
+    ) {
+        if (channelId == null) {
+            channelId = NotificationsChannels.DEFAULT_CHANNEL_ID;
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(R.drawable.ic_playlist_add_check_black_24dp)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+
+        notificationManager.notify(1, builder.build());
+    }
 
     @SuppressLint("DefaultLocale")
     public static String formatDoubleToString(Double value) {

@@ -1,6 +1,11 @@
 package com.openclassrooms.realestatemanager.utils;
 
 public class Constants {
+
+    public interface NotificationsChannels {
+        String DEFAULT_CHANNEL_ID = "REAL_ESTATE_MANAGER";
+    }
+
     public interface TypesList {
         String TYPE_LIST_KEY = "TYPE_LIST_KEY";
         int ALL = 0;
