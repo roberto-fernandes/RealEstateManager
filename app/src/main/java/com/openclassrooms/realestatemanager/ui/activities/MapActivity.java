@@ -11,7 +11,6 @@ import android.location.Address;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -160,8 +159,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         mClusterManager.addItem(newClusterMarker);
                         mClusterMarkers.add(newClusterMarker);
 
-                    } catch (NullPointerException e) {
-                        Log.e(TAG, "addMapMarkers: NullPointerException: " + e.getMessage());
+                    } catch (Exception e) {
+                       e.printStackTrace();
                     }
                 }
             }
