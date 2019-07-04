@@ -72,7 +72,7 @@
         android:layout_marginEnd="@dimen/activity_login_margin_horizontal_input_text"
         android:layout_marginBottom="8dp"
         android:background="@drawable/yellow_btn_background"
-        android:text="@string/log_in"
+        android:text="@string/register"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
