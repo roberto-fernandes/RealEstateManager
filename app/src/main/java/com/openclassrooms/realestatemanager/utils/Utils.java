@@ -29,9 +29,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.EURO;
-import static com.openclassrooms.realestatemanager.utils.Constants.InternetType.*;
 import static com.openclassrooms.realestatemanager.utils.Constants.InternetType.INTERNET_3G;
 import static com.openclassrooms.realestatemanager.utils.Constants.InternetType.INTERNET_NONE;
+import static com.openclassrooms.realestatemanager.utils.Constants.InternetType.INTERNET_WIFI;
 import static com.openclassrooms.realestatemanager.utils.Constants.PrefesKeys.CURRENCY_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.PrefesKeys.PREFS_KEY;
 
