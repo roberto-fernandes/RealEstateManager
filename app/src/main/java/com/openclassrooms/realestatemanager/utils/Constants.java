@@ -2,6 +2,12 @@ package com.openclassrooms.realestatemanager.utils;
 
 public class Constants {
 
+    public interface InternetType {
+        int INTERNET_NONE = -1;
+        int INTERNET_WIFI = 0;
+        int INTERNET_3G = 1;
+    }
+
     public interface NotificationsChannels {
         String DEFAULT_CHANNEL_ID = "REAL_ESTATE_MANAGER";
     }

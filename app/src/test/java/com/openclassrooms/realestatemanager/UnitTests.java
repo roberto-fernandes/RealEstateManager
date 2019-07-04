@@ -1,5 +1,9 @@
 package com.openclassrooms.realestatemanager;
 
+import android.content.Context;
+
+import com.openclassrooms.realestatemanager.utils.Constants;
+
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -9,7 +13,11 @@ import static com.openclassrooms.realestatemanager.ui.activities.LoanSimulationA
 import static com.openclassrooms.realestatemanager.ui.activities.LoanSimulationActivity.getTotalPayment;
 import static com.openclassrooms.realestatemanager.utils.Utils.convertDollarToEuro;
 import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
+import static com.openclassrooms.realestatemanager.utils.Utils.internetType;
+import static com.openclassrooms.realestatemanager.utils.Utils.isInternetAvailable;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -140,5 +148,21 @@ public class UnitTests {
         double monthlyPayment = getMonthlyPayment(totalPayment, months);
 
         assertEquals(1250.0d, monthlyPayment, 0.001);
+    }
+
+    @Test
+    public void internetTypeNone() {
+        Context context = mock(Context.class);
+        int internetType = internetType(context);
+
+        assertEquals(Constants.InternetType.INTERNET_NONE, internetType);
+    }
+
+    @Test
+    public void isInternetEnable() {
+        Context context = mock(Context.class);
+        boolean internetAvailable = isInternetAvailable(context);
+
+       assertFalse(internetAvailable);
     }
 }

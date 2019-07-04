@@ -11,6 +11,7 @@ import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -28,6 +29,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.EURO;
+import static com.openclassrooms.realestatemanager.utils.Constants.InternetType.*;
+import static com.openclassrooms.realestatemanager.utils.Constants.InternetType.INTERNET_3G;
+import static com.openclassrooms.realestatemanager.utils.Constants.InternetType.INTERNET_NONE;
 import static com.openclassrooms.realestatemanager.utils.Constants.PrefesKeys.CURRENCY_KEY;
 import static com.openclassrooms.realestatemanager.utils.Constants.PrefesKeys.PREFS_KEY;
 
@@ -72,7 +76,11 @@ public class Utils {
      * @param context
      * @return
      */
-    public static Boolean isInternetAvailable(Context context) {
+    public static boolean isInternetAvailable(Context context) {
+        return internetType(context) == INTERNET_3G || internetType(context) == INTERNET_WIFI;
+    }
+
+    public static int internetType(Context context) {
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -82,25 +90,23 @@ public class Utils {
                 NetworkCapabilities networkCapabilities = connectivityManager
                         .getNetworkCapabilities(activeNetwork);
                 if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    //is connected to wifi
-                    return true;
+                    return INTERNET_WIFI;
                 } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    //is connected to 3G
-                    return true;
+                    return INTERNET_3G;
                 }
             } else {
                 int type = connectivityManager.getActiveNetworkInfo().getType();
                 if (type == ConnectivityManager.TYPE_WIFI) {
                     //is connected to wifi
-                    return true;
+                    return INTERNET_WIFI;
                 } else if (type == ConnectivityManager.TYPE_MOBILE) {
                     //is connected to 3G
-                    return true;
+                    return INTERNET_3G;
                 }
             }
-            return false;
+            return INTERNET_NONE;
         } catch (Exception e) {
-            return false;
+            return INTERNET_NONE;
         }
     }
 
@@ -219,5 +225,10 @@ public class Utils {
 
     private static String getDataFromPrefs(Context context, String DefaultValue, String key) {
         return getSharedPreference(context).getString(key, DefaultValue);
+    }
+
+    public static void setWifiEnabled(Context context, boolean enabled) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        wifiManager.setWifiEnabled(enabled);
     }
 }
