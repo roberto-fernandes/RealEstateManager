@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.openclassrooms.realestatemanager.ui.activities.MainActivity"
-    android:gravity="center">
+    android:background="@drawable/main_bck"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.openclassrooms.realestatemanager.ui.activities.MainActivity">
 
-    <LinearLayout
+
+    <!--starter code from bug fix-->
+    <!--    <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,22 +36,35 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>-->
 
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/activity_main_enter_app_button"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/enter_app"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="150dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/activity_main_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/main_activity_items_margin"
+        android:background="@drawable/yellow_btn_background"
+        android:minWidth="@dimen/btn_width"
+        android:text="@string/log_in" />
+
+    <Button
+        android:id="@+id/activity_main_signup_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/main_activity_items_margin"
+        android:background="@drawable/yellow_btn_background"
+        android:minWidth="@dimen/btn_width"
+        android:text="@string/sign_up" />
+
+</LinearLayout>

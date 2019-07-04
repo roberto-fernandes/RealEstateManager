@@ -11,4 +11,6 @@
     <dimen name="filter_margint_top_tiems">10dp</dimen>
     <dimen name="custom_marker_image">50dp</dimen>
     <dimen name="custom_marker_padding">2dp</dimen>
+    <dimen name="btn_width">200dp</dimen>
+    <dimen name="main_activity_items_margin">5dp</dimen>
 </resources>

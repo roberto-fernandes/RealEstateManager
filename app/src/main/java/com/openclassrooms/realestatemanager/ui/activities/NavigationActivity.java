@@ -85,6 +85,16 @@ public class NavigationActivity extends AppCompatActivity {
     private String currency;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser == null) {
+            goToMainActivity();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
@@ -508,18 +518,8 @@ public class NavigationActivity extends AppCompatActivity {
         mediaRecyclerView.setAdapter(mediaDisplayAdapter);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser == null) {
-            goToLogInActivity();
-        }
-    }
-
-    private void goToLogInActivity() {
-        Intent intent = new Intent(NavigationActivity.this, LogInActivity.class);
+    private void goToMainActivity() {
+        Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

@@ -4,30 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.RegisterActivity"
-    android:background="@color/colorCustomGrey">
+    android:background="@drawable/main_bck"
+    tools:context=".ui.activities.RegisterActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textColor="@android:color/white"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_register_email_edit_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.038" />
 
     <EditText
-        android:hint="email"
         android:id="@+id/activity_register_email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,6 +17,7 @@
         android:layout_marginEnd="@dimen/activity_login_margin_horizontal_input_text"
         android:layout_marginBottom="8dp"
         android:background="@drawable/activity_login_input_text_background"
+        android:hint="email"
         android:inputType="textShortMessage|textEmailAddress"
         android:padding="@dimen/activity_login_padding_input_text"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +28,6 @@
         app:layout_constraintVertical_bias="0.378" />
 
     <EditText
-        android:hint="@string/password"
         android:id="@+id/activity_register_password_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,6 +36,7 @@
         android:layout_marginEnd="@dimen/activity_login_margin_horizontal_input_text"
         android:layout_marginBottom="8dp"
         android:background="@drawable/activity_login_input_text_background"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:padding="@dimen/activity_login_padding_input_text"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -89,7 +71,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/activity_login_margin_horizontal_input_text"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/activity_login_btn_background"
+        android:background="@drawable/yellow_btn_background"
         android:text="@string/log_in"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +32,6 @@ public class LogInActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private TextView dontRememberPasswordYextView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private static final String TAG = LogInActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +102,6 @@ public class LogInActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {
-            Log.d(TAG, "updateUI: ");
             Intent intent = new Intent(LogInActivity.this, NavigationActivity.class);
             startActivity(intent);
         }
