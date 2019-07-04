@@ -26,7 +26,6 @@ import androidx.lifecycle.Observer;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -179,7 +178,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             ActivityCompat.requestPermissions(this,
                     permissions,
-                     DEVICE_PERMISSION_REQUEST_CODE);
+                    DEVICE_PERMISSION_REQUEST_CODE);
             return;
         }
         mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -199,17 +198,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void setCameraView() {
-        // Set a boundary to start
-        double bottomBoundary = mUserPosition.getLatitude() - MAP_SCOPE;
-        double leftBoundary = mUserPosition.getLongitude() - MAP_SCOPE;
-        double topBoundary = mUserPosition.getLatitude() + MAP_SCOPE;
-        double rightBoundary = mUserPosition.getLongitude() + MAP_SCOPE;
+        try {
+            // Set a boundary to start
+            double bottomBoundary = mUserPosition.getLatitude() - MAP_SCOPE;
+            double leftBoundary = mUserPosition.getLongitude() - MAP_SCOPE;
+            double topBoundary = mUserPosition.getLatitude() + MAP_SCOPE;
+            double rightBoundary = mUserPosition.getLongitude() + MAP_SCOPE;
 
-        LatLngBounds mMapBoundary = new LatLngBounds(
-                new LatLng(bottomBoundary, leftBoundary),
-                new LatLng(topBoundary, rightBoundary)
-        );
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(mMapBoundary, 0));
+            LatLngBounds mMapBoundary = new LatLngBounds(
+                    new LatLng(bottomBoundary, leftBoundary),
+                    new LatLng(topBoundary, rightBoundary)
+            );
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(mMapBoundary, 0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -322,7 +325,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionGranted = true;
             }
-        } else if (requestCode ==  DEVICE_PERMISSION_REQUEST_CODE) {
+        } else if (requestCode == DEVICE_PERMISSION_REQUEST_CODE) {
             restartMapActivity();
         }
     }
