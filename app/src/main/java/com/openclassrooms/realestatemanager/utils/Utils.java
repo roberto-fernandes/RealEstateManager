@@ -8,7 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.wifi.WifiManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -70,8 +73,35 @@ public class Utils {
      * @return
      */
     public static Boolean isInternetAvailable(Context context) {
-        WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        return wifi.isWifiEnabled();
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Network activeNetwork = connectivityManager.getActiveNetwork();
+                NetworkCapabilities networkCapabilities = connectivityManager
+                        .getNetworkCapabilities(activeNetwork);
+                if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    //is connected to wifi
+                    return true;
+                } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    //is connected to 3G
+                    return true;
+                }
+            } else {
+                int type = connectivityManager.getActiveNetworkInfo().getType();
+                if (type == ConnectivityManager.TYPE_WIFI) {
+                    //is connected to wifi
+                    return true;
+                } else if (type == ConnectivityManager.TYPE_MOBILE) {
+                    //is connected to 3G
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static void createNotification(Context context, String title, String message) {

@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.openclassrooms.realestatemanager.R;
 
+import static com.openclassrooms.realestatemanager.utils.Utils.isInternetAvailable;
+
 public class MainActivity extends AppCompatActivity {
 
     //views from starter code with bug
