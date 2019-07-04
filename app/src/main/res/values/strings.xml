@@ -59,4 +59,5 @@
     <string name="doesnt_have_map_permitions">This aplication doen\'t have permition to show the map</string>
     <string name="we_cant_show_the_map">We can\'t show the map</string>
     <string name="ok">Ok</string>
+    <string name="not_sold_yet">Not sold yet</string>
 </resources>

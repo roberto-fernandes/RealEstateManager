@@ -492,6 +492,8 @@ public class NavigationActivity extends AppCompatActivity {
             long soldDateLong = realEstate.getSaleData();
             if (soldDateLong > 0) {
                 soldDate.setText(formatDate(soldDateLong));
+            } else {
+                soldDate.setText(getString(R.string.not_sold_yet));
             }
 
             noEntries.setVisibility(View.GONE);
