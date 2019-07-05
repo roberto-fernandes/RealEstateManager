@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bck"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.openclassrooms.realestatemanager.ui.activities.MainActivity">
+
+
+    <!--starter code from bug fix-->
+    <!--    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/activity_main_activity_text_view_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Voici la valeur d'un bien : " />
+
+        <TextView
+            android:id="@+id/activity_main_activity_text_view_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="200dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/activity_main_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/main_activity_items_margin"
+        android:background="@drawable/yellow_btn_background"
+        android:minWidth="@dimen/btn_width"
+        android:text="@string/log_in" />
+
+    <Button
+        android:id="@+id/activity_main_signup_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/main_activity_items_margin"
+        android:background="@drawable/yellow_btn_background"
+        android:minWidth="@dimen/btn_width"
+        android:text="@string/sign_up" />
+
+</LinearLayout>
