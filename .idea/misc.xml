@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout-xlarge/activity_main.xml" value="0.1828125" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_filter.xml" value="0.264" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_loan_simulation.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_log_in.xml" value="0.24375" />
         <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_map.xml" value="0.24375" />
         <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_navigation.xml" value="0.24375" />
@@ -13,7 +16,9 @@
         <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/listining_item.xml" value="0.24375" />
         <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/media_display_item.xml" value="0.24375" />
         <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/points_of_interest_item.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/vertical_list_layout.xml" value="0.24375" />
         <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/menu/drawer_menu.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/menu/toolbar_menu.xml" value="0.24010416666666667" />
       </map>
     </option>
   </component>
