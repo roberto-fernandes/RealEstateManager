@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bck"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.openclassrooms.realestatemanager.ui.activities.MainActivity">
@@ -42,10 +42,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="200dp"
+        android:fontFamily="@font/abril_fatface"
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="40sp"
+        android:textSize="48sp"
         android:textStyle="bold" />
 
     <Button
@@ -54,8 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/main_activity_items_margin"
         android:background="@drawable/yellow_btn_background"
+        android:fontFamily="@font/inter_bold"
         android:minWidth="@dimen/btn_width"
-        android:text="@string/log_in" />
+        android:text="@string/log_in"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/activity_main_signup_button"
@@ -63,7 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/main_activity_items_margin"
         android:background="@drawable/yellow_btn_background"
+        android:fontFamily="@font/inter_bold"
         android:minWidth="@dimen/btn_width"
-        android:text="@string/sign_up" />
+        android:text="@string/sign_up"
+        android:textColor="@color/white" />
 
 </LinearLayout>

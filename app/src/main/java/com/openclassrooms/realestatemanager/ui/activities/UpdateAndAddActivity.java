@@ -399,12 +399,12 @@ public class UpdateAndAddActivity extends AppCompatActivity
                 realEstate.setAddress(location.getText().toString());
                 if (updating) {
                     String title = realEstate.getDescription() + " " + getString(R.string.updated);
-                    String message = getString(R.string.real_estate_updated);
+                    String message = getString(R.string.roomie_updated);
                     Utils.createNotification(getApplicationContext(), title, message);
                     repository.updateListing(realEstate);
                 } else {
                     String title = realEstate.getDescription() + " " + getString(R.string.added);
-                    String message = getString(R.string.real_estate_added);
+                    String message = getString(R.string.roomie_added);
                     Utils.createNotification(getApplicationContext(), title, message);
                     repository.insertListing(realEstate);
                 }
