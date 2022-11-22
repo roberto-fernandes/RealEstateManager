@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Real Estate Manager</string>
+    <string name="app_name">Roomie</string>
     <string name="go_to_login_activity">Go to LogIn activity</string>
     <string name="log_in">Log In</string>
     <string name="don_t_have_an_account_register_here">Don\'t have an account? Register here!</string>
@@ -50,8 +50,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="you_must_add_a_point_of_int">You must add a point of interest</string>
     <string name="error">Error</string>
-    <string name="real_estate_updated">Real Estate updated</string>
-    <string name="real_estate_added">Real Estate added</string>
+    <string name="real_estate_updated">Roomie updated</string>
+    <string name="real_estate_added">Roomie added</string>
     <string name="updated">updated</string>
     <string name="added">added</string>
     <string name="short_description">Short description</string>

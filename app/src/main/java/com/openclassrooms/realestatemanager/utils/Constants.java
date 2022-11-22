@@ -9,7 +9,7 @@ public class Constants {
     }
 
     public interface NotificationsChannels {
-        String DEFAULT_CHANNEL_ID = "REAL_ESTATE_MANAGER";
+        String DEFAULT_CHANNEL_ID = "ROOMIE";
     }
 
     public interface TypesList {
