@@ -1,16 +1,15 @@
 <resources>
     <string name="app_name">Roomie</string>
     <string name="go_to_login_activity">Go to LogIn activity</string>
+
     <string name="log_in">Iniciar sesión</string>
     <string name="don_t_have_an_account_register_here">¿No tienes una cuenta? Registrate aquí!</string>
     <string name="don_t_remember_password_click_here_to_see_hint">¿No recuerdas la contraseña? Haz click aquí!</string>
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
-    <string name="rol">Rol</string>
-    <string name="huesped">Huesped</string>
-    <string name="arrendador">Arrendador</string>
-    <string name="google_maps_api_key">AIzaSyBS7QrBC0ByzOgb6UYZUxzH4hxgWEuaJ4U</string>
+    <string name="google_maps_api_key">AIzaSyD9x3OF-M1d0L0tma8YhJJFZyKcxYj_5VU</string>
     <string name="password_hint">Pista de contraseña</string>
+
     <string name="enter_app">Enter app</string>
     <string name="search">Search</string>
     <string name="delete">Delete</string>
@@ -54,8 +53,8 @@
     <string name="sign_up">Registro</string>
     <string name="you_must_add_a_point_of_int">You must add a point of interest</string>
     <string name="error">Error</string>
-    <string name="roomie_updated">Roomie updated</string>
-    <string name="roomie_added">Roomie added</string>
+    <string name="real_estate_updated">Roomie updated</string>
+    <string name="real_estate_added">Roomie added</string>
     <string name="updated">updated</string>
     <string name="added">added</string>
     <string name="short_description">Descripción corta</string>
