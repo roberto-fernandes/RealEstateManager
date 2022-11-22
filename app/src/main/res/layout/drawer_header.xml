@@ -14,7 +14,7 @@
         android:fontFamily="@font/abril_fatface"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="28sp" />
     <TextView
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

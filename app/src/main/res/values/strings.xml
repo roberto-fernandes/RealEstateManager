@@ -14,10 +14,10 @@
     <string name="enter_app">Enter app</string>
     <string name="search">Search</string>
     <string name="delete">Delete</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
+    <string name="add">Añadir</string>
+    <string name="edit">Editar</string>
     <string name="all">All</string>
-    <string name="sign_out">Sign Out</string>
+    <string name="sign_out">Cerrar sesión</string>
     <string name="navigation_drawer_open">close drawer</string>
     <string name="navigation_drawer_close">open drawer</string>
     <string name="description">Descripción</string>
