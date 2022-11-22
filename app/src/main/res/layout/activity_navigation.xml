@@ -36,22 +36,25 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/navigation_activity_scroll_items_margin"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/type"
                         android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/navigation_activity_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/navigation_activity_scroll_items_margin"
-                       />
+                        android:layout_marginBottom="@dimen/navigation_activity_scroll_items_margin" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/short_description"
                         android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/navigation_activity_short_description"
                         android:layout_width="match_parent"
@@ -66,9 +69,9 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginBottom="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:text="@string/media"
                         android:textStyle="bold" />
 
@@ -122,9 +125,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_margin="@dimen/navigation_activity_scroll_items_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/navigation_activity_scroll_items_margin">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -135,7 +138,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Status"
+                            android:text="Estado"
                             android:textStyle="bold" />
 
                         <TextView
@@ -154,7 +157,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Added date"
+                            android:text="Fecha añadida"
                             android:textStyle="bold" />
 
                         <TextView
@@ -175,7 +178,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sold date"
+                            android:text="Fecha de venta "
                             android:textStyle="bold" />
 
                         <TextView
@@ -183,7 +186,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Not sold yet" />
+                            android:text="No vendido todavía" />
 
                     </LinearLayout>
 
@@ -224,7 +227,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Location"
+                            android:text="Ubicación"
                             android:textStyle="bold" />
 
                         <TextView

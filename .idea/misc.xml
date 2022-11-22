@@ -1,11 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/activity_login_input_text_background.xml" value="0.1945" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/btn_background.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_add_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_attach_money_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_close_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_delete_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_description_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_edit_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_euro_symbol_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_filter_list_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1945" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_map_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_playlist_add_check_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_remove_circle_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_remove_circle_red_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/points_of_interest_background.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/drawable/yellow_btn_background.xml" value="0.166" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/font/abril_fatface.xml" value="0.1574074074074074" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout-xlarge/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/activity_filter.xml" value="0.25" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/activity_loan_simulation.xml" value="0.25" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/activity_log_in.xml" value="0.22" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/activity_map.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/activity_navigation.xml" value="0.25" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/activity_update_and_add.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/drawer_header.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/listining_item.xml" value="0.33" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/media_display_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/points_of_interest_item.xml" value="0.33" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/layout/vertical_list_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/menu/drawer_menu.xml" value="0.25" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/menu/toolbar_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/jkque/Desktop/UCA 2022/Ciclo 02/PP2/Proyecto/Proyecto Roomie/RealEstateManager/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.166" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout-xlarge/activity_main.xml" value="0.1828125" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_filter.xml" value="0.264" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_loan_simulation.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_log_in.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_map.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_navigation.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_register.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/activity_update_and_add.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/drawer_header.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/listining_item.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/media_display_item.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/points_of_interest_item.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/layout/vertical_list_layout.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/menu/drawer_menu.xml" value="0.24375" />
+        <entry key="..\:/Users/tejad/AndroidStudioProjects/RealEstateManager/app/src/main/res/menu/toolbar_menu.xml" value="0.24010416666666667" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="org.jetbrains.annotations.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
     <option name="myNullables">
       <value>
-        <list size="10">
+        <list size="12">
           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
           <item index="2" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
@@ -16,12 +75,14 @@
           <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
           <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
           <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
+          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
+          <item index="11" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
         </list>
       </value>
     </option>
     <option name="myNotNulls">
       <value>
-        <list size="9">
+        <list size="11">
           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
           <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
@@ -31,11 +92,13 @@
           <item index="6" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
           <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
           <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
+          <item index="9" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
+          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
         </list>
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

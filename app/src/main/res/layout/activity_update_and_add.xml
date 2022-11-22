@@ -82,11 +82,11 @@
             </RelativeLayout>
 
             <Button
-                android:background="@drawable/btn_background"
                 android:id="@+id/activity_update_and_add_picture_from_storage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose a picture from storage"/>
+                android:background="@drawable/btn_background"
+                android:text="Añadir imagen" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -147,13 +147,13 @@
                 android:inputType="number" />
 
             <TextView
+                android:id="@+id/activity_update_and_add_price_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/update_add_margin_left_titles"
                 android:layout_marginTop="@dimen/update_add_margin_top_titles"
                 android:text="@string/price"
-                android:textStyle="bold"
-                android:id="@+id/activity_update_and_add_price_text_view"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/activity_update_and_add_price"
@@ -245,10 +245,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/update_add_margin_left_titles"
                 android:layout_marginTop="@dimen/update_add_margin_top_titles"
-                android:text="Status"
+                android:text="Estado"
                 android:textStyle="bold" />
 
-            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -259,14 +259,14 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/update_add_margin_left_titles"
                     android:checked="true"
-                    android:text="Available" />
+                    android:text="Disponible" />
 
                 <RadioButton
                     android:id="@+id/activity_update_and_add_sold_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/update_add_margin_left_titles"
-                    android:text="Sold" />
+                    android:text="Vendido" />
             </RadioGroup>
 
             <LinearLayout
@@ -294,12 +294,12 @@
             </LinearLayout>
 
             <Button
-                android:background="@drawable/btn_background"
                 android:id="@+id/activity_update_and_add_submit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/update_add_margin_top_titles"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_background"
                 android:text="@string/submit" />
 
         </LinearLayout>

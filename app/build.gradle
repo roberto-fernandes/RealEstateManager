@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 32
     defaultConfig {
         applicationId "com.openclassrooms.realestatemanager"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 32
         multiDexEnabled true
         versionCode 1
         versionName "1.0"
@@ -60,6 +60,7 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:0.5'
 
     implementation 'androidx.room:room-runtime:2.0.0'
+    androidTestImplementation project(path: ':app')
     annotationProcessor 'androidx.room:room-compiler:2.0.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
 

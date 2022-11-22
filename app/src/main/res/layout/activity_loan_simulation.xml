@@ -14,7 +14,7 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Loan Simulation"/>
+        app:title="Simulación de préstamo" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount (€): "
+                android:text="Monto ($): "
                 android:textStyle="bold" />
 
             <TextView
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Time"
+            android:text="Tiempo"
             android:textStyle="bold" />
 
         <SeekBar
@@ -78,7 +78,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Months: "
+                android:text="Meses:"
                 android:textStyle="bold" />
 
             <TextView
@@ -98,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Interest (%): "
+                android:text="Interés (%): "
                 android:textStyle="bold" />
 
             <TextView
@@ -117,7 +117,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Monthly payment (€): "
+                android:text="Mensualidad ($): "
                 android:textStyle="bold" />
 
             <TextView
@@ -136,7 +136,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total payment (€): "
+                android:text="Pago total:"
                 android:textStyle="bold" />
 
             <TextView

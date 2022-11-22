@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RealEstateManager.iml" filepath="$PROJECT_DIR$/RealEstateManager.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RealEstateManager.iml" filepath="$PROJECT_DIR$/.idea/modules/RealEstateManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RealEstateManager.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RealEstateManager.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RealEstateManager.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RealEstateManager.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RealEstateManager.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RealEstateManager.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RealEstateManager.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RealEstateManager.app.unitTest.iml" />
     </modules>
   </component>
 </project>

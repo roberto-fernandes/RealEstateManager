@@ -1,5 +1,18 @@
 package com.openclassrooms.realestatemanager.ui.activities;
 
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_CURRENCY_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_EXTRA;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.FILTERED_PARAMS_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.REAL_ESTATE_OBJECT_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.SEARCH_PARAM_KEY;
+import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.DOLLAR;
+import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.EURO;
+import static com.openclassrooms.realestatemanager.utils.Constants.TypesList.SEARCH;
+import static com.openclassrooms.realestatemanager.utils.Constants.TypesList.TYPE_LIST_KEY;
+import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
+import static com.openclassrooms.realestatemanager.utils.Utils.storeCurrency;
+import static com.squareup.picasso.Picasso.*;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -20,7 +32,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,18 +52,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_CURRENCY_KEY;
-import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.BUNDLE_EXTRA;
-import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.FILTERED_PARAMS_KEY;
-import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.REAL_ESTATE_OBJECT_KEY;
-import static com.openclassrooms.realestatemanager.utils.Constants.BundleKeys.SEARCH_PARAM_KEY;
-import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.DOLLAR;
-import static com.openclassrooms.realestatemanager.utils.Constants.Currencies.EURO;
-import static com.openclassrooms.realestatemanager.utils.Constants.TypesList.SEARCH;
-import static com.openclassrooms.realestatemanager.utils.Constants.TypesList.TYPE_LIST_KEY;
-import static com.openclassrooms.realestatemanager.utils.Utils.formatDate;
-import static com.openclassrooms.realestatemanager.utils.Utils.storeCurrency;
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -197,44 +196,42 @@ public class NavigationActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void configureNavigationView() {
         NavigationView navigationView = findViewById(R.id.activity_navigation_nav_view);
 
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        int id = menuItem.getItemId();
-                        Intent intent = null;
+                menuItem -> {
+                    int id = menuItem.getItemId();
+                    Intent intent = null;
 
-                        switch (id) {
-                            case R.id.menu_drawer_all:
-                                intent = new Intent(NavigationActivity.this
-                                        , NavigationActivity.class);
-                                intent.putExtra(Constants.TypesList.TYPE_LIST_KEY, Constants.TypesList.ALL);
-                                break;
-                            case R.id.menu_drawer_map:
-                                intent = new Intent(NavigationActivity.this
-                                        , MapActivity.class);
-                                break;
-                            case R.id.menu_drawer_filter:
-                                intent = new Intent(NavigationActivity.this
-                                        , FilterActivity.class);
-                                break;
-                            case R.id.menu_drawer_sing_out:
-                                signOutUser();
-                                break;
-                            case R.id.menu_drawer_loan:
-                                intent = new Intent(NavigationActivity.this
-                                        , LoanSimulationActivity.class);
-                                break;
-                        }
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        if (intent != null) {
-                            startActivity(intent);
-                        }
-                        return true;
+                    switch (id) {
+                        case R.id.menu_drawer_all:
+                            intent = new Intent(NavigationActivity.this
+                                    , NavigationActivity.class);
+                            intent.putExtra(Constants.TypesList.TYPE_LIST_KEY, Constants.TypesList.ALL);
+                            break;
+                        case R.id.menu_drawer_map:
+                            intent = new Intent(NavigationActivity.this
+                                    , MapActivity.class);
+                            break;
+                        case R.id.menu_drawer_filter:
+                            intent = new Intent(NavigationActivity.this
+                                    , FilterActivity.class);
+                            break;
+                        case R.id.menu_drawer_sing_out:
+                            signOutUser();
+                            break;
+                        case R.id.menu_drawer_loan:
+                            intent = new Intent(NavigationActivity.this
+                                    , LoanSimulationActivity.class);
+                            break;
                     }
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    if (intent != null) {
+                        startActivity(intent);
+                    }
+                    return true;
                 });
     }
 
@@ -265,6 +262,7 @@ public class NavigationActivity extends AppCompatActivity {
         agent = findViewById(R.id.navigation_activity_agent);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
@@ -283,47 +281,38 @@ public class NavigationActivity extends AppCompatActivity {
             currencyItem.setTitle(getString(R.string.change_to_euro));
         }
 
-        currencyItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (currency.equals(EURO)) {
-                    currency = DOLLAR;
-                    storeCurrency(NavigationActivity.this, DOLLAR);
-                    currencyItem.setTitle(getString(R.string.change_to_euro));
+        currencyItem.setOnMenuItemClickListener(item1 -> {
+            if (currency.equals(EURO)) {
+                currency = DOLLAR;
+                storeCurrency(NavigationActivity.this, DOLLAR);
+                currencyItem.setTitle(getString(R.string.change_to_euro));
 
-                } else if (currency.equals(DOLLAR)) {
-                    currency = EURO;
-                    storeCurrency(NavigationActivity.this, EURO);
-                    currencyItem.setTitle(getString(R.string.change_to_d));
-                }
-                recyclerViewAdapter.setCurrency(currency);
-                recyclerViewAdapter.notifyDataSetChanged();
-                return false;
+            } else if (currency.equals(DOLLAR)) {
+                currency = EURO;
+                storeCurrency(NavigationActivity.this, EURO);
+                currencyItem.setTitle(getString(R.string.change_to_d));
             }
+            recyclerViewAdapter.setCurrency(currency);
+            recyclerViewAdapter.notifyDataSetChanged();
+            return false;
         });
 
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //search is expanded
-                menuItemEdit.setVisible(false);
-                menuItemAdd.setVisible(false);
-                //menuItemDelete.setVisible(false);
-                currencyItem.setVisible(false);
-                toggle.setDrawerIndicatorEnabled(false);
-            }
+        searchView.setOnSearchClickListener(v -> {
+            //search is expanded
+            menuItemEdit.setVisible(false);
+            menuItemAdd.setVisible(false);
+            //menuItemDelete.setVisible(false);
+            currencyItem.setVisible(false);
+            toggle.setDrawerIndicatorEnabled(false);
         });
 
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                menuItemEdit.setVisible(true);
-                menuItemAdd.setVisible(true);
-                // menuItemDelete.setVisible(true);
-                currencyItem.setVisible(true);
-                toggle.setDrawerIndicatorEnabled(true);
-                return false;
-            }
+        searchView.setOnCloseListener(() -> {
+            menuItemEdit.setVisible(true);
+            menuItemAdd.setVisible(true);
+            // menuItemDelete.setVisible(true);
+            currencyItem.setVisible(true);
+            toggle.setDrawerIndicatorEnabled(true);
+            return false;
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -352,6 +341,7 @@ public class NavigationActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -380,6 +370,7 @@ public class NavigationActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void addDataObservers() {
         LiveData<List<RealEstate>> listLiveData = null;
         switch (listType) {
@@ -396,17 +387,14 @@ public class NavigationActivity extends AppCompatActivity {
 
         if (listLiveData != null) {
             listLiveData.observe(NavigationActivity.this,
-                    new Observer<List<RealEstate>>() {
-                        @Override
-                        public void onChanged(@Nullable List<RealEstate> realEstates) {
-                            if (listings.size() > 0) {
-                                listings.clear();
-                            }
-                            if (realEstates != null) {
-                                listings.addAll(realEstates);
-                                recyclerViewAdapter.notifyDataSetChanged();
-                                displayRealEstateInformation();
-                            }
+                    realEstates -> {
+                        if (listings.size() > 0) {
+                            listings.clear();
+                        }
+                        if (realEstates != null) {
+                            listings.addAll(realEstates);
+                            recyclerViewAdapter.notifyDataSetChanged();
+                            displayRealEstateInformation();
                         }
                     });
         }
@@ -435,12 +423,9 @@ public class NavigationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerViewAdapter = new RealEstateAdapter(NavigationActivity.this,
                 listings, currency);
-        recyclerViewAdapter.setOnSelectionItem(new RealEstateAdapter.OnItemSelectedListener() {
-            @Override
-            public void onSelection(int position) {
-                realEstateIndex = position;
-                displayRealEstateInformation();
-            }
+        recyclerViewAdapter.setOnSelectionItem(position -> {
+            realEstateIndex = position;
+            displayRealEstateInformation();
         });
         recyclerView.setAdapter(recyclerViewAdapter);
     }
@@ -502,6 +487,7 @@ public class NavigationActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void setMediaRecyclerView(final RealEstate realEstate) {
         mediaDisplayAdapter = new MediaDisplayAdapter(realEstate.getPhotos(), false
                 , getApplicationContext());
@@ -509,12 +495,9 @@ public class NavigationActivity extends AppCompatActivity {
                 , LinearLayoutManager.HORIZONTAL, false);
         mediaRecyclerView.setLayoutManager(layoutManager);
 
-        mediaDisplayAdapter.setOnDeleteIconListener(new MediaDisplayAdapter.ItemDeleteListener() {
-            @Override
-            public void deleteIconClicked(int position) {
-                realEstate.getPhotos().remove(position);
-                mediaDisplayAdapter.notifyDataSetChanged();
-            }
+        mediaDisplayAdapter.setOnDeleteIconListener(position -> {
+            realEstate.getPhotos().remove(position);
+            mediaDisplayAdapter.notifyDataSetChanged();
         });
 
         mediaRecyclerView.setAdapter(mediaDisplayAdapter);

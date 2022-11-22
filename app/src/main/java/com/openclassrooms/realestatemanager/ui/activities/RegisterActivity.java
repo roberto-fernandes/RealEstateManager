@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private EditText passwordHint;
+    private TextView logintextview;
     private FirebaseAuth auth;
     private static final String TAG = "RegisterActivity";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -48,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.activity_register_email_edit_text);
         password = findViewById(R.id.activity_register_password_edit_text);
         passwordHint = findViewById(R.id.activity_register_password_hint_edit_text);
+        logintextview = findViewById(R.id.activity_register_inicio_sesion_textview);
     }
 
     private void setListeners() {
@@ -65,6 +68,15 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     registerUser(emailString, passwordString);
                 }
+            }
+        });
+
+        logintextview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this
+                        , LogInActivity.class);
+                startActivity(intent);
             }
         });
     }
